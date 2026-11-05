@@ -154,19 +154,20 @@
   <!-- ========================================================== -->
   <!-- LIGHTBOX / ZOOM MODAL PARA IMÁGENES DE PRODUCTOS          -->
   <!-- ========================================================== -->
-  <div id="image-lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md opacity-0 invisible flex items-center justify-center p-2 sm:p-6 select-none">
+  <div id="image-lightbox" onclick="handleLightboxBackdropClick(event)" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md opacity-0 invisible flex items-center justify-center p-2 sm:p-6 select-none cursor-pointer">
     <button onclick="closeImageLightbox()" class="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors">
       ✕
     </button>
-    <div class="relative w-full h-full flex items-center justify-center overflow-hidden" onclick="toggleLightboxZoom(event)">
+    <div id="lightbox-container" class="relative max-w-full max-h-full flex items-center justify-center overflow-hidden">
       <img 
         id="lightbox-img" 
         src="" 
         alt="Producto ampliado" 
+        onclick="toggleLightboxZoom(event)"
         class="max-w-[92vw] max-h-[88vh] object-contain transition-transform duration-300 cursor-zoom-in"
       />
       <div class="absolute bottom-4 bg-black/60 text-white text-[11px] font-medium px-3 py-1 rounded-full pointer-events-none backdrop-blur-sm border border-white/10">
-        Hacé clic para alternar zoom
+        Hacé clic en la imagen para alternar zoom • Clic afuera para salir
       </div>
     </div>
   </div>
@@ -1140,6 +1141,17 @@
             <span id="active-subfilter-text">Filtro</span>
             <button onclick="clearSubFilter()" class="hover:text-brandSky ml-1 text-sm leading-none focus:outline-none">✕</button>
           </div>
+
+          <!-- Filtro Categoría (EXCLUSIVO Y VISIBLE SOLO EN VISTA 'SALE') -->
+          <select id="filter-sale-category-select" onchange="applyCategoryFilters()" class="hidden text-xs font-semibold px-3 py-1.5 rounded-full border-2 border-red-500 bg-red-50 text-red-700 outline-none hover:border-red-600 cursor-pointer">
+            <option value="ALL">Categoría en Sale ▼</option>
+            <option value="Sneakers">Sneakers</option>
+            <option value="Remeras">Remeras</option>
+            <option value="Buzos">Buzos</option>
+            <option value="Camperas">Camperas</option>
+            <option value="Pantalones">Pantalones</option>
+            <option value="Accesorios">Accesorios</option>
+          </select>
 
           <!-- Filtro Marca -->
           <select id="filter-brand-select" onchange="applyCategoryFilters()" class="text-xs font-semibold px-3 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black cursor-pointer">
@@ -3295,8 +3307,9 @@
       lightboxImg.style.transform = "scale(1)";
     }
 
+    // Si se hace clic en la foto misma, hace zoom
     function toggleLightboxZoom(e) {
-      if (e.target.tagName === 'BUTTON') return;
+      e.stopPropagation();
       isLightboxZoomed = !isLightboxZoomed;
       if (isLightboxZoomed) {
         lightboxImg.style.transform = "scale(2.2)";
@@ -3309,9 +3322,12 @@
       }
     }
 
-    imageLightbox.addEventListener("click", (e) => {
-      if (e.target === imageLightbox) closeImageLightbox();
-    });
+    // Si se hace clic en cualquier parte fuera de la imagen exacta, se cierra
+    function handleLightboxBackdropClick(e) {
+      if (e.target !== lightboxImg) {
+        closeImageLightbox();
+      }
+    }
 
     let cart = [];
     let currentActiveProduct = null;
@@ -3691,13 +3707,67 @@
       });
 
       if (subFilter) {
-        const subLower = subFilter.toLowerCase();
+        const subLower = subFilter.toLowerCase().trim();
         if (subLower === "shorts") {
           list = list.filter(p => /\bshorts?\b/i.test(p.name));
         } else if (subLower === "lentes") {
-          list = list.filter(p => p.name.toLowerCase().includes("sunglasses") || (p.category === "Accesorios" && p.name.toLowerCase().includes("sunglass")));
-        } else if (subLower === "gorras" || subLower === "beanies") {
-          list = list.filter(p => p.name.toLowerCase().includes("cap") || p.name.toLowerCase().includes("beanie") || p.category === "Accesorios");
+          // Filtrar estrictamente lentes de sol o armazones (sunglasses, eyeglasses, lentes)
+          list = list.filter(p => {
+            const nameLower = p.name.toLowerCase();
+            return p.category === "Accesorios" && (
+              nameLower.includes("sunglass") || 
+              nameLower.includes("sunglasses") || 
+              nameLower.includes("eyeglass") || 
+              nameLower.includes("eyeglasses") || 
+              nameLower.includes("glasses") || 
+              nameLower.includes("lentes")
+            );
+          });
+        } else if (subLower === "gorras") {
+          // Filtrar únicamente gorras / caps (excluyendo beanies)
+          list = list.filter(p => {
+            const nameLower = p.name.toLowerCase();
+            return p.category === "Accesorios" && (
+              nameLower.includes("cap") || 
+              nameLower.includes("hat") || 
+              nameLower.includes("gorra")
+            ) && !nameLower.includes("beanie");
+          });
+        } else if (subLower === "beanies") {
+          // Filtrar únicamente beanies / gorros tejidos
+          list = list.filter(p => {
+            const nameLower = p.name.toLowerCase();
+            return p.category === "Accesorios" && nameLower.includes("beanie");
+          });
+        } else if (subLower.includes("riñonera") || subLower.includes("bolso") || subLower === "riñoneras / bolsos") {
+          // Filtrar riñoneras, bolsos, fundas y mochilas
+          list = list.filter(p => {
+            const nameLower = p.name.toLowerCase();
+            return p.category === "Accesorios" && (
+              nameLower.includes("bag") || 
+              nameLower.includes("bolso") || 
+              nameLower.includes("riñonera") || 
+              nameLower.includes("case") || 
+              nameLower.includes("pouch") || 
+              nameLower.includes("backpack")
+            );
+          });
+        } else if (subLower === "coleccionables") {
+          // Accesorios estilo lifestyle / objetos de colección que no sean lentes, gorras, beanies ni bolsos
+          list = list.filter(p => {
+            const nameLower = p.name.toLowerCase();
+            const isWearable = (
+              nameLower.includes("sunglass") || 
+              nameLower.includes("eyeglass") || 
+              nameLower.includes("glasses") || 
+              nameLower.includes("cap") || 
+              nameLower.includes("beanie") || 
+              nameLower.includes("bag") || 
+              nameLower.includes("bolso") || 
+              nameLower.includes("riñonera")
+            );
+            return p.category === "Accesorios" && !isWearable;
+          });
         } else if (subLower === "men" || subLower === "women") {
           list = list.filter(p => !p.gender || p.gender.toLowerCase() === subLower);
         } else {
@@ -3756,10 +3826,21 @@
 
         if (isMenuOpen) toggleMegaMenu();
 
+        // Limpiar únicamente selects sin resetear currentSubFilter
+        const bSel = document.getElementById("filter-brand-select");
+        if (bSel) bSel.value = "ALL";
+        const sSel = document.getElementById("filter-size-select");
+        if (sSel) sSel.value = "ALL";
+        const cSel = document.getElementById("filter-condition-select");
+        if (cSel) cSel.value = "ALL";
+        const saleCatSel = document.getElementById("filter-sale-category-select");
+        if (saleCatSel) saleCatSel.value = "ALL";
+        const sortSel = document.getElementById("cat-sort-select");
+        if (sortSel) sortSel.value = "bestsellers";
+
         const baseProducts = getBaseCategoryProducts(categoryName, subItem);
         updateBrandFilterDropdown(baseProducts);
         updateSizeFilterDropdown(baseProducts, categoryName);
-        resetCategoryFilters(false);
         applyCategoryFilters();
 
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -3817,7 +3898,19 @@
       const brandFilter = document.getElementById("filter-brand-select")?.value || "ALL";
       const sizeFilter = document.getElementById("filter-size-select")?.value || "ALL";
       const conditionFilter = document.getElementById("filter-condition-select")?.value || "ALL";
+      const saleCategoryFilter = document.getElementById("filter-sale-category-select")?.value || "ALL";
       const sortValue = document.getElementById("cat-sort-select")?.value || "bestsellers";
+
+      // Control de visibilidad del selector de categorías en SALE
+      const saleCatSelect = document.getElementById("filter-sale-category-select");
+      if (saleCatSelect) {
+        if (currentCategory === "Sale") {
+          saleCatSelect.classList.remove("hidden");
+        } else {
+          saleCatSelect.classList.add("hidden");
+          saleCatSelect.value = "ALL";
+        }
+      }
 
       const subBadge = document.getElementById("active-subfilter-badge");
       const subText = document.getElementById("active-subfilter-text");
@@ -3833,6 +3926,11 @@
       }
 
       let list = getBaseCategoryProducts(currentCategory, currentSubFilter);
+
+      // Filtro de categoría exclusivo para SALE
+      if (currentCategory === "Sale" && saleCategoryFilter !== "ALL") {
+        list = list.filter(p => (p.category || "").toLowerCase() === saleCategoryFilter.toLowerCase());
+      }
 
       if (brandFilter !== "ALL") {
         list = list.filter(p => p.brand.toLowerCase() === brandFilter.toLowerCase());
@@ -3864,7 +3962,7 @@
       const countEl = document.getElementById("cat-product-count");
       if (countEl) countEl.textContent = list.length;
 
-      const hasActiveFilters = (brandFilter !== "ALL" || sizeFilter !== "ALL" || conditionFilter !== "ALL" || currentSubFilter !== null);
+      const hasActiveFilters = (brandFilter !== "ALL" || sizeFilter !== "ALL" || conditionFilter !== "ALL" || saleCategoryFilter !== "ALL" || currentSubFilter !== null);
       const resetBtn = document.getElementById("btn-reset-filters");
       if (resetBtn) resetBtn.classList.toggle("hidden", !hasActiveFilters);
 
@@ -3878,6 +3976,8 @@
       if (sSel) sSel.value = "ALL";
       const cSel = document.getElementById("filter-condition-select");
       if (cSel) cSel.value = "ALL";
+      const saleCatSel = document.getElementById("filter-sale-category-select");
+      if (saleCatSel) saleCatSel.value = "ALL";
       const sortSel = document.getElementById("cat-sort-select");
       if (sortSel) sortSel.value = "bestsellers";
       const resetBtn = document.getElementById("btn-reset-filters");
@@ -4558,11 +4658,25 @@
         const slug = hash.replace("#product/", "").trim();
         openProductPage(slug, false);
       } else if (hash.startsWith("#category/")) {
-        const catPart = hash.replace("#category/", "").split("?")[0];
+        const fullCatString = hash.replace("#category/", "");
+        const [catPart, queryPart] = fullCatString.split("?");
         const decodedCat = decodeURIComponent(catPart).replace(/-/g, " ");
         const match = PRODUCTS.find(p => (p.category || "").toLowerCase() === decodedCat.toLowerCase());
-        const catName = match ? match.category : "Todos los Productos";
-        openCategoryPage(catName, false);
+        const catName = match ? match.category : (decodedCat.toLowerCase() === "sale" ? "Sale" : "Todos los Productos");
+        
+        let subItem = null;
+        if (queryPart && queryPart.includes("filter=")) {
+          const rawFilter = queryPart.split("filter=")[1]?.split("&")[0];
+          if (rawFilter) {
+            subItem = decodeURIComponent(rawFilter).replace(/-/g, " ");
+          }
+        }
+
+        if (subItem) {
+          openCategorySpecificFilter(catName, subItem, false);
+        } else {
+          openCategoryPage(catName, false);
+        }
       }
     });
 
