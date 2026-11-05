@@ -1222,14 +1222,18 @@
       <!-- Breadcrumbs & Volver -->
       <div class="flex items-center justify-between mb-6 text-xs text-neutral-500 font-medium border-b border-neutral-100 pb-4">
         <div class="flex items-center gap-2 overflow-x-auto whitespace-nowrap py-1">
-          <button onclick="navigateToHome()" class="hover:text-black font-semibold flex items-center gap-1">
+          <button onclick="navigateToHome()" class="hover:text-black font-semibold flex items-center gap-1 transition-colors">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
             Inicio
           </button>
           <span>›</span>
-          <span id="pdp-breadcrumb-category">Sneakers Men</span>
+          <button id="pdp-breadcrumb-category" onclick="returnToProductCategory()" class="hover:text-black hover:underline font-medium transition-colors">
+            Sneakers Men
+          </button>
           <span>›</span>
-          <span id="pdp-breadcrumb-brand" class="font-bold text-neutral-900">Jordan</span>
+          <button id="pdp-breadcrumb-brand" onclick="returnToProductBrand()" class="font-bold text-neutral-900 hover:text-brandSkyDark hover:underline transition-colors">
+            Jordan
+          </button>
         </div>
         
         <button onclick="copyProductLink()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-neutral-200 hover:bg-neutral-100 text-neutral-700 transition-colors">
@@ -3592,6 +3596,22 @@
       btn.className = "pdp-size-btn flex flex-col items-center justify-center py-2 px-1 rounded-xl border text-center transition-all bg-neutral-950 text-white border-neutral-950 shadow-sm";
     }
 
+    function returnToProductCategory() {
+      if (currentActiveProduct && currentActiveProduct.category) {
+        openCategoryPage(currentActiveProduct.category);
+      } else {
+        navigateToHome();
+      }
+    }
+
+    function returnToProductBrand() {
+      if (currentActiveProduct && currentActiveProduct.brand) {
+        openCategoryBrandFilter(currentActiveProduct.brand);
+      } else {
+        navigateToHome();
+      }
+    }
+
     function navigateToHome(pushHistory = true) {
       if (productView) productView.classList.add("hidden");
       if (categoryView) categoryView.classList.add("hidden");
@@ -4715,6 +4735,33 @@
       } else if (hash.startsWith("#product/")) {
         const slug = hash.replace("#product/", "").trim();
         openProductPage(slug, false);
+      } else if (hash.startsWith("#category/")) {
+        const fullCatString = hash.replace("#category/", "");
+        const [catPart, queryPart] = fullCatString.split("?");
+        const decodedCat = decodeURIComponent(catPart).replace(/-/g, " ");
+        const match = PRODUCTS.find(p => (p.category || "").toLowerCase() === decodedCat.toLowerCase());
+        let catName = match ? match.category : (decodedCat.toLowerCase() === "sale" ? "Sale" : "Todos los Productos");
+        if (decodedCat.toLowerCase() === "new arrivals" || decodedCat.toLowerCase() === "new-arrivals") {
+          catName = "New Arrivals";
+        }
+
+        let subItem = null;
+        if (queryPart && queryPart.includes("filter=")) {
+          const rawFilter = queryPart.split("filter=")[1]?.split("&")[0];
+          if (rawFilter) {
+            subItem = decodeURIComponent(rawFilter).replace(/-/g, " ");
+          }
+        }
+
+        if (subItem) {
+          openCategorySpecificFilter(catName, subItem, false);
+        } else {
+          openCategoryPage(catName, false);
+        }
+      } else if (hash.startsWith("#brand/")) {
+        const brandSlug = hash.replace("#brand/", "").trim();
+        const brandName = decodeURIComponent(brandSlug).replace(/-/g, " ");
+        openCategoryBrandFilter(brandName);
       }
     });
 
