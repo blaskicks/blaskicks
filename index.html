@@ -3691,25 +3691,44 @@
       sizeSelect.value = exists ? previousVal : "ALL";
     }
 
+    function isShortsProduct(product) {
+      if (!product) return false;
+      const text = `${product.name || ""} ${product.slug || ""}`.toLowerCase();
+      return /\bshorts?\b/i.test(text);
+    }
+
     function getBaseCategoryProducts(catName, subFilter = null) {
-      let list = PRODUCTS.filter(p => {
-        if (catName === "Todos los Productos" || catName === "Ver Todo") return true;
-        if (catName === "New Arrivals") return true;
-        if (catName === "Streetwear" || catName === "Indumentaria Men" || catName === "Indumentaria Women") {
-          return ["Remeras", "Buzos", "Pantalones", "Camperas"].includes(p.category);
-        }
-        if (catName === "Accessories") return p.category === "Accesorios";
-        if (catName === "Sale") return Boolean(p.onSale) || Boolean(p.originalPrice);
-        if (catName.toLowerCase() === "shorts") {
-          return /\bshorts?\b/i.test(p.name);
-        }
-        return (p.category || "").toLowerCase() === catName.toLowerCase();
-      });
+      let list = [];
+      const normalizedCat = (catName || "").trim().toLowerCase();
+
+      if (normalizedCat === "new arrivals" || normalizedCat === "new-arrivals") {
+        // Mostrar con exactitud la misma selección curada de ingresos destacados de la primer página
+        list = getBalanced15Drops();
+      } else if (normalizedCat === "todos los productos" || normalizedCat === "ver todo" || normalizedCat === "all") {
+        list = [...PRODUCTS];
+      } else if (normalizedCat === "streetwear" || normalizedCat === "indumentaria men" || normalizedCat === "indumentaria women") {
+        list = PRODUCTS.filter(p => ["Remeras", "Buzos", "Pantalones", "Camperas"].includes(p.category));
+      } else if (normalizedCat === "accessories") {
+        list = PRODUCTS.filter(p => p.category === "Accesorios");
+      } else if (normalizedCat === "sale") {
+        list = PRODUCTS.filter(p => Boolean(p.onSale) || Boolean(p.originalPrice));
+      } else if (normalizedCat === "shorts") {
+        list = PRODUCTS.filter(p => isShortsProduct(p));
+      } else if (normalizedCat === "pantalones") {
+        // Excluir estrictamente shorts cuando se accede a la categoría 'Pantalones'
+        list = PRODUCTS.filter(p => (p.category || "").toLowerCase() === "pantalones" && !isShortsProduct(p));
+      } else {
+        list = PRODUCTS.filter(p => (p.category || "").toLowerCase() === normalizedCat);
+      }
 
       if (subFilter) {
         const subLower = subFilter.toLowerCase().trim();
         if (subLower === "shorts") {
-          list = list.filter(p => /\bshorts?\b/i.test(p.name));
+          // Si el subfiltro específico es Shorts, buscar en todos los productos de indumentaria / categoría
+          list = PRODUCTS.filter(p => isShortsProduct(p));
+        } else if (subLower === "pantalones") {
+          // Si se hace clic en Pantalones dentro del submenú de indumentaria, excluir shorts
+          list = PRODUCTS.filter(p => (p.category || "").toLowerCase() === "pantalones" && !isShortsProduct(p));
         } else if (subLower === "lentes") {
           // Filtrar estrictamente lentes de sol o armazones (sunglasses, eyeglasses, lentes)
           list = list.filter(p => {
@@ -3929,7 +3948,11 @@
 
       // Filtro de categoría exclusivo para SALE
       if (currentCategory === "Sale" && saleCategoryFilter !== "ALL") {
-        list = list.filter(p => (p.category || "").toLowerCase() === saleCategoryFilter.toLowerCase());
+        if (saleCategoryFilter.toLowerCase() === "pantalones") {
+          list = list.filter(p => (p.category || "").toLowerCase() === "pantalones" && !isShortsProduct(p));
+        } else {
+          list = list.filter(p => (p.category || "").toLowerCase() === saleCategoryFilter.toLowerCase());
+        }
       }
 
       if (brandFilter !== "ALL") {
