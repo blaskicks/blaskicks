@@ -49,9 +49,9 @@
     .mega-menu-enter {
       animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    /* Estilos del Preloader inicial con GIF rotativo */
+    /* Estilos del Preloader inicial con GIF rotativo ultrarrápido */
     #preloader {
-      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s ease;
+      transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease;
     }
     #preloader.loaded {
       opacity: 0;
@@ -59,35 +59,41 @@
       pointer-events: none;
     }
     .loader-glow {
-      box-shadow: 0 0 45px -10px rgba(56, 189, 248, 0.35);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
     }
-    /* Micro-loader sutil para transiciones y filtros */
-    #action-loader {
-      transition: opacity 0.2s ease, visibility 0.2s ease;
+    /* Visor Lightbox con Zoom */
+    #image-lightbox {
+      transition: opacity 0.25s ease, visibility 0.25s ease;
     }
-    #action-loader.active {
+    #image-lightbox.active {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
+    }
+    .cursor-zoom-in { cursor: zoom-in; }
+    .cursor-zoom-out { cursor: zoom-out; }
+    /* Efecto rasgado orgánico para el banner */
+    .torn-edge {
+      filter: drop-shadow(-8px 0 12px rgba(0, 0, 0, 0.45));
     }
   </style>
 </head>
 <body class="bg-neutral-100 text-neutral-900 font-sans min-h-screen flex flex-col selection:bg-brandSky selection:text-black">
 
   <!-- ========================================================== -->
-  <!-- PRELOADER INICIAL: LOGO BK 3D GIRANDO                     -->
+  <!-- PRELOADER INICIAL: LOGO BK 3D GIRANDO (NÍTIDO Y PROLIJO)  -->
   <!-- ========================================================== -->
   <div id="preloader" class="fixed inset-0 z-50 bg-[#0c0c0c] flex flex-col items-center justify-center select-none">
     <div class="relative flex flex-col items-center">
-      <!-- Resplandor sutil celeste detrás del logo -->
-      <div class="absolute w-36 h-36 rounded-full bg-brandSky/15 blur-2xl animate-pulse pointer-events-none"></div>
+      <!-- Halo ultra sutil de fondo sin teñir el GIF -->
+      <div class="absolute w-44 h-44 rounded-full bg-brandSky/10 blur-3xl pointer-events-none"></div>
 
-      <!-- Contenedor del GIF 3D -->
-      <div class="relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center loader-glow rounded-3xl p-2 bg-neutral-900/40 border border-neutral-800/80 backdrop-blur-sm">
+      <!-- Contenedor del GIF 3D limpio y nítido -->
+      <div class="relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center loader-glow rounded-3xl p-3 bg-neutral-900/60 border border-neutral-800/60 backdrop-blur-md">
         <img 
           src="3dgifmaker83430.gif" 
           alt="Cargando Blaskicks..." 
-          class="w-full h-full object-contain filter drop-shadow-[0_4px_16px_rgba(56,189,248,0.3)]"
+          class="w-full h-full object-contain"
           onerror="this.onerror=null; this.src='Logo bk inverso.png';"
         />
       </div>
@@ -107,20 +113,22 @@
   </div>
 
   <!-- ========================================================== -->
-  <!-- MICRO-LOADER SUTIL (TRANSICIONES, FILTROS Y BÚSQUEDA)     -->
+  <!-- LIGHTBOX / ZOOM MODAL PARA IMÁGENES DE PRODUCTOS          -->
   <!-- ========================================================== -->
-  <div id="action-loader" class="fixed inset-0 z-40 bg-neutral-950/40 backdrop-blur-[2px] opacity-0 invisible flex items-center justify-center transition-all duration-200 pointer-events-none">
-    <div class="bg-neutral-950/90 border border-neutral-800 rounded-2xl p-4 shadow-2xl flex flex-col items-center gap-2.5 transform scale-95 transition-transform duration-200">
-      <div class="w-14 h-14 relative flex items-center justify-center">
-        <div class="absolute inset-0 bg-brandSky/20 rounded-full blur-md"></div>
-        <img 
-          src="3dgifmaker83430.gif" 
-          alt="Cargando..." 
-          class="w-full h-full object-contain relative z-10"
-          onerror="this.onerror=null; this.src='Logo bk inverso.png';"
-        />
+  <div id="image-lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md opacity-0 invisible flex items-center justify-center p-2 sm:p-6 select-none">
+    <button onclick="closeImageLightbox()" class="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors">
+      ✕
+    </button>
+    <div class="relative w-full h-full flex items-center justify-center overflow-hidden" onclick="toggleLightboxZoom(event)">
+      <img 
+        id="lightbox-img" 
+        src="" 
+        alt="Producto ampliado" 
+        class="max-w-[92vw] max-h-[88vh] object-contain transition-transform duration-300 cursor-zoom-in"
+      />
+      <div class="absolute bottom-4 bg-black/60 text-white text-[11px] font-medium px-3 py-1 rounded-full pointer-events-none backdrop-blur-sm border border-white/10">
+        Hacé clic para alternar zoom
       </div>
-      <span class="text-[10px] font-extrabold uppercase tracking-widest text-neutral-300">Cargando...</span>
     </div>
   </div>
 
@@ -308,45 +316,73 @@
     
     <!-- VISTA PRINCIPAL (HOME) -->
     <div id="home-view">
-      <!-- Hero Banner Minimalista Panorámico (Restaurado y amplio en pantalla) -->
+      <!-- Hero Banner Estilo Editorial Panorámico (Inspirado en tu referencia) -->
       <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-6">
-        <div class="relative w-full rounded-3xl bg-neutral-950 text-white overflow-hidden p-6 sm:p-8 lg:p-10 flex flex-col lg:flex-row items-center justify-between gap-6 border border-neutral-900 shadow-xl">
-          <div class="space-y-3 max-w-2xl z-10">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-[11px] font-semibold text-brandSky">
-              <span>✨ Stock Limitado</span>
-              <span class="text-neutral-500">•</span>
-              <span>Verificado 100% Legit</span>
+        <div class="relative w-full rounded-3xl bg-neutral-950 text-white overflow-hidden flex flex-col lg:flex-row items-stretch border border-neutral-900 shadow-xl h-auto lg:h-64">
+          
+          <!-- LADO IZQUIERDO: TEXTO, ESTILO Y BOTONES -->
+          <div class="relative z-10 w-full lg:w-[46%] p-5 sm:p-6 lg:p-7 flex flex-col justify-between bg-neutral-950/95 backdrop-blur-sm lg:bg-transparent">
+            <div class="space-y-2">
+              <!-- Tag Celeste idéntico a "ENVÍOS A TODO EL PAÍS" de la foto de referencia -->
+              <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-sm bg-brandSky text-slate-950 text-[10px] sm:text-[11px] font-black uppercase tracking-wider shadow-sm">
+                <span>ENVÍOS A TODO EL PAÍS</span>
+              </div>
+
+              <!-- Título Gigante con Tipografía Fuerte -->
+              <h1 class="font-display font-black text-2xl sm:text-3xl lg:text-[32px] uppercase tracking-tighter leading-[1.05] text-white pt-0.5">
+                TU PLUG DE CONFIANZA.
+              </h1>
+
+              <!-- Subtítulo en Cursiva Elegante (Estilo "Descubrí tu nueva adquisición") -->
+              <p class="font-serif italic text-neutral-300 text-xs sm:text-sm tracking-wide">
+                Descubrí tu nueva adquisición • 100% Auténtico
+              </p>
+
+              <p class="text-neutral-400 text-[11px] sm:text-xs leading-relaxed max-w-md hidden sm:block">
+                Pares exclusivos, colaboraciones agotadas y prendas de culto para entrega inmediata en mano o envíos a todo el país.
+              </p>
             </div>
-            <h1 class="font-display font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-tight leading-tight">
-              TU PLUG DE CONFIANZA.
-            </h1>
-            <p class="text-neutral-400 text-xs sm:text-sm leading-relaxed max-w-lg">
-              Pares exclusivos, colaboraciones agotadas y prendas de culto. Coordiná tu pedido de inmediato a través de WhatsApp.
-            </p>
-            <div class="pt-1 flex flex-wrap gap-3">
-              <button onclick="openCategoryPage('Todos los Productos')" class="px-6 py-2.5 rounded-full bg-brandSky text-white font-bold text-xs uppercase tracking-wider hover:bg-black transition-colors duration-200">
+
+            <!-- Botones de Acción -->
+            <div class="pt-3 flex flex-wrap gap-2.5">
+              <button onclick="openCategoryPage('Todos los Productos')" class="px-5 py-2 rounded-full bg-brandSky text-slate-950 font-black text-xs uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-200 shadow-md hover:scale-105 active:scale-95">
                 Explorar Catálogo
               </button>
-              <button onclick="toggleMegaMenu()" class="px-6 py-2.5 rounded-full bg-neutral-900 text-white font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors border border-neutral-800">
+              <button onclick="toggleMegaMenu()" class="px-4 py-2 rounded-full bg-neutral-900 text-white font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors border border-neutral-800">
                 Ver Categorías
               </button>
             </div>
           </div>
 
-          <div class="relative w-full max-w-sm lg:max-w-md flex justify-center z-10">
-            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-neutral-800/80 group">
-              <img 
-                src="Imagen fondo blaskicks.jpeg" 
-                alt="Blaskicks Stand" 
-                class="w-full max-w-xs sm:max-w-sm lg:max-w-md h-52 sm:h-60 lg:h-64 object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1000&q=85';"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent pointer-events-none"></div>
-              <span class="absolute bottom-2.5 left-3 text-[10px] font-bold uppercase tracking-widest text-brandSky bg-black/60 px-2 py-0.5 rounded backdrop-blur-sm">
-                100% Originales
-              </span>
+          <!-- LADO DERECHO: FOTO COMPLETA Y DESTACADA CON EFECTO RASGADO / DEGRADÉ -->
+          <div class="relative w-full lg:w-[54%] h-48 sm:h-56 lg:h-full overflow-hidden flex items-center justify-end">
+            <!-- Imagen del Stand ocupando todo el lateral derecho -->
+            <img 
+              src="Imagen fondo blaskicks.jpeg" 
+              alt="Stand Blaskicks" 
+              class="w-full h-full object-cover object-center lg:object-[center_35%] transition-transform duration-700 hover:scale-105"
+              loading="eager"
+              decoding="async"
+              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85';"
+            />
+
+            <!-- Degradado suave lateral que funde la foto con el fondo negro del texto -->
+            <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-neutral-950 via-neutral-950/60 lg:via-neutral-950/40 to-transparent pointer-events-none"></div>
+
+            <!-- Borde rasgado orgánico vertical (visible en desktop) -->
+            <div class="hidden lg:block absolute inset-y-0 left-0 w-8 pointer-events-none">
+              <svg class="h-full w-full text-neutral-950 fill-current" preserveAspectRatio="none" viewBox="0 0 20 100">
+                <path d="M0,0 L20,0 L14,8 L18,17 L12,25 L16,35 L10,48 L17,60 L12,72 L18,85 L14,92 L20,100 L0,100 Z"/>
+              </svg>
+            </div>
+
+            <!-- Badge de Autenticidad sobre la foto -->
+            <div class="absolute bottom-3 right-4 z-10 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-neutral-700 text-white text-[10px] font-bold uppercase tracking-widest shadow">
+              <span class="w-2 h-2 rounded-full bg-brandSky animate-pulse"></span>
+              <span>100% Originales • Stock Físico</span>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -411,7 +447,7 @@
               </div>
               <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
                 <img 
-                  src="CATEGORIA REMERAS_page-0001.jpg" 
+                  src="Cat Remeras.jpg" 
                   alt="Categoría Remeras" 
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80';"
@@ -432,7 +468,7 @@
               </div>
               <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
                 <img 
-                  src="CATEGORIA BUZOS_page-0001.jpg" 
+                  src="Cat Buzos.jpg" 
                   alt="Categoría Buzos" 
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=500&q=80';"
@@ -453,7 +489,7 @@
               </div>
               <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
                 <img 
-                  src="CATEGORIA SNEAKERS_page-0001.jpg" 
+                  src="Cat Zapas.jpg" 
                   alt="Categoría Sneakers" 
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=500&q=80';"
@@ -474,7 +510,7 @@
               </div>
               <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
                 <img 
-                  src="CATEGORIA PANTALONES_page-0001.jpg" 
+                  src="Cat Pantalones.jpg" 
                   alt="Categoría Pantalones" 
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=500&q=80';"
@@ -495,7 +531,7 @@
               </div>
               <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
                 <img 
-                  src="CATEGORIA CAMPERASpdf_page-0001.jpg" 
+                  src="Cat Camperas.jpg" 
                   alt="Categoría Camperas" 
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=500&q=80';"
@@ -516,7 +552,7 @@
               </div>
               <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
                 <img 
-                  src="CATEGORIA ACCESORIOS_page-0001.jpg" 
+                  src="Cat Accesorios.jpg" 
                   alt="Categoría Accesorios" 
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=500&q=80';"
@@ -557,123 +593,123 @@
       <!-- 1° SECCIÓN: OPINIONES / NUESTROS CLIENTES                  -->
       <!-- ========================================================== -->
       <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 bg-white">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
-        <div>
-          <div class="flex items-center gap-1.5 text-brandSky mb-1">
-            <span class="text-sm">★★★★★</span>
-            <span class="text-[11px] font-extrabold uppercase tracking-widest text-emerald-800 ml-1.5">+20.000 CLIENTES SATISFECHOS</span>
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+          <div>
+            <div class="flex items-center gap-1.5 text-brandSky mb-1">
+              <span class="text-sm">★★★★★</span>
+              <span class="text-[11px] font-extrabold uppercase tracking-widest text-emerald-800 ml-1.5">+20.000 CLIENTES SATISFECHOS</span>
+            </div>
+            <h2 class="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-neutral-950">
+              NUESTROS CLIENTES
+            </h2>
+            <div class="w-12 h-1 bg-brandSky mt-2 rounded-full"></div>
           </div>
-          <h2 class="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-neutral-950">
-            NUESTROS CLIENTES
-          </h2>
-          <div class="w-12 h-1 bg-brandSky mt-2 rounded-full"></div>
+
+          <!-- Controles para deslizar opiniones -->
+          <div class="flex items-center gap-2 self-end sm:self-auto">
+            <button 
+              id="reviews-prev-btn" 
+              aria-label="Opinión anterior"
+              class="w-9 h-9 rounded-full border border-neutral-200 bg-white flex items-center justify-center text-neutral-900 transition-all hover:border-black active:scale-95"
+            >
+              <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button 
+              id="reviews-next-btn" 
+              aria-label="Siguiente opinión"
+              class="w-9 h-9 rounded-full border border-neutral-200 bg-white flex items-center justify-center text-neutral-900 transition-all hover:border-black active:scale-95"
+            >
+              <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        <!-- Controles para deslizar opiniones -->
-        <div class="flex items-center gap-2 self-end sm:self-auto">
-          <button 
-            id="reviews-prev-btn" 
-            aria-label="Opinión anterior"
-            class="w-9 h-9 rounded-full border border-neutral-200 bg-white flex items-center justify-center text-neutral-900 transition-all hover:border-black active:scale-95"
-          >
-            <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button 
-            id="reviews-next-btn" 
-            aria-label="Siguiente opinión"
-            class="w-9 h-9 rounded-full border border-neutral-200 bg-white flex items-center justify-center text-neutral-900 transition-all hover:border-black active:scale-95"
-          >
-            <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-      </div>
+        <!-- Fila deslizable horizontal: Opiniones de clientes + Formulario para dejar opinión -->
+        <div id="reviews-track" class="w-full overflow-x-auto pb-6 flex items-stretch gap-6 no-scrollbar scroll-smooth">
+          <!-- Contenedor dinámico de opiniones (renderizado vía JS) -->
+          <div id="dynamic-reviews-list" class="flex items-stretch gap-6"></div>
 
-      <!-- Fila deslizable horizontal: Opiniones de clientes + Formulario para dejar opinión -->
-      <div id="reviews-track" class="w-full overflow-x-auto pb-6 flex items-stretch gap-6 no-scrollbar scroll-smooth">
-        <!-- Contenedor dinámico de opiniones (renderizado vía JS) -->
-        <div id="dynamic-reviews-list" class="flex items-stretch gap-6"></div>
-
-        <!-- TARJETA: FORMULARIO "DEJANOS TU OPINIÓN" EN LA MISMA FILA -->
-        <div class="flex-none w-[340px] sm:w-[480px] bg-white rounded-2xl p-6 sm:p-7 border-2 border-neutral-200 shadow-md flex flex-col justify-between">
-          <form id="review-form" onsubmit="handleReviewSubmit(event)" class="space-y-3.5">
-            <div>
-              <h3 class="font-display font-black text-lg sm:text-xl uppercase tracking-tight text-neutral-950 mb-3">
-                DEJANOS TU OPINIÓN
-              </h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                <input 
-                  type="text" 
-                  id="rev-author" 
-                  required
-                  placeholder="Tu nombre" 
-                  class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-neutral-300 outline-none focus:border-brandSky transition-colors placeholder:text-neutral-400"
-                />
-                <input 
-                  type="text" 
-                  id="rev-instagram" 
-                  placeholder="Tu Instagram (ej: @usuario)" 
-                  class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-neutral-300 outline-none focus:border-brandSky transition-colors placeholder:text-neutral-400"
-                />
+          <!-- TARJETA: FORMULARIO "DEJANOS TU OPINIÓN" EN LA MISMA FILA -->
+          <div class="flex-none w-[340px] sm:w-[480px] bg-white rounded-2xl p-6 sm:p-7 border-2 border-neutral-200 shadow-md flex flex-col justify-between">
+            <form id="review-form" onsubmit="handleReviewSubmit(event)" class="space-y-3.5">
+              <div>
+                <h3 class="font-display font-black text-lg sm:text-xl uppercase tracking-tight text-neutral-950 mb-3">
+                  DEJANOS TU OPINIÓN
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  <input 
+                    type="text" 
+                    id="rev-author" 
+                    required
+                    placeholder="Tu nombre" 
+                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-neutral-300 outline-none focus:border-brandSky transition-colors placeholder:text-neutral-400"
+                  />
+                  <input 
+                    type="text" 
+                    id="rev-instagram" 
+                    placeholder="Tu Instagram (ej: @usuario)" 
+                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-neutral-300 outline-none focus:border-brandSky transition-colors placeholder:text-neutral-400"
+                  />
+                </div>
               </div>
-            </div>
 
-            <!-- Estrellas interactivas -->
-            <div class="flex items-center gap-1.5" id="star-rating-container">
-              <span class="text-xs text-neutral-500 font-medium mr-1">Calificación:</span>
-              <button type="button" onclick="setRating(1)" class="text-xl star-btn text-brandSky transition-transform hover:scale-125 focus:outline-none">★</button>
-              <button type="button" onclick="setRating(2)" class="text-xl star-btn text-brandSky transition-transform hover:scale-125 focus:outline-none">★</button>
-              <button type="button" onclick="setRating(3)" class="text-xl star-btn text-brandSky transition-transform hover:scale-125 focus:outline-none">★</button>
-              <button type="button" onclick="setRating(4)" class="text-xl star-btn text-brandSky transition-transform hover:scale-125 focus:outline-none">★</button>
-              <button type="button" onclick="setRating(5)" class="text-xl star-btn text-brandSky transition-transform hover:scale-125 focus:outline-none">★</button>
-              <input type="hidden" id="rev-rating" value="5" />
-            </div>
+              <!-- Estrellas interactivas -->
+              <div class="flex items-center gap-1.5" id="star-rating-container">
+                <span class="text-xs text-neutral-500 font-medium mr-1">Calificación:</span>
+                <button type="button" onclick="setRating(1)" class="text-xl star-btn text-brandSky transition-transform hover:scale-125 focus:outline-none">★</button>
+                <button type="button" onclick="setRating(2)" class="text-xl star-btn text-brandSky transition-transform hover:scale-125 focus:outline-none">★</button>
+                <button type="button" onclick="setRating(3)" class="text-xl star-btn text-brandSky transition-transform hover:scale-125 focus:outline-none">★</button>
+                <button type="button" onclick="setRating(4)" class="text-xl star-btn text-brandSky transition-transform hover:scale-125 focus:outline-none">★</button>
+                <button type="button" onclick="setRating(5)" class="text-xl star-btn text-brandSky transition-transform hover:scale-125 focus:outline-none">★</button>
+                <input type="hidden" id="rev-rating" value="5" />
+              </div>
 
-            <!-- Experiencia -->
-            <textarea 
-              id="rev-comment" 
-              required
-              rows="3"
-              placeholder="Cuéntanos tu experiencia con Blaskicks..."
-              class="w-full text-xs p-3 rounded-xl border border-neutral-300 outline-none focus:border-brandSky transition-colors placeholder:text-neutral-400 resize-none"
-            ></textarea>
+              <!-- Experiencia -->
+              <textarea 
+                id="rev-comment" 
+                required
+                rows="3"
+                placeholder="Cuéntanos tu experiencia con Blaskicks..."
+                class="w-full text-xs p-3 rounded-xl border border-neutral-300 outline-none focus:border-brandSky transition-colors placeholder:text-neutral-400 resize-none"
+              ></textarea>
 
-            <!-- Acciones -->
-            <div class="flex items-center justify-between pt-1">
-              <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-neutral-300 text-[11px] font-semibold text-neutral-700 cursor-pointer hover:bg-neutral-50 transition-colors">
-                <input type="file" accept="image/*" class="hidden" onchange="handlePhotoUpload(this)" />
-                <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span id="photo-label">Agregar foto</span>
-              </label>
+              <!-- Acciones -->
+              <div class="flex items-center justify-between pt-1">
+                <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-neutral-300 text-[11px] font-semibold text-neutral-700 cursor-pointer hover:bg-neutral-50 transition-colors">
+                  <input type="file" accept="image/*" class="hidden" onchange="handlePhotoUpload(this)" />
+                  <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span id="photo-label">Agregar foto</span>
+                </label>
 
-              <button 
-                type="submit"
-                class="px-5 py-2.5 rounded-full bg-brandSky hover:bg-black text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 hover:scale-105 active:scale-95"
-              >
-                Publicar Opinión
-              </button>
-            </div>
+                <button 
+                  type="submit"
+                  class="px-5 py-2.5 rounded-full bg-brandSky hover:bg-black text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 hover:scale-105 active:scale-95"
+                >
+                  Publicar Opinión
+                </button>
+              </div>
 
-            <!-- Disclaimer -->
-            <p class="text-[10px] text-neutral-400 leading-tight pt-1">
-              *Para asegurar opiniones reales, te pedimos iniciar sesión o brindar tu correo electrónico. Tu mail nunca será hecho público ni compartido.
-            </p>
-          </form>
+              <!-- Disclaimer -->
+              <p class="text-[10px] text-neutral-400 leading-tight pt-1">
+                *Para asegurar opiniones reales, te pedimos iniciar sesión o brindar tu correo electrónico. Tu mail nunca será hecho público ni compartido.
+              </p>
+            </form>
+          </div>
+
         </div>
+      </section>
 
-      </div>
-    </section>
-
-    <!-- ========================================================== -->
-    <!-- NUEVA SECCIÓN: BLASKICKS ON SCREEN (REELS DE INSTAGRAM)     -->
-    <!-- ========================================================== -->
-    <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 bg-white">
+      <!-- ========================================================== -->
+      <!-- NUEVA SECCIÓN: BLASKICKS ON SCREEN (REELS DE INSTAGRAM)     -->
+      <!-- ========================================================== -->
+      <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 bg-white">
       <!-- Encabezado centrado -->
       <div class="text-center mb-8">
         <h2 class="font-display font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-tight text-neutral-950 mb-2">
@@ -685,20 +721,22 @@
         <div class="w-12 h-1 bg-brandSky mx-auto mt-3 rounded-full"></div>
       </div>
 
-      <!-- Grilla interactiva de 4 tarjetas estilo Instagram Reel Embed -->
+      <!-- Grilla interactiva de 4 tarjetas estilo Instagram Reel Embed con reproducción continua en silencio -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
-        <!-- Reel Card 1: Evento / Stand Blaskicks -->
+        <!-- Reel Card 1: Coinflip con ustedes -->
         <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
-          <!-- Cabecera de la tarjeta: Perfil y Botón "Ver perfil" -->
+          <!-- Cabecera de la tarjeta: Perfil con avatar real de IG y Botón "Ver perfil" -->
           <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
-            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0">
-              <div class="w-7 h-7 rounded-full bg-neutral-900 text-white font-bold text-[10px] flex items-center justify-center border border-brandSky shrink-0">
-                BK
+            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 min-w-0 group/author">
+              <div class="w-8 h-8 rounded-full p-[1.5px] bg-gradient-to-tr from-amber-400 via-rose-500 to-fuchsia-600 shrink-0">
+                <div class="w-full h-full rounded-full bg-black p-1 flex items-center justify-center overflow-hidden">
+                  <img src="Logo bk inverso.png" alt="@blaskicks" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/100x100/000000/38bdf8?text=BK';" />
+                </div>
               </div>
               <div class="min-w-0 leading-tight">
-                <span class="block text-xs font-bold text-neutral-900 truncate">blaskicks</span>
-                <span class="block text-[10px] text-neutral-400 truncate">Audio original</span>
+                <span class="block text-xs font-bold text-neutral-900 truncate group-hover/author:text-brandSkyDark transition-colors">blaskicks</span>
+                <span class="block text-[10px] text-neutral-400 truncate">Audio original • blaskicks</span>
               </div>
             </a>
             <a 
@@ -711,35 +749,40 @@
             </a>
           </div>
 
-          <!-- Video / Vista previa del Reel interactivo con botón play -->
+          <!-- Video en loop continuo sin sonido -->
           <a 
-            href="https://www.instagram.com/blaskicks/reels/" 
+            href="https://www.instagram.com/reel/DaeEU5YtTr7/" 
             target="_blank" 
             rel="noopener noreferrer"
             class="relative aspect-[9/16] bg-neutral-950 overflow-hidden flex items-center justify-center cursor-pointer block"
           >
+            <video 
+              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/reel1.mp4" 
+              poster="Imagen fondo blaskicks.jpeg"
+              autoplay 
+              muted 
+              loop 
+              preload="none"
+              playsinline
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+            ></video>
+            <!-- Fallback imagen del stand -->
             <img 
               src="Imagen fondo blaskicks.jpeg" 
               alt="Reel Blaskicks Stand"
+              style="display: none;"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=600&q=80';"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-            
-            <!-- Botón Play Central Estilo Instagram -->
-            <div class="absolute w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center group-hover:scale-110 group-hover:bg-[#0095F6] transition-all duration-300">
-              <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none"></div>
 
-            <!-- Overlay texto inferior -->
-            <div class="absolute bottom-3 inset-x-3 text-white text-left">
-              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/70 px-2 py-0.5 rounded">
-                Sneaker Event
+            <!-- Overlay texto inferior con pie real del reel -->
+            <div class="absolute bottom-3 inset-x-3 text-white text-left pointer-events-none">
+              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/75 px-2 py-0.5 rounded backdrop-blur-sm">
+                Desafío
               </span>
-              <p class="text-xs font-medium text-white/95 mt-1 line-clamp-1 drop-shadow-md">
-                Así vivimos la feria con todos los drops exclusivos
+              <p class="text-xs font-semibold text-white/95 mt-1.5 line-clamp-2 drop-shadow-md leading-snug">
+                coinflip con ustedes
               </p>
             </div>
           </a>
@@ -747,12 +790,12 @@
           <!-- Pie de tarjeta: Ver más en Instagram -->
           <div class="p-3 border-t border-neutral-100 bg-white text-center">
             <a 
-              href="https://www.instagram.com/blaskicks/reels/" 
+              href="https://www.instagram.com/reel/DaeEU5YtTr7/" 
               target="_blank" 
               rel="noopener noreferrer"
               class="text-xs font-semibold text-[#0095F6] hover:text-black hover:underline transition-colors flex items-center justify-center gap-1.5"
             >
-              <span>Ver más en Instagram</span>
+              <span>Ver en Instagram</span>
               <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
               </svg>
@@ -760,16 +803,18 @@
           </div>
         </div>
 
-        <!-- Reel Card 2: Unboxing / Entregas -->
+        <!-- Reel Card 2: Comprando en Supreme -->
         <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
           <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
-            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0">
-              <div class="w-7 h-7 rounded-full bg-neutral-900 text-white font-bold text-[10px] flex items-center justify-center border border-brandSky shrink-0">
-                BK
+            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 min-w-0 group/author">
+              <div class="w-8 h-8 rounded-full p-[1.5px] bg-gradient-to-tr from-amber-400 via-rose-500 to-fuchsia-600 shrink-0">
+                <div class="w-full h-full rounded-full bg-black p-1 flex items-center justify-center overflow-hidden">
+                  <img src="Logo bk inverso.png" alt="@blaskicks" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/100x100/000000/38bdf8?text=BK';" />
+                </div>
               </div>
               <div class="min-w-0 leading-tight">
-                <span class="block text-xs font-bold text-neutral-900 truncate">blaskicks</span>
-                <span class="block text-[10px] text-neutral-400 truncate">Audio original</span>
+                <span class="block text-xs font-bold text-neutral-900 truncate group-hover/author:text-brandSkyDark transition-colors">blaskicks</span>
+                <span class="block text-[10px] text-neutral-400 truncate">Audio original • blaskicks</span>
               </div>
             </a>
             <a 
@@ -783,43 +828,48 @@
           </div>
 
           <a 
-            href="https://www.instagram.com/blaskicks/reels/" 
+            href="https://www.instagram.com/reel/DaGrX_FN0f-/" 
             target="_blank" 
             rel="noopener noreferrer"
             class="relative aspect-[9/16] bg-neutral-900 overflow-hidden flex items-center justify-center cursor-pointer block"
           >
-            <!-- Imagen preview Cloudflare R2 -->
+            <video 
+              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/reel2.mp4" 
+              poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/jordan%201%20low%20travis%20scott%20tropical%20pink%201%20blaskicks.avif"
+              autoplay 
+              muted 
+              loop 
+              preload="none"
+              playsinline
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+            ></video>
             <img 
               src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/jordan%201%20low%20travis%20scott%20tropical%20pink%201%20blaskicks.avif" 
-              alt="Reel Unboxing Travis Scott"
+              alt="Reel Supreme"
+              style="display: none;"
               class="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none"></div>
 
-            <div class="absolute w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center group-hover:scale-110 group-hover:bg-[#0095F6] transition-all duration-300">
-              <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-
-            <div class="absolute bottom-3 inset-x-3 text-white text-left">
-              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/70 px-2 py-0.5 rounded">
-                Unboxing Exclusivo
+            <div class="absolute bottom-3 inset-x-3 text-white text-left pointer-events-none">
+              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/75 px-2 py-0.5 rounded backdrop-blur-sm">
+                Shopping & Pickups
               </span>
-              <p class="text-xs font-medium text-white/95 mt-1 line-clamp-1 drop-shadow-md">
-                Abriendo los últimos ingresos en mano
+              <p class="text-xs font-semibold text-white/95 mt-1.5 line-clamp-2 drop-shadow-md leading-snug">
+                comprando en supreme
               </p>
             </div>
           </a>
 
           <div class="p-3 border-t border-neutral-100 bg-white text-center">
             <a 
-              href="https://www.instagram.com/blaskicks/reels/" 
+              href="https://www.instagram.com/reel/DaGrX_FN0f-/" 
               target="_blank" 
               rel="noopener noreferrer"
               class="text-xs font-semibold text-[#0095F6] hover:text-black hover:underline transition-colors flex items-center justify-center gap-1.5"
             >
-              <span>Ver más en Instagram</span>
+              <span>Ver en Instagram</span>
               <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
               </svg>
@@ -827,16 +877,18 @@
           </div>
         </div>
 
-        <!-- Reel Card 3: Streetwear & Percheros -->
+        <!-- Reel Card 3: Noche de entregas -->
         <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
           <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
-            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0">
-              <div class="w-7 h-7 rounded-full bg-neutral-900 text-white font-bold text-[10px] flex items-center justify-center border border-brandSky shrink-0">
-                BK
+            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 min-w-0 group/author">
+              <div class="w-8 h-8 rounded-full p-[1.5px] bg-gradient-to-tr from-amber-400 via-rose-500 to-fuchsia-600 shrink-0">
+                <div class="w-full h-full rounded-full bg-black p-1 flex items-center justify-center overflow-hidden">
+                  <img src="Logo bk inverso.png" alt="@blaskicks" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/100x100/000000/38bdf8?text=BK';" />
+                </div>
               </div>
               <div class="min-w-0 leading-tight">
-                <span class="block text-xs font-bold text-neutral-900 truncate">blaskicks</span>
-                <span class="block text-[10px] text-neutral-400 truncate">Audio original</span>
+                <span class="block text-xs font-bold text-neutral-900 truncate group-hover/author:text-brandSkyDark transition-colors">blaskicks</span>
+                <span class="block text-[10px] text-neutral-400 truncate">Audio original • blaskicks</span>
               </div>
             </a>
             <a 
@@ -850,42 +902,48 @@
           </div>
 
           <a 
-            href="https://www.instagram.com/blaskicks/reels/" 
+            href="https://www.instagram.com/reel/DYGG7MstrO4/" 
             target="_blank" 
             rel="noopener noreferrer"
             class="relative aspect-[9/16] bg-neutral-900 overflow-hidden flex items-center justify-center cursor-pointer block"
           >
+            <video 
+              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/reel3.mp4" 
+              poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/balenciaga%20classic%20middle%20back%20logo%20hoodie%20black%201%20blaskicks.avif"
+              autoplay 
+              muted 
+              loop 
+              preload="none"
+              playsinline
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+            ></video>
             <img 
               src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/balenciaga%20classic%20middle%20back%20logo%20hoodie%20black%201%20blaskicks.avif" 
-              alt="Reel Streetwear Rack"
+              alt="Reel Entregas"
+              style="display: none;"
               class="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none"></div>
 
-            <div class="absolute w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center group-hover:scale-110 group-hover:bg-[#0095F6] transition-all duration-300">
-              <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-
-            <div class="absolute bottom-3 inset-x-3 text-white text-left">
-              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/70 px-2 py-0.5 rounded">
-                Streetwear Tour
+            <div class="absolute bottom-3 inset-x-3 text-white text-left pointer-events-none">
+              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/75 px-2 py-0.5 rounded backdrop-blur-sm">
+                Envíos & Entregas
               </span>
-              <p class="text-xs font-medium text-white/95 mt-1 line-clamp-1 drop-shadow-md">
-                Hoodies Balenciaga, Off-White y Supreme en perchero
+              <p class="text-xs font-semibold text-white/95 mt-1.5 line-clamp-2 drop-shadow-md leading-snug">
+                noche de entregas
               </p>
             </div>
           </a>
 
           <div class="p-3 border-t border-neutral-100 bg-white text-center">
             <a 
-              href="https://www.instagram.com/blaskicks/reels/" 
+              href="https://www.instagram.com/reel/DYGG7MstrO4/" 
               target="_blank" 
               rel="noopener noreferrer"
               class="text-xs font-semibold text-[#0095F6] hover:text-black hover:underline transition-colors flex items-center justify-center gap-1.5"
             >
-              <span>Ver más en Instagram</span>
+              <span>Ver en Instagram</span>
               <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
               </svg>
@@ -893,16 +951,18 @@
           </div>
         </div>
 
-        <!-- Reel Card 4: Off-White "SHOES OFF" -->
+        <!-- Reel Card 4: Legit check "out of office" -->
         <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
           <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
-            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0">
-              <div class="w-7 h-7 rounded-full bg-neutral-900 text-white font-bold text-[10px] flex items-center justify-center border border-brandSky shrink-0">
-                BK
+            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 min-w-0 group/author">
+              <div class="w-8 h-8 rounded-full p-[1.5px] bg-gradient-to-tr from-amber-400 via-rose-500 to-fuchsia-600 shrink-0">
+                <div class="w-full h-full rounded-full bg-black p-1 flex items-center justify-center overflow-hidden">
+                  <img src="Logo bk inverso.png" alt="@blaskicks" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/100x100/000000/38bdf8?text=BK';" />
+                </div>
               </div>
               <div class="min-w-0 leading-tight">
-                <span class="block text-xs font-bold text-neutral-900 truncate">blaskicks</span>
-                <span class="block text-[10px] text-neutral-400 truncate">Audio original</span>
+                <span class="block text-xs font-bold text-neutral-900 truncate group-hover/author:text-brandSkyDark transition-colors">blaskicks</span>
+                <span class="block text-[10px] text-neutral-400 truncate">Audio original • blaskicks</span>
               </div>
             </a>
             <a 
@@ -916,42 +976,48 @@
           </div>
 
           <a 
-            href="https://www.instagram.com/blaskicks/reels/" 
+            href="https://www.instagram.com/reel/DVMtPY0jqs2/" 
             target="_blank" 
             rel="noopener noreferrer"
             class="relative aspect-[9/16] bg-neutral-950 overflow-hidden flex items-center justify-center cursor-pointer block"
           >
+            <video 
+              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/reel4.mp4" 
+              poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/out%20of%20office%20grey%20white%201%20blaskicks.avif"
+              autoplay 
+              muted 
+              loop 
+              preload="none"
+              playsinline
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+            ></video>
             <img 
               src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/out%20of%20office%20grey%20white%201%20blaskicks.avif" 
               alt="Reel Off-White Details"
+              style="display: none;"
               class="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none"></div>
 
-            <div class="absolute w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center group-hover:scale-110 group-hover:bg-[#0095F6] transition-all duration-300">
-              <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-
-            <div class="absolute bottom-3 inset-x-3 text-white text-left">
-              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/70 px-2 py-0.5 rounded">
-                Details & Review
+            <div class="absolute bottom-3 inset-x-3 text-white text-left pointer-events-none">
+              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/75 px-2 py-0.5 rounded backdrop-blur-sm">
+                Autenticación
               </span>
-              <p class="text-xs font-medium text-white/95 mt-1 line-clamp-1 drop-shadow-md">
-                Off-White "SHOES OFF" — Detalles de autenticación
+              <p class="text-xs font-semibold text-white/95 mt-1.5 line-clamp-2 drop-shadow-md leading-snug">
+                legit check "out of office"
               </p>
             </div>
           </a>
 
           <div class="p-3 border-t border-neutral-100 bg-white text-center">
             <a 
-              href="https://www.instagram.com/blaskicks/reels/" 
+              href="https://www.instagram.com/reel/DVMtPY0jqs2/" 
               target="_blank" 
               rel="noopener noreferrer"
               class="text-xs font-semibold text-[#0095F6] hover:text-black hover:underline transition-colors flex items-center justify-center gap-1.5"
             >
-              <span>Ver más en Instagram</span>
+              <span>Ver en Instagram</span>
               <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
               </svg>
@@ -1192,19 +1258,30 @@
             <!-- Rellenado dinámico con JS -->
           </div>
 
-          <!-- Imagen Principal con Insignia de Autenticidad Minimalista Propia -->
-          <div class="relative w-full flex-1 bg-neutral-50/60 rounded-3xl p-6 sm:p-10 border border-neutral-200 flex items-center justify-center min-h-[380px] sm:min-h-[500px]">
+          <!-- Imagen Principal con Insignia de Autenticidad Minimalista Propia y Click para Zoom -->
+          <div 
+            onclick="openImageLightbox()"
+            title="Hacé clic para ampliar"
+            class="relative w-full flex-1 bg-neutral-50/60 rounded-3xl p-2 sm:p-4 border border-neutral-200 flex items-center justify-center min-h-[560px] sm:min-h-[660px] cursor-zoom-in group/pdp overflow-hidden"
+          >
             <!-- Insignia de Autenticidad Estilizada -->
-            <div class="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900/90 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-sm border border-neutral-700 shadow-sm">
+            <div class="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900/90 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-sm border border-neutral-700 shadow-sm z-10">
               <span class="w-2 h-2 rounded-full bg-brandSky animate-pulse"></span>
               <span>VERIFICADO ORIGINAL</span>
+            </div>
+
+            <!-- Botón hover para ampliar -->
+            <div class="absolute bottom-4 right-4 w-9 h-9 rounded-full bg-white/90 shadow border border-neutral-200 flex items-center justify-center text-neutral-800 opacity-0 group-hover/pdp:opacity-100 transition-opacity z-10">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/>
+              </svg>
             </div>
 
             <img 
               id="pdp-main-image"
               src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85" 
               alt="Producto" 
-              class="w-full max-h-[460px] object-contain mix-blend-multiply drop-shadow-2xl transition-all duration-300"
+              class="w-full h-[520px] sm:h-[640px] max-h-[85vh] object-contain mix-blend-multiply drop-shadow-2xl group-hover/pdp:scale-[1.03] transition-all duration-300"
             />
           </div>
         </div>
@@ -1254,9 +1331,6 @@
               <span class="text-xs font-bold uppercase text-neutral-900 tracking-wider">
                 Talle: <span id="pdp-selected-size-label" class="text-brandSkyDark">9.5 US - 27.5 CM</span>
               </span>
-              <button onclick="alertMessage('Guía de talles: Talle US estándar según la marca.')" class="text-[11px] font-bold text-neutral-500 hover:text-black underline underline-offset-2">
-                Guía de Talles
-              </button>
             </div>
 
             <!-- Grilla interactiva de talles -->
@@ -1269,7 +1343,7 @@
           <div class="space-y-1.5">
             <div class="flex items-center gap-2 text-xs font-bold text-neutral-800">
               <span class="uppercase tracking-wider text-neutral-400">Condición:</span>
-              <span class="bg-neutral-100 px-2.5 py-0.5 rounded text-neutral-900">DSWT / Brand New (100% Sin uso)</span>
+              <span id="pdp-condition-label" class="bg-neutral-100 px-2.5 py-0.5 rounded text-neutral-900">Nuevo</span>
             </div>
             <div class="flex items-center gap-1.5 text-xs text-amber-700 font-bold pt-1">
               <span class="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
@@ -1763,7 +1837,7 @@
     <div class="max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-16">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-start">
         
-        <!-- Columna 1: Logo & Slogan -->
+        <!-- Columna 1: Logo & Slogan Oficial -->
         <div class="md:col-span-5 space-y-3">
           <div class="flex items-center">
             <img 
@@ -1774,7 +1848,7 @@
             />
           </div>
           <p class="text-xs sm:text-sm text-neutral-400 font-normal leading-relaxed max-w-sm">
-            Creando tendencias, definiendo estilos.
+            Tu plug de confianza.
           </p>
         </div>
 
@@ -3216,21 +3290,50 @@
     const productView = document.getElementById("product-view");
     const categoryView = document.getElementById("category-view");
 
-    // CONTROL DEL MICRO-LOADER CON GIF 3D PARA ACCIONES RÁPIDAS
-    const actionLoader = document.getElementById("action-loader");
-    function triggerActionLoading(callback, duration = 320) {
-      if (!actionLoader) {
-        if (callback) callback();
-        return;
-      }
-      actionLoader.classList.add("active");
-      setTimeout(() => {
-        if (callback) callback();
-        setTimeout(() => {
-          actionLoader.classList.remove("active");
-        }, 120);
-      }, duration);
+    // Navegación instantánea y fluida sin spinners intrusivos
+    function triggerActionLoading(callback) {
+      if (callback) callback();
     }
+
+    // CONTROL DEL LIGHTBOX CON ZOOM INTERACTIVO
+    const imageLightbox = document.getElementById("image-lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    let isLightboxZoomed = false;
+
+    function openImageLightbox() {
+      const currentSrc = document.getElementById("pdp-main-image").src;
+      lightboxImg.src = currentSrc;
+      isLightboxZoomed = false;
+      lightboxImg.style.transform = "scale(1)";
+      lightboxImg.className = "max-w-[92vw] max-h-[88vh] object-contain transition-transform duration-300 cursor-zoom-in";
+      imageLightbox.classList.add("active");
+      document.body.classList.add("overflow-hidden");
+    }
+
+    function closeImageLightbox() {
+      imageLightbox.classList.remove("active");
+      document.body.classList.remove("overflow-hidden");
+      isLightboxZoomed = false;
+      lightboxImg.style.transform = "scale(1)";
+    }
+
+    function toggleLightboxZoom(e) {
+      if (e.target.tagName === 'BUTTON') return;
+      isLightboxZoomed = !isLightboxZoomed;
+      if (isLightboxZoomed) {
+        lightboxImg.style.transform = "scale(2.2)";
+        lightboxImg.classList.remove("cursor-zoom-in");
+        lightboxImg.classList.add("cursor-zoom-out");
+      } else {
+        lightboxImg.style.transform = "scale(1)";
+        lightboxImg.classList.remove("cursor-zoom-out");
+        lightboxImg.classList.add("cursor-zoom-in");
+      }
+    }
+
+    imageLightbox.addEventListener("click", (e) => {
+      if (e.target === imageLightbox) closeImageLightbox();
+    });
 
     let cart = [];
     let currentActiveProduct = null;
@@ -3306,6 +3409,7 @@
     const nextBtn = document.getElementById("slider-next-btn");
 
     function renderCatalog() {
+      if (!productsTrack) return;
       // Tomamos los 15 ingresos mechados por categoría y mostramos los primeros 6 variados en el carrusel de inicio
       const balancedDrops = getBalanced15Drops();
       const firstRowProducts = balancedDrops.slice(0, 6);
@@ -3372,6 +3476,7 @@
     function updatePdpPrices(usd, originalUsd = null) {
       const arsPrice = calculateARS(usd);
       const usdEl = document.getElementById("pdp-price-usd");
+      if (!usdEl) return;
       if (originalUsd && originalUsd > usd) {
         const pct = getDiscountPercent(originalUsd, usd);
         usdEl.innerHTML = `
@@ -3382,7 +3487,8 @@
       } else {
         usdEl.innerHTML = `<span>${usd} USD</span>`;
       }
-      document.getElementById("pdp-price-ars").textContent = `≈ $${formatARS(arsPrice)} ARS estimado`;
+      const arsEl = document.getElementById("pdp-price-ars");
+      if (arsEl) arsEl.textContent = `≈ $${formatARS(arsPrice)} ARS estimado`;
     }
 
     function openProductPage(slug, pushHistory = true) {
@@ -3393,29 +3499,38 @@
         currentActiveProduct = product;
 
         // Actualizar Breadcrumbs
-        document.getElementById("pdp-breadcrumb-category").textContent = product.category || "Sneakers";
-        document.getElementById("pdp-breadcrumb-brand").textContent = product.brand;
+        const bCat = document.getElementById("pdp-breadcrumb-category");
+        if (bCat) bCat.textContent = product.category || "Sneakers";
+        const bBrand = document.getElementById("pdp-breadcrumb-brand");
+        if (bBrand) bBrand.textContent = product.brand;
 
         // Actualizar Título
-        document.getElementById("pdp-title").textContent = product.name;
+        const pTitle = document.getElementById("pdp-title");
+        if (pTitle) pTitle.textContent = product.name;
+
+        // Actualizar Condición (Nuevo / Usado (como nuevo) / Usado)
+        const condEl = document.getElementById("pdp-condition-label");
+        if (condEl) condEl.textContent = product.condition || "Nuevo";
 
         // Precios USD y ARS
         updatePdpPrices(product.price, product.originalPrice);
 
         // Galería e Imagen principal
         const mainImgEl = document.getElementById("pdp-main-image");
-        mainImgEl.src = product.img;
+        if (mainImgEl) mainImgEl.src = product.img;
 
         const galleryList = product.gallery && product.gallery.length > 0 ? product.gallery : [product.img];
         const thumbsContainer = document.getElementById("pdp-thumbnails");
-        thumbsContainer.innerHTML = galleryList.map((src, idx) => `
-          <button 
-            onclick="changePdpImage('${src}', this)" 
-            class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl border-2 ${idx === 0 ? 'border-brandSky' : 'border-neutral-200'} bg-white p-1 overflow-hidden flex-shrink-0 transition-colors hover:border-neutral-400"
-          >
-            <img src="${src}" class="w-full h-full object-contain mix-blend-multiply" />
-          </button>
-        `).join("");
+        if (thumbsContainer) {
+          thumbsContainer.innerHTML = galleryList.map((src, idx) => `
+            <button 
+              onclick="changePdpImage('${src}', this)" 
+              class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl border-2 ${idx === 0 ? 'border-brandSky' : 'border-neutral-200'} bg-white p-1 overflow-hidden flex-shrink-0 transition-colors hover:border-neutral-400"
+            >
+              <img src="${src}" class="w-full h-full object-contain mix-blend-multiply" />
+            </button>
+          `).join("");
+        }
 
         // Talles
         const sizes = product.availableSizes || [
@@ -3429,38 +3544,42 @@
 
         const defaultSize = sizes.find(s => s.default) || sizes[0];
         currentSelectedSize = `${defaultSize.us} - ${defaultSize.cm}`;
-        document.getElementById("pdp-selected-size-label").textContent = currentSelectedSize;
+        const sizeLabelEl = document.getElementById("pdp-selected-size-label");
+        if (sizeLabelEl) sizeLabelEl.textContent = currentSelectedSize;
 
         const sizesGrid = document.getElementById("pdp-sizes-grid");
-        sizesGrid.innerHTML = sizes.map(s => {
-          const isSel = `${s.us} - ${s.cm}` === currentSelectedSize;
-          return `
-            <button 
-              type="button" 
-              onclick="selectPdpSize('${s.us}', '${s.cm}', this)"
-              class="pdp-size-btn flex flex-col items-center justify-center py-2 px-1 rounded-xl border text-center transition-all ${isSel ? 'bg-neutral-950 text-white border-neutral-950 shadow-sm' : 'bg-white text-neutral-800 border-neutral-200 hover:border-black'}"
-            >
-              <span class="text-xs font-bold leading-tight">${s.us}</span>
-              <span class="text-[9px] ${isSel ? 'text-neutral-400' : 'text-neutral-400'}">${s.cm}</span>
-            </button>
-          `;
-        }).join("");
+        if (sizesGrid) {
+          sizesGrid.innerHTML = sizes.map(s => {
+            const isSel = `${s.us} - ${s.cm}` === currentSelectedSize;
+            return `
+              <button 
+                type="button" 
+                onclick="selectPdpSize('${s.us}', '${s.cm}', this)"
+                class="pdp-size-btn flex flex-col items-center justify-center py-2 px-1 rounded-xl border text-center transition-all ${isSel ? 'bg-neutral-950 text-white border-neutral-950 shadow-sm' : 'bg-white text-neutral-800 border-neutral-200 hover:border-black'}"
+              >
+                <span class="text-xs font-bold leading-tight">${s.us}</span>
+                <span class="text-[9px] ${isSel ? 'text-neutral-400' : 'text-neutral-400'}">${s.cm}</span>
+              </button>
+            `;
+          }).join("");
+        }
 
         // Cambiar vistas
-        homeView.classList.add("hidden");
-        categoryView.classList.add("hidden");
-        productView.classList.remove("hidden");
+        if (homeView) homeView.classList.add("hidden");
+        if (categoryView) categoryView.classList.add("hidden");
+        if (productView) productView.classList.remove("hidden");
         window.scrollTo({ top: 0, behavior: "smooth" });
 
         // Actualizar URL (Deep link compatible con compartir)
         if (pushHistory) {
           safeSetHash(`#product/${product.slug}`);
         }
-      }, 260);
+      });
     }
 
     function changePdpImage(src, btn) {
-      document.getElementById("pdp-main-image").src = src;
+      const mainImg = document.getElementById("pdp-main-image");
+      if (mainImg) mainImg.src = src;
       const allThumbs = document.querySelectorAll("#pdp-thumbnails button");
       allThumbs.forEach(b => b.classList.replace("border-brandSky", "border-neutral-200"));
       btn.classList.replace("border-neutral-200", "border-brandSky");
@@ -3468,7 +3587,8 @@
 
     function selectPdpSize(us, cm, btn) {
       currentSelectedSize = `${us} - ${cm}`;
-      document.getElementById("pdp-selected-size-label").textContent = currentSelectedSize;
+      const sizeLabelEl = document.getElementById("pdp-selected-size-label");
+      if (sizeLabelEl) sizeLabelEl.textContent = currentSelectedSize;
 
       const allBtns = document.querySelectorAll(".pdp-size-btn");
       allBtns.forEach(b => {
@@ -3479,16 +3599,15 @@
     }
 
     function navigateToHome(pushHistory = true) {
-      productView.classList.add("hidden");
-      categoryView.classList.add("hidden");
-      homeView.classList.remove("hidden");
+      if (productView) productView.classList.add("hidden");
+      if (categoryView) categoryView.classList.add("hidden");
+      if (homeView) homeView.classList.remove("hidden");
       currentActiveProduct = null;
       if (pushHistory) {
         safeClearHash();
       }
     }
 
-    // Navegación segura del hash sin provocar SecurityError en entornos de vista previa / blob / iframe
     function safeSetHash(hashStr) {
       try {
         if (window.history && window.history.pushState && !window.location.protocol.startsWith("blob")) {
@@ -3499,9 +3618,7 @@
       } catch (err) {
         try {
           window.location.hash = hashStr;
-        } catch (e) {
-          // Ignorar error si el entorno restringe estrictamente la navegación
-        }
+        } catch (e) {}
       }
     }
 
@@ -3519,15 +3636,11 @@
       }
     }
 
-    // ==========================================================
-    // SISTEMA DE CATEGORÍAS (PLP) IDÉNTICO A LA REFERENCIA
-    // ==========================================================
     function isSneakerCategory(categoryName) {
       const lower = (categoryName || "").toLowerCase();
       return lower.includes("sneaker") || lower.includes("jordan") || lower.includes("dunk") || lower.includes("yeezy");
     }
 
-    // Actualiza dinámicamente las opciones de marca según los productos en stock de la categoría
     function updateBrandFilterDropdown(categoryProducts) {
       const brandSelect = document.getElementById("filter-brand-select");
       if (!brandSelect) return;
@@ -3547,7 +3660,6 @@
 
       const previousVal = sizeSelect.value;
       
-      // Extraer los talles reales presentes en los productos filtrados
       const availableSizesSet = new Set();
       categoryProducts.forEach(p => {
         if (p.availableSizes && p.availableSizes.length > 0) {
@@ -3567,7 +3679,7 @@
           return numA - numB;
         });
       } else {
-        const order = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "30", "32", "34", "36", "ONE SIZE", "REGULABLE"];
+        const order = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "30", "32", "33", "34", "36", "ONE SIZE", "REGULABLE"];
         sortedSizes.sort((a, b) => {
           const idxA = order.indexOf(a);
           const idxB = order.indexOf(b);
@@ -3603,7 +3715,6 @@
       if (subFilter) {
         const subLower = subFilter.toLowerCase();
         if (subLower === "shorts") {
-          // Filtrar ÚNICAMENTE prendas que contengan "short" o "shorts" explícitamente en su nombre
           list = list.filter(p => /\bshorts?\b/i.test(p.name));
         } else if (subLower === "lentes") {
           list = list.filter(p => p.name.toLowerCase().includes("sunglasses") || (p.category === "Accesorios" && p.name.toLowerCase().includes("sunglass")));
@@ -3624,13 +3735,14 @@
         currentCategory = categoryName;
         currentSubFilter = null;
 
-        document.getElementById("cat-breadcrumb-title").textContent = categoryName;
-        document.getElementById("cat-main-title").textContent = categoryName;
+        const breadEl = document.getElementById("cat-breadcrumb-title");
+        if (breadEl) breadEl.textContent = categoryName;
+        const mainTitleEl = document.getElementById("cat-main-title");
+        if (mainTitleEl) mainTitleEl.textContent = categoryName;
 
-        // Ocultar otras vistas y mostrar categoría
-        homeView.classList.add("hidden");
-        productView.classList.add("hidden");
-        categoryView.classList.remove("hidden");
+        if (homeView) homeView.classList.add("hidden");
+        if (productView) productView.classList.add("hidden");
+        if (categoryView) categoryView.classList.remove("hidden");
 
         if (isMenuOpen) toggleMegaMenu();
 
@@ -3646,22 +3758,23 @@
           const catSlug = encodeURIComponent(categoryName.toLowerCase().replace(/\s+/g, "-"));
           safeSetHash(`#category/${catSlug}`);
         }
-      }, 280);
+      });
     }
 
-    // Filtrar con subcategoría específica (ej: Shorts, Lentes, Men, Women, etc.)
     function openCategorySpecificFilter(categoryName, subItem, pushHistory = true) {
       triggerActionLoading(() => {
         currentCategory = categoryName;
         currentSubFilter = subItem;
 
         const displayTitle = `${categoryName} (${subItem})`;
-        document.getElementById("cat-breadcrumb-title").textContent = displayTitle;
-        document.getElementById("cat-main-title").textContent = displayTitle;
+        const breadEl = document.getElementById("cat-breadcrumb-title");
+        if (breadEl) breadEl.textContent = displayTitle;
+        const mainTitleEl = document.getElementById("cat-main-title");
+        if (mainTitleEl) mainTitleEl.textContent = displayTitle;
 
-        homeView.classList.add("hidden");
-        productView.classList.add("hidden");
-        categoryView.classList.remove("hidden");
+        if (homeView) homeView.classList.add("hidden");
+        if (productView) productView.classList.add("hidden");
+        if (categoryView) categoryView.classList.remove("hidden");
 
         if (isMenuOpen) toggleMegaMenu();
 
@@ -3678,30 +3791,33 @@
           const subSlug = encodeURIComponent(subItem.toLowerCase().replace(/\s+/g, "-"));
           safeSetHash(`#category/${catSlug}?filter=${subSlug}`);
         }
-      }, 280);
+      });
     }
 
     function clearSubFilter() {
       currentSubFilter = null;
-      document.getElementById("cat-breadcrumb-title").textContent = currentCategory;
-      document.getElementById("cat-main-title").textContent = currentCategory;
+      const breadEl = document.getElementById("cat-breadcrumb-title");
+      if (breadEl) breadEl.textContent = currentCategory;
+      const mainTitleEl = document.getElementById("cat-main-title");
+      if (mainTitleEl) mainTitleEl.textContent = currentCategory;
       const baseProducts = getBaseCategoryProducts(currentCategory, null);
       updateBrandFilterDropdown(baseProducts);
       updateSizeFilterDropdown(baseProducts, currentCategory);
       applyCategoryFilters();
     }
 
-    // Filtrar por diseñador/marca directamente desde el menú
     function openCategoryBrandFilter(brandName) {
       triggerActionLoading(() => {
         currentCategory = "Todos los Productos";
         currentSubFilter = null;
-        document.getElementById("cat-breadcrumb-title").textContent = brandName;
-        document.getElementById("cat-main-title").textContent = brandName;
+        const breadEl = document.getElementById("cat-breadcrumb-title");
+        if (breadEl) breadEl.textContent = brandName;
+        const mainTitleEl = document.getElementById("cat-main-title");
+        if (mainTitleEl) mainTitleEl.textContent = brandName;
 
-        homeView.classList.add("hidden");
-        productView.classList.add("hidden");
-        categoryView.classList.remove("hidden");
+        if (homeView) homeView.classList.add("hidden");
+        if (productView) productView.classList.add("hidden");
+        if (categoryView) categoryView.classList.remove("hidden");
 
         if (isMenuOpen) toggleMegaMenu();
 
@@ -3709,60 +3825,54 @@
         updateBrandFilterDropdown(baseProducts);
         updateSizeFilterDropdown(baseProducts, "Todos los Productos");
         resetCategoryFilters(false);
-        document.getElementById("filter-brand-select").value = brandName;
+        const brandSel = document.getElementById("filter-brand-select");
+        if (brandSel) brandSel.value = brandName;
         applyCategoryFilters();
 
         window.scrollTo({ top: 0, behavior: "smooth" });
         const slug = encodeURIComponent(brandName.toLowerCase().replace(/\s+/g, "-"));
         safeSetHash(`#brand/${slug}`);
-      }, 280);
+      });
     }
 
     function applyCategoryFilters() {
-      const brandFilter = document.getElementById("filter-brand-select").value;
-      const sizeFilter = document.getElementById("filter-size-select").value;
-      const conditionFilter = document.getElementById("filter-condition-select").value;
-      const sortValue = document.getElementById("cat-sort-select").value;
+      const brandFilter = document.getElementById("filter-brand-select")?.value || "ALL";
+      const sizeFilter = document.getElementById("filter-size-select")?.value || "ALL";
+      const conditionFilter = document.getElementById("filter-condition-select")?.value || "ALL";
+      const sortValue = document.getElementById("cat-sort-select")?.value || "bestsellers";
 
-      // Actualizar chip de subfiltro activo
       const subBadge = document.getElementById("active-subfilter-badge");
       const subText = document.getElementById("active-subfilter-text");
-      if (currentSubFilter) {
-        subBadge.classList.remove("hidden");
-        subBadge.classList.add("inline-flex");
-        subText.textContent = currentSubFilter;
-      } else {
-        subBadge.classList.add("hidden");
-        subBadge.classList.remove("inline-flex");
+      if (subBadge && subText) {
+        if (currentSubFilter) {
+          subBadge.classList.remove("hidden");
+          subBadge.classList.add("inline-flex");
+          subText.textContent = currentSubFilter;
+        } else {
+          subBadge.classList.add("hidden");
+          subBadge.classList.remove("inline-flex");
+        }
       }
 
-      // Obtener lista base según categoría y subfiltro
       let list = getBaseCategoryProducts(currentCategory, currentSubFilter);
 
-      // Filtro Marca
       if (brandFilter !== "ALL") {
         list = list.filter(p => p.brand.toLowerCase() === brandFilter.toLowerCase());
       }
 
-      // Filtro Talle Inteligente
       if (sizeFilter !== "ALL") {
         list = list.filter(p => {
           if (p.availableSizes && p.availableSizes.length > 0) {
-            return p.availableSizes.some(s => {
-              const cleanSize = (s.us || "").trim();
-              return cleanSize === sizeFilter;
-            });
+            return p.availableSizes.some(s => (s.us || "").trim() === sizeFilter);
           }
           return (p.size || "").includes(sizeFilter);
         });
       }
 
-      // Filtro Estado (Nuevo, Usado (como nuevo), Usado)
       if (conditionFilter !== "ALL") {
         list = list.filter(p => (p.condition || "").toLowerCase() === conditionFilter.toLowerCase());
       }
 
-      // Ordenamiento
       if (sortValue === "price-asc") {
         list.sort((a, b) => a.price - b.price);
       } else if (sortValue === "price-desc") {
@@ -3773,23 +3883,27 @@
         list.sort((a, b) => b.name.localeCompare(a.name));
       }
 
-      // Conteo
-      document.getElementById("cat-product-count").textContent = list.length;
+      const countEl = document.getElementById("cat-product-count");
+      if (countEl) countEl.textContent = list.length;
 
-      // Mostrar/ocultar botón reset
       const hasActiveFilters = (brandFilter !== "ALL" || sizeFilter !== "ALL" || conditionFilter !== "ALL" || currentSubFilter !== null);
-      document.getElementById("btn-reset-filters").classList.toggle("hidden", !hasActiveFilters);
+      const resetBtn = document.getElementById("btn-reset-filters");
+      if (resetBtn) resetBtn.classList.toggle("hidden", !hasActiveFilters);
 
-      // Renderizar grilla
       renderCategoryGrid(list);
     }
 
     function resetCategoryFilters(render = true) {
-      document.getElementById("filter-brand-select").value = "ALL";
-      document.getElementById("filter-size-select").value = "ALL";
-      document.getElementById("filter-condition-select").value = "ALL";
-      document.getElementById("cat-sort-select").value = "bestsellers";
-      document.getElementById("btn-reset-filters").classList.add("hidden");
+      const bSel = document.getElementById("filter-brand-select");
+      if (bSel) bSel.value = "ALL";
+      const sSel = document.getElementById("filter-size-select");
+      if (sSel) sSel.value = "ALL";
+      const cSel = document.getElementById("filter-condition-select");
+      if (cSel) cSel.value = "ALL";
+      const sortSel = document.getElementById("cat-sort-select");
+      if (sortSel) sortSel.value = "bestsellers";
+      const resetBtn = document.getElementById("btn-reset-filters");
+      if (resetBtn) resetBtn.classList.add("hidden");
       currentSubFilter = null;
       if (render) applyCategoryFilters();
     }
@@ -3797,14 +3911,15 @@
     function renderCategoryGrid(items) {
       const grid = document.getElementById("cat-products-grid");
       const emptyState = document.getElementById("cat-empty-filters");
+      if (!grid) return;
 
       if (items.length === 0) {
         grid.innerHTML = "";
-        emptyState.classList.remove("hidden");
+        if (emptyState) emptyState.classList.remove("hidden");
         return;
       }
 
-      emptyState.classList.add("hidden");
+      if (emptyState) emptyState.classList.add("hidden");
 
       grid.innerHTML = items.map(p => {
         const arsPrice = formatARS(calculateARS(p.price));
@@ -3826,9 +3941,7 @@
             class="group bg-white rounded-2xl p-3 border border-neutral-200/90 hover:shadow-xl hover:border-neutral-300 transition-all duration-300 flex flex-col justify-between cursor-pointer relative"
           >
             <div>
-              <!-- Imagen Contenedor con Badge Superior y Barra Hover de Talles (Exacta a imagen_b5c92b) -->
               <div class="relative w-full h-64 sm:h-72 bg-neutral-50/70 rounded-xl overflow-hidden mb-3 flex items-center justify-center p-3">
-                <!-- Badge de Estado (Top Left) -->
                 <span class="absolute top-2.5 left-2.5 border border-neutral-300 ${p.onSale ? 'bg-red-600 text-white border-red-600 font-black' : 'bg-white/95 text-neutral-900'} text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded shadow-sm">
                   ${p.onSale ? `${discountPct}% OFF` : p.badge}
                 </span>
@@ -3840,7 +3953,6 @@
                   loading="lazy"
                 />
 
-                <!-- BARRA INFERIOR DE AÑADIR TALLE AL PASAR EL MOUSE (Hover Quick Add) -->
                 <div 
                   onclick="event.stopPropagation()" 
                   class="absolute inset-x-2 bottom-2 bg-neutral-200/95 backdrop-blur-sm rounded-lg py-1.5 px-3 flex items-center justify-between text-xs text-neutral-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow"
@@ -3852,7 +3964,6 @@
                 </div>
               </div>
 
-              <!-- Metadatos del producto -->
               <div class="space-y-0.5">
                 <div class="text-[11px] font-bold uppercase tracking-wider text-neutral-950 font-display">
                   ${p.brand}
@@ -3863,7 +3974,6 @@
               </div>
             </div>
 
-            <!-- Precios y talles -->
             <div class="pt-2">
               <div class="text-xs text-neutral-500 font-medium flex items-baseline gap-1.5 flex-wrap">
                 <span>Desde</span>
@@ -3880,7 +3990,6 @@
       }).join("");
     }
 
-    // Agregar talle rápido directamente al carrito desde el hover del producto
     function quickAddSizeToCart(productId, sizeLabel) {
       const prod = PRODUCTS.find(p => p.id === productId);
       if (!prod) return;
@@ -3893,7 +4002,6 @@
       alertMessage(`¡${prod.name} (${sizeLabel}) agregado al carrito!`);
     }
 
-    // Copiar link del producto actual
     function copyProductLink() {
       const copyUrl = window.location.href;
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -3944,15 +4052,11 @@
       window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`, "_blank");
     }
 
-    // 4. MODAL Y RENDERIZADO DE LOS 15 ÚLTIMOS INGRESOS (MECHADOS POR CATEGORÍA)
     const latest15Modal = document.getElementById("latest-15-modal");
     const latest15Grid = document.getElementById("latest-15-grid");
 
-    // Función que arma los 15 últimos ingresos mechando entre categorías
     function getBalanced15Drops() {
       const categories = ["Sneakers", "Remeras", "Buzos", "Camperas", "Pantalones", "Accesorios"];
-      
-      // Agrupar productos por categoría en orden inverso (más recientes primero)
       const categorized = {};
       categories.forEach(cat => {
         categorized[cat] = PRODUCTS.filter(p => p.category === cat).slice().reverse();
@@ -3962,7 +4066,6 @@
       const selectedIds = new Set();
       let index = 0;
 
-      // Iterar en rondas tomando 1 o 2 de cada categoría alternada
       while (selected.length < 15) {
         let addedInRound = false;
 
@@ -3982,7 +4085,6 @@
 
         index++;
         if (!addedInRound) {
-          // Si se agotaron las categorías, rellenar con lo que quede del catálogo general
           const remaining = PRODUCTS.slice().reverse().filter(p => !selectedIds.has(p.id));
           for (const rem of remaining) {
             if (selected.length >= 15) break;
@@ -3997,6 +4099,7 @@
     }
 
     function openLatest15Modal() {
+      if (!latest15Grid) return;
       const balancedDrops = getBalanced15Drops();
       latest15Grid.innerHTML = balancedDrops.map(p => {
         const hasDiscount = p.originalPrice && p.originalPrice > p.price;
@@ -4031,29 +4134,34 @@
       `;
       }).join("");
 
-      latest15Modal.classList.remove("hidden");
-      latest15Modal.classList.add("flex");
-      document.body.classList.add("overflow-hidden");
+      if (latest15Modal) {
+        latest15Modal.classList.remove("hidden");
+        latest15Modal.classList.add("flex");
+        document.body.classList.add("overflow-hidden");
+      }
     }
 
     function closeLatest15Modal() {
-      latest15Modal.classList.add("hidden");
-      latest15Modal.classList.remove("flex");
-      document.body.classList.remove("overflow-hidden");
+      if (latest15Modal) {
+        latest15Modal.classList.add("hidden");
+        latest15Modal.classList.remove("flex");
+        document.body.classList.remove("overflow-hidden");
+      }
     }
 
-    latest15Modal.addEventListener("click", (e) => {
-      if (e.target === latest15Modal) closeLatest15Modal();
-    });
+    if (latest15Modal) {
+      latest15Modal.addEventListener("click", (e) => {
+        if (e.target === latest15Modal) closeLatest15Modal();
+      });
+    }
 
-    // 5. ACCIÓN DE ENCARGO POR WHATSAPP
     function openCustomOrderWhatsApp() {
       const msg = "Hola! Quiero cotizar un encargo especial. El modelo y talle que estoy buscando es: ";
       window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
     }
 
-    // CONTROL DE DESPLAZAMIENTO Y ESTADO DE LAS FLECHAS DEL CATÁLOGO
     function updateArrowStates() {
+      if (!productsTrack || !prevBtn || !nextBtn) return;
       const scrollLeft = productsTrack.scrollLeft;
       const maxScroll = productsTrack.scrollWidth - productsTrack.clientWidth - 10;
 
@@ -4079,29 +4187,35 @@
     }
 
     function getCardScrollStep() {
+      if (!productsTrack) return 300;
       const firstCard = productsTrack.querySelector('div');
       return firstCard ? firstCard.offsetWidth + 20 : 300;
     }
 
-    nextBtn.addEventListener("click", () => {
-      const step = getCardScrollStep();
-      productsTrack.scrollBy({ left: step, behavior: "smooth" });
-    });
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        const step = getCardScrollStep();
+        productsTrack.scrollBy({ left: step, behavior: "smooth" });
+      });
+    }
 
-    prevBtn.addEventListener("click", () => {
-      const step = getCardScrollStep();
-      productsTrack.scrollBy({ left: -step, behavior: "smooth" });
-    });
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        const step = getCardScrollStep();
+        productsTrack.scrollBy({ left: -step, behavior: "smooth" });
+      });
+    }
 
-    productsTrack.addEventListener("scroll", updateArrowStates);
+    if (productsTrack) {
+      productsTrack.addEventListener("scroll", updateArrowStates);
+    }
     window.addEventListener("resize", updateArrowStates);
 
-    // 6. CONTROL DEL CARRUSEL DE OPINIONES
+    // CONTROL DEL CARRUSEL DE OPINIONES
     const reviewsTrack = document.getElementById("reviews-track");
     const reviewsPrevBtn = document.getElementById("reviews-prev-btn");
     const reviewsNextBtn = document.getElementById("reviews-next-btn");
 
-    // LISTA DINÁMICA DE OPINIONES (SE GUARDAN EN LOCALSTORAGE)
     const INITIAL_REVIEWS = [
       {
         id: "rev-1",
@@ -4173,7 +4287,6 @@
       });
     }
 
-    // SELECTOR DE ESTRELLAS INTERACTIVO
     let selectedRating = 5;
     function setRating(val) {
       selectedRating = val;
@@ -4193,18 +4306,17 @@
 
     function handlePhotoUpload(input) {
       const label = document.getElementById("photo-label");
-      if (input.files && input.files[0]) {
+      if (input.files && input.files[0] && label) {
         label.textContent = "Foto seleccionada ✓";
       }
     }
 
-    // PUBLICAR OPINIÓN DINÁMICAMENTE (DESPLAZA LAS DEMÁS HACIA LA DERECHA)
     function handleReviewSubmit(e) {
       e.preventDefault();
-      const author = document.getElementById("rev-author").value.trim();
-      const instagram = document.getElementById("rev-instagram").value.trim();
-      const comment = document.getElementById("rev-comment").value.trim();
-      const rating = parseInt(document.getElementById("rev-rating").value, 10) || 5;
+      const author = document.getElementById("rev-author")?.value.trim() || "Cliente";
+      const instagram = document.getElementById("rev-instagram")?.value.trim() || "";
+      const comment = document.getElementById("rev-comment")?.value.trim() || "";
+      const rating = parseInt(document.getElementById("rev-rating")?.value, 10) || 5;
 
       const newReview = {
         id: "rev-" + Date.now(),
@@ -4216,7 +4328,7 @@
       };
 
       const reviews = getStoredReviews();
-      reviews.unshift(newReview); // Se inserta al principio desplazando las anteriores a la derecha
+      reviews.unshift(newReview);
       saveStoredReviews(reviews);
       renderReviewsList();
 
@@ -4224,8 +4336,7 @@
         reviewsTrack.scrollTo({ left: 0, behavior: "smooth" });
       }
 
-      // Reset form
-      document.getElementById("review-form").reset();
+      document.getElementById("review-form")?.reset();
       setRating(5);
       const photoLabel = document.getElementById("photo-label");
       if (photoLabel) photoLabel.textContent = "Agregar foto";
@@ -4233,7 +4344,6 @@
       alertMessage("¡Gracias por tu opinión! Se ha publicado con éxito.");
     }
 
-    // 7. LÓGICA DEL CARRITO & WHATSAPP
     const cartDrawer = document.getElementById("cart-drawer-backdrop");
     const cartBadge = document.getElementById("cart-badge");
     const cartCountTitle = document.getElementById("cart-count-title");
@@ -4242,17 +4352,19 @@
     const btnWhatsappCheckout = document.getElementById("btn-whatsapp-checkout");
 
     function openCart() {
-      cartDrawer.classList.remove("hidden");
+      if (cartDrawer) cartDrawer.classList.remove("hidden");
     }
     function closeCart() {
-      cartDrawer.classList.add("hidden");
+      if (cartDrawer) cartDrawer.classList.add("hidden");
     }
 
-    document.getElementById("btn-open-cart").addEventListener("click", openCart);
-    document.getElementById("btn-close-cart").addEventListener("click", closeCart);
-    cartDrawer.addEventListener("click", (e) => {
-      if (e.target === cartDrawer) closeCart();
-    });
+    document.getElementById("btn-open-cart")?.addEventListener("click", openCart);
+    document.getElementById("btn-close-cart")?.addEventListener("click", closeCart);
+    if (cartDrawer) {
+      cartDrawer.addEventListener("click", (e) => {
+        if (e.target === cartDrawer) closeCart();
+      });
+    }
 
     function addToCart(productId) {
       const prod = PRODUCTS.find(p => p.id === productId);
@@ -4268,6 +4380,7 @@
     }
 
     function updateCartUI() {
+      if (!cartBadge || !cartCountTitle || !cartItemsContainer || !cartTotalEl) return;
       if (cart.length > 0) {
         cartBadge.classList.remove("hidden");
         cartBadge.textContent = cart.length;
@@ -4311,110 +4424,120 @@
       cartTotalEl.textContent = `$${total} USD`;
     }
 
-    btnWhatsappCheckout.addEventListener("click", () => {
-      if (cart.length === 0) {
-        alertMessage("Tu carrito está vacío. Agregá al menos un par.");
-        return;
-      }
+    if (btnWhatsappCheckout) {
+      btnWhatsappCheckout.addEventListener("click", () => {
+        if (cart.length === 0) {
+          alertMessage("Tu carrito está vacío. Agregá al menos un par.");
+          return;
+        }
 
-      let total = 0;
-      let itemsListText = "";
-      cart.forEach((item) => {
-        total += item.price;
-        itemsListText += `• ${item.name} (${item.size}) - $${item.price} USD\n`;
+        let total = 0;
+        let itemsListText = "";
+        cart.forEach((item) => {
+          total += item.price;
+          itemsListText += `• ${item.name} (${item.size}) - $${item.price} USD\n`;
+        });
+
+        const message = `Hola! Quiero coordinar la compra de los siguientes productos de la web:\n\n${itemsListText}\nTotal estimado: $${total} USD\n\n¿Tienen disponibilidad para coordinar la entrega y el pago?`;
+        const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, "_blank");
       });
+    }
 
-      const message = `Hola! Quiero coordinar la compra de los siguientes productos de la web:\n\n${itemsListText}\nTotal estimado: $${total} USD\n\n¿Tienen disponibilidad para coordinar la entrega y el pago?`;
-      
-      const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
-      window.open(whatsappUrl, "_blank");
-    });
-
-    // 7. MODAL DE BÚSQUEDA
     const searchModal = document.getElementById("search-modal");
     const btnOpenSearch = document.getElementById("btn-open-search");
     const btnCloseSearch = document.getElementById("btn-close-search");
     const searchInput = document.getElementById("search-input");
     const searchResults = document.getElementById("search-results");
 
-    btnOpenSearch.addEventListener("click", () => {
-      searchModal.classList.remove("hidden");
-      searchModal.classList.add("flex");
-      searchInput.focus();
-    });
+    if (btnOpenSearch && searchModal && searchInput) {
+      btnOpenSearch.addEventListener("click", () => {
+        searchModal.classList.remove("hidden");
+        searchModal.classList.add("flex");
+        searchInput.focus();
+      });
+    }
 
-    btnCloseSearch.addEventListener("click", () => {
-      searchModal.classList.add("hidden");
-      searchModal.classList.remove("flex");
-    });
-
-    searchModal.addEventListener("click", (e) => {
-      if (e.target === searchModal) {
+    if (btnCloseSearch && searchModal) {
+      btnCloseSearch.addEventListener("click", () => {
         searchModal.classList.add("hidden");
         searchModal.classList.remove("flex");
-      }
-    });
+      });
+    }
+
+    if (searchModal) {
+      searchModal.addEventListener("click", (e) => {
+        if (e.target === searchModal) {
+          searchModal.classList.add("hidden");
+          searchModal.classList.remove("flex");
+        }
+      });
+    }
 
     let searchTimeout = null;
-    searchInput.addEventListener("input", (e) => {
-      const query = e.target.value.toLowerCase().trim();
-      if (!query) {
-        searchResults.innerHTML = `<p class="text-xs text-neutral-400 py-2">Escribí algo para buscar en el catálogo...</p>`;
-        return;
-      }
-
-      // Micro-feedback con el logo girando mientras busca
-      searchResults.innerHTML = `
-        <div class="py-6 flex flex-col items-center justify-center gap-2">
-          <img src="3dgifmaker83430.gif" class="w-8 h-8 object-contain" onerror="this.src='Logo bk inverso.png'" />
-          <span class="text-[11px] font-bold text-neutral-400">Buscando productos...</span>
-        </div>
-      `;
-
-      clearTimeout(searchTimeout);
-      searchTimeout = setTimeout(() => {
-        const filtered = PRODUCTS.filter(p => 
-          p.name.toLowerCase().includes(query) || 
-          p.brand.toLowerCase().includes(query) ||
-          p.size.toLowerCase().includes(query)
-        );
-
-        if (filtered.length === 0) {
-          searchResults.innerHTML = `<p class="text-xs text-neutral-500 py-4 text-center">No encontramos pares con ese término.</p>`;
+    if (searchInput && searchResults) {
+      searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        if (!query) {
+          searchResults.innerHTML = `<p class="text-xs text-neutral-400 py-2">Escribí algo para buscar en el catálogo...</p>`;
           return;
         }
 
-        searchResults.innerHTML = filtered.map(item => `
-          <div class="flex items-center justify-between p-2 hover:bg-neutral-100 rounded-lg cursor-pointer transition-colors" onclick="searchModal.classList.add('hidden'); searchModal.classList.remove('flex'); openProductPage('${item.slug}');">
-            <div class="flex items-center gap-3">
-              <img src="${item.img}" class="w-10 h-10 object-contain bg-neutral-50 rounded" />
-              <div>
-                <p class="font-bold text-xs text-neutral-900">${item.name}</p>
-                <p class="text-[10px] text-neutral-400">${item.brand} • ${item.size}</p>
+        searchResults.innerHTML = `
+          <div class="py-6 flex flex-col items-center justify-center gap-2">
+            <span class="w-6 h-6 border-2 border-brandSky border-t-transparent rounded-full animate-spin"></span>
+            <span class="text-[11px] font-bold text-neutral-400">Buscando productos...</span>
+          </div>
+        `;
+
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          const filtered = PRODUCTS.filter(p => 
+            p.name.toLowerCase().includes(query) || 
+            p.brand.toLowerCase().includes(query) ||
+            p.size.toLowerCase().includes(query)
+          );
+
+          if (filtered.length === 0) {
+            searchResults.innerHTML = `<p class="text-xs text-neutral-500 py-4 text-center">No encontramos pares con ese término.</p>`;
+            return;
+          }
+
+          searchResults.innerHTML = filtered.map(item => `
+            <div class="flex items-center justify-between p-2 hover:bg-neutral-100 rounded-lg cursor-pointer transition-colors" onclick="searchModal.classList.add('hidden'); searchModal.classList.remove('flex'); openProductPage('${item.slug}');">
+              <div class="flex items-center gap-3">
+                <img src="${item.img}" class="w-10 h-10 object-contain bg-neutral-50 rounded" />
+                <div>
+                  <p class="font-bold text-xs text-neutral-900">${item.name}</p>
+                  <p class="text-[10px] text-neutral-400">${item.brand} • ${item.size}</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-price font-bold text-xs text-neutral-900 block tracking-tight">$${item.price} USD</span>
+                <span class="text-[10px] text-neutral-400 font-price">≈ $${formatARS(calculateARS(item.price))} ARS</span>
               </div>
             </div>
-            <div class="text-right">
-              <span class="font-price font-bold text-xs text-neutral-900 block tracking-tight">$${item.price} USD</span>
-              <span class="text-[10px] text-neutral-400 font-price">≈ $${formatARS(calculateARS(item.price))} ARS</span>
-            </div>
-          </div>
-        `).join("");
-      }, 180);
-    });
+          `).join("");
+        }, 180);
+      });
+    }
 
-    // Enrutamiento inicial por Hash al cargar la página
+    // Desvanecer preloader
+    function dismissPreloader() {
+      const preloader = document.getElementById("preloader");
+      if (preloader) {
+        preloader.classList.add("loaded");
+        setTimeout(() => preloader.remove(), 400);
+      }
+    }
+
+    // Inicialización al cargar la página
     window.addEventListener("DOMContentLoaded", () => {
       renderCatalog();
       renderReviewsList();
 
-      // Desvanecimiento suave del Preloader inicial con GIF rotativo
-      const preloader = document.getElementById("preloader");
-      if (preloader) {
-        setTimeout(() => {
-          preloader.classList.add("loaded");
-          setTimeout(() => preloader.remove(), 600);
-        }, 900); // Duración justa y rápida para no demorar al usuario
-      }
+      // Desvanecimiento ultrarrápido del Preloader (300ms) para máxima fluidez
+      setTimeout(dismissPreloader, 300);
 
       const hash = window.location.hash;
       if (hash.startsWith("#product/")) {
@@ -4427,6 +4550,11 @@
         const catName = match ? match.category : "Todos los Productos";
         openCategoryPage(catName, false);
       }
+    });
+
+    // Fallback de seguridad: si window.onload se dispara, asegurar remover preloader
+    window.addEventListener("load", () => {
+      setTimeout(dismissPreloader, 200);
     });
 
     window.addEventListener("hashchange", () => {
@@ -4447,39 +4575,41 @@
       setTimeout(() => banner.remove(), 2500);
     }
 
-    // ==========================================================
     // SISTEMA LEGAL: MODAL DE TÉRMINOS, PRIVACIDAD Y COOKIES
-    // ==========================================================
     const legalModal = document.getElementById("legal-modal");
 
     function openLegalModal(section = 'terms') {
-      // Ocultar todas las secciones del modal
       document.querySelectorAll('.legal-doc-section').forEach(el => el.classList.add('hidden'));
 
-      // Mostrar la solicitada
       if (section === 'terms') {
-        document.getElementById('legal-content-terms').classList.remove('hidden');
+        document.getElementById('legal-content-terms')?.classList.remove('hidden');
       } else if (section === 'privacy') {
-        document.getElementById('legal-content-privacy').classList.remove('hidden');
+        document.getElementById('legal-content-privacy')?.classList.remove('hidden');
       } else if (section === 'cookies') {
-        document.getElementById('legal-content-cookies').classList.remove('hidden');
+        document.getElementById('legal-content-cookies')?.classList.remove('hidden');
       }
 
-      legalModal.classList.remove('hidden');
-      legalModal.classList.add('flex');
-      document.body.classList.add('overflow-hidden');
-      legalModal.scrollTo({ top: 0, behavior: 'smooth' });
+      if (legalModal) {
+        legalModal.classList.remove('hidden');
+        legalModal.classList.add('flex');
+        document.body.classList.add('overflow-hidden');
+        legalModal.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
 
     function closeLegalModal() {
-      legalModal.classList.add('hidden');
-      legalModal.classList.remove('flex');
-      document.body.classList.remove('overflow-hidden');
+      if (legalModal) {
+        legalModal.classList.add('hidden');
+        legalModal.classList.remove('flex');
+        document.body.classList.remove('overflow-hidden');
+      }
     }
 
-    legalModal.addEventListener('click', (e) => {
-      if (e.target === legalModal) closeLegalModal();
-    });
+    if (legalModal) {
+      legalModal.addEventListener('click', (e) => {
+        if (e.target === legalModal) closeLegalModal();
+      });
+    }
   </script>
 </body>
 </html>
