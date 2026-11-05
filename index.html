@@ -3,7 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BLASKICKS • Curated Streetwear & Luxury Resale</title>
+  <title>Blaskicks | Streetwear & Exclusive Sneakers</title>
+
+  <!-- SEO / GOOGLE SEARCH METADATA (EXACTO A LA CAPTURA) -->
+  <meta name="description" content="Blaskicks, solo artículos legítimos y seleccionados. Tu conexión directa con los lanzamientos globales más exclusivos del streetwear. Descubrí tu estilo ...">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://blaskicks.com/">
+
+  <!-- FAVICON & ÍCONO DE PESTAÑA / GOOGLE RESULTS -->
+  <link rel="icon" type="image/png" href="lOGO-NUEVO-BLASKICS.png">
+  <link rel="shortcut icon" type="image/png" href="lOGO-NUEVO-BLASKICS.png">
+  <link rel="apple-touch-icon" href="lOGO-NUEVO-BLASKICS.png">
+
+  <!-- OPEN GRAPH / SOCIAL SHARING -->
+  <meta property="og:site_name" content="Blaskicks">
+  <meta property="og:title" content="Blaskicks | Streetwear & Exclusive Sneakers">
+  <meta property="og:description" content="Blaskicks, solo artículos legítimos y seleccionados. Tu conexión directa con los lanzamientos globales más exclusivos del streetwear.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blaskicks.com/">
+  <meta property="og:image" content="lOGO-NUEVO-BLASKICS.png">
+
+  <!-- SCHEMA.ORG STRUCTURED DATA FOR GOOGLE SEARCH -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Blaskicks",
+    "alternateName": "Blaskicks Argentina",
+    "url": "https://blaskicks.com/",
+    "description": "Blaskicks, solo artículos legítimos y seleccionados. Tu conexión directa con los lanzamientos globales más exclusivos del streetwear.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Blaskicks",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://blaskicks.com/lOGO-NUEVO-BLASKICS.png"
+      }
+    }
+  }
+  </script>
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Plus Jakarta Sans (Titles) & Space Grotesk (Prices) & Inter (Body) -->
@@ -726,16 +765,10 @@
         
         <!-- Reel Card 1: Coinflip con ustedes -->
         <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
-          <!-- Cabecera de la tarjeta: Perfil con avatar oficial de Blaskicks -->
+          <!-- Cabecera limpia con @blaskicks -->
           <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
-            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 min-w-0 group/author">
-              <div class="w-8 h-8 rounded-full bg-black p-1 flex items-center justify-center overflow-hidden border border-neutral-200 shrink-0">
-                <img src="Logo bk inverso.png" alt="@blaskicks" class="w-full h-full object-contain" />
-              </div>
-              <div class="min-w-0 leading-tight">
-                <span class="block text-xs font-bold text-neutral-900 truncate group-hover/author:text-brandSkyDark transition-colors">blaskicks</span>
-                <span class="block text-[10px] text-neutral-400 truncate">Audio original • blaskicks</span>
-              </div>
+            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0 group/author">
+              <span class="text-xs font-bold text-neutral-900 group-hover/author:text-brandSkyDark transition-colors">@blaskicks</span>
             </a>
             <a 
               href="https://www.instagram.com/blaskicks/" 
@@ -747,7 +780,7 @@
             </a>
           </div>
 
-          <!-- Video en loop continuo sin sonido -->
+          <!-- Video en loop continuo sin sonido desde Cloudflare R2 -->
           <a 
             href="https://www.instagram.com/reel/DaeEU5YtTr7/" 
             target="_blank" 
@@ -755,7 +788,7 @@
             class="relative aspect-[9/16] bg-neutral-950 overflow-hidden flex items-center justify-center cursor-pointer block"
           >
             <video 
-              src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" 
+              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/coinflips%20con%20ustedes.mp4" 
               poster="Imagen fondo blaskicks.jpeg"
               autoplay 
               muted 
@@ -796,14 +829,8 @@
         <!-- Reel Card 2: Comprando en Supreme -->
         <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
           <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
-            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 min-w-0 group/author">
-              <div class="w-8 h-8 rounded-full bg-black p-1 flex items-center justify-center overflow-hidden border border-neutral-200 shrink-0">
-                <img src="Logo bk inverso.png" alt="@blaskicks" class="w-full h-full object-contain" />
-              </div>
-              <div class="min-w-0 leading-tight">
-                <span class="block text-xs font-bold text-neutral-900 truncate group-hover/author:text-brandSkyDark transition-colors">blaskicks</span>
-                <span class="block text-[10px] text-neutral-400 truncate">Audio original • blaskicks</span>
-              </div>
+            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0 group/author">
+              <span class="text-xs font-bold text-neutral-900 group-hover/author:text-brandSkyDark transition-colors">@blaskicks</span>
             </a>
             <a 
               href="https://www.instagram.com/blaskicks/" 
@@ -822,7 +849,7 @@
             class="relative aspect-[9/16] bg-neutral-900 overflow-hidden flex items-center justify-center cursor-pointer block"
           >
             <video 
-              src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" 
+              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/comrpando%20en%20supreme.mp4" 
               poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/supreme%20thermal%20zip%20up%20heather%20grey%201%20blaskicks.avif"
               autoplay 
               muted 
@@ -861,14 +888,8 @@
         <!-- Reel Card 3: Noche de entregas -->
         <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
           <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
-            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 min-w-0 group/author">
-              <div class="w-8 h-8 rounded-full bg-black p-1 flex items-center justify-center overflow-hidden border border-neutral-200 shrink-0">
-                <img src="Logo bk inverso.png" alt="@blaskicks" class="w-full h-full object-contain" />
-              </div>
-              <div class="min-w-0 leading-tight">
-                <span class="block text-xs font-bold text-neutral-900 truncate group-hover/author:text-brandSkyDark transition-colors">blaskicks</span>
-                <span class="block text-[10px] text-neutral-400 truncate">Audio original • blaskicks</span>
-              </div>
+            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0 group/author">
+              <span class="text-xs font-bold text-neutral-900 group-hover/author:text-brandSkyDark transition-colors">@blaskicks</span>
             </a>
             <a 
               href="https://www.instagram.com/blaskicks/" 
@@ -887,7 +908,7 @@
             class="relative aspect-[9/16] bg-neutral-900 overflow-hidden flex items-center justify-center cursor-pointer block"
           >
             <video 
-              src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" 
+              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/noche%20de%20entregas.mp4" 
               poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/jordan%201%20low%20travis%20scott%20tropical%20pink%201%20blaskicks.avif"
               autoplay 
               muted 
@@ -926,14 +947,8 @@
         <!-- Reel Card 4: Legit check "out of office" -->
         <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
           <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
-            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 min-w-0 group/author">
-              <div class="w-8 h-8 rounded-full bg-black p-1 flex items-center justify-center overflow-hidden border border-neutral-200 shrink-0">
-                <img src="Logo bk inverso.png" alt="@blaskicks" class="w-full h-full object-contain" />
-              </div>
-              <div class="min-w-0 leading-tight">
-                <span class="block text-xs font-bold text-neutral-900 truncate group-hover/author:text-brandSkyDark transition-colors">blaskicks</span>
-                <span class="block text-[10px] text-neutral-400 truncate">Audio original • blaskicks</span>
-              </div>
+            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0 group/author">
+              <span class="text-xs font-bold text-neutral-900 group-hover/author:text-brandSkyDark transition-colors">@blaskicks</span>
             </a>
             <a 
               href="https://www.instagram.com/blaskicks/" 
@@ -952,7 +967,7 @@
             class="relative aspect-[9/16] bg-neutral-950 overflow-hidden flex items-center justify-center cursor-pointer block"
           >
             <video 
-              src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4" 
+              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/legit%20check%20out%20of%20office.mp4" 
               poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/out%20of%20office%20grey%20white%201%20blaskicks.avif"
               autoplay 
               muted 
