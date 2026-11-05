@@ -58,8 +58,21 @@
       visibility: hidden;
       pointer-events: none;
     }
-    .loader-glow {
-      box-shadow: 0 0 45px -10px rgba(56, 189, 248, 0.35);
+    @keyframes preloaderSlide {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(300%); }
+    }
+    .preloader-bar {
+      animation: preloaderSlide 1.1s ease-in-out infinite;
+    }
+    /* Lightbox de imagen de producto con zoom */
+    #image-lightbox-img {
+      transition: transform 0.25s ease;
+      transform-origin: center center;
+    }
+    #image-lightbox.zoomed #image-lightbox-img {
+      transform: scale(2.5);
+      cursor: zoom-out;
     }
     /* Micro-loader sutil para transiciones y filtros */
     #action-loader {
@@ -70,6 +83,8 @@
       visibility: visible;
       pointer-events: auto;
     }
+    #image-lightbox-img { transition: transform 0.3s ease; }
+    #image-lightbox.zoomed #image-lightbox-img { transform: scale(2.5); cursor: zoom-out; }
   </style>
 </head>
 <body class="bg-neutral-100 text-neutral-900 font-sans min-h-screen flex flex-col selection:bg-brandSky selection:text-black">
@@ -77,31 +92,16 @@
   <!-- ========================================================== -->
   <!-- PRELOADER INICIAL: LOGO BK 3D GIRANDO                     -->
   <!-- ========================================================== -->
-  <div id="preloader" class="fixed inset-0 z-50 bg-[#0c0c0c] flex flex-col items-center justify-center select-none">
-    <div class="relative flex flex-col items-center">
-      <!-- Resplandor sutil celeste detrás del logo -->
-      <div class="absolute w-36 h-36 rounded-full bg-brandSky/15 blur-2xl animate-pulse pointer-events-none"></div>
-
-      <!-- Contenedor del GIF 3D -->
-      <div class="relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center loader-glow rounded-3xl p-2 bg-neutral-900/40 border border-neutral-800/80 backdrop-blur-sm">
-        <img 
-          src="3dgifmaker83430.gif" 
-          alt="Cargando Blaskicks..." 
-          class="w-full h-full object-contain filter drop-shadow-[0_4px_16px_rgba(56,189,248,0.3)]"
-          onerror="this.onerror=null; this.src='Logo bk inverso.png';"
-        />
-      </div>
-
-      <!-- Sutil indicador de carga y tipografía -->
-      <div class="mt-6 flex flex-col items-center gap-2">
-        <div class="flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-brandSky animate-ping"></span>
-          <span class="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400">BLASKICKS</span>
-        </div>
-        <!-- Barra de progreso mínima ultraligera -->
-        <div class="w-24 h-0.5 bg-neutral-800 rounded-full overflow-hidden">
-          <div class="h-full bg-brandSky rounded-full animate-[pulse_1s_infinite] w-full"></div>
-        </div>
+  <div id="preloader" class="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center select-none" role="status" aria-live="polite">
+    <div class="flex flex-col items-center">
+      <img 
+        src="3dgifmaker83430.gif" 
+        alt="Cargando Blaskicks..." 
+        class="w-36 h-36 sm:w-44 sm:h-44 object-contain"
+        onerror="this.onerror=null; this.src='Logo bk inverso.png';"
+      />
+      <div class="mt-2 w-24 h-[2px] bg-neutral-200 rounded-full overflow-hidden">
+        <div class="preloader-bar h-full w-1/3 bg-brandSky rounded-full"></div>
       </div>
     </div>
   </div>
@@ -111,15 +111,7 @@
   <!-- ========================================================== -->
   <div id="action-loader" class="fixed inset-0 z-40 bg-neutral-950/40 backdrop-blur-[2px] opacity-0 invisible flex items-center justify-center transition-all duration-200 pointer-events-none">
     <div class="bg-neutral-950/90 border border-neutral-800 rounded-2xl p-4 shadow-2xl flex flex-col items-center gap-2.5 transform scale-95 transition-transform duration-200">
-      <div class="w-14 h-14 relative flex items-center justify-center">
-        <div class="absolute inset-0 bg-brandSky/20 rounded-full blur-md"></div>
-        <img 
-          src="3dgifmaker83430.gif" 
-          alt="Cargando..." 
-          class="w-full h-full object-contain relative z-10"
-          onerror="this.onerror=null; this.src='Logo bk inverso.png';"
-        />
-      </div>
+      <div class="w-9 h-9 rounded-full border-[3px] border-neutral-700 border-t-brandSky animate-spin" aria-hidden="true"></div>
       <span class="text-[10px] font-extrabold uppercase tracking-widest text-neutral-300">Cargando...</span>
     </div>
   </div>
@@ -403,13 +395,13 @@
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           <!-- 01 REMERAS -->
-          <div onclick="openCategoryPage('Remeras')" class="group bg-neutral-50 rounded-2xl p-2.5 border border-neutral-200/90 hover:shadow-xl hover:border-brandSky transition-all duration-300 flex flex-col justify-between cursor-pointer">
+          <div onclick="openCategoryPage('Remeras')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCategoryPage('Remeras');}" role="button" tabindex="0" aria-label="Ver categoría Remeras" class="group focus:outline-none focus-visible:ring-2 focus-visible:ring-brandSky bg-neutral-50 rounded-2xl p-2.5 border border-neutral-200/90 hover:shadow-xl hover:border-brandSky transition-all duration-300 flex flex-col justify-between cursor-pointer">
             <div>
               <div class="flex items-center justify-between text-xs font-bold text-neutral-400 mb-2 px-1">
                 <span>01</span>
                 <span class="w-5 h-5 rounded-full bg-neutral-900 group-hover:bg-brandSky transition-colors"></span>
               </div>
-              <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
+              <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden flex items-center justify-center">
                 <img 
                   src="CATEGORIA REMERAS_page-0001.jpg" 
                   alt="Categoría Remeras" 
@@ -418,19 +410,16 @@
                 />
               </div>
             </div>
-            <button class="w-full py-2.5 rounded-full bg-brandSky group-hover:bg-black text-white font-bold text-xs uppercase tracking-wider transition-colors duration-200">
-              REMERAS
-            </button>
-          </div>
+            </div>
 
           <!-- 02 BUZOS -->
-          <div onclick="openCategoryPage('Buzos')" class="group bg-neutral-50 rounded-2xl p-2.5 border border-neutral-200/90 hover:shadow-xl hover:border-brandSky transition-all duration-300 flex flex-col justify-between cursor-pointer">
+          <div onclick="openCategoryPage('Buzos')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCategoryPage('Buzos');}" role="button" tabindex="0" aria-label="Ver categoría Buzos" class="group focus:outline-none focus-visible:ring-2 focus-visible:ring-brandSky bg-neutral-50 rounded-2xl p-2.5 border border-neutral-200/90 hover:shadow-xl hover:border-brandSky transition-all duration-300 flex flex-col justify-between cursor-pointer">
             <div>
               <div class="flex items-center justify-between text-xs font-bold text-neutral-400 mb-2 px-1">
                 <span>02</span>
                 <span class="w-5 h-5 rounded-full bg-neutral-900 group-hover:bg-brandSky transition-colors"></span>
               </div>
-              <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
+              <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden flex items-center justify-center">
                 <img 
                   src="CATEGORIA BUZOS_page-0001.jpg" 
                   alt="Categoría Buzos" 
@@ -439,19 +428,16 @@
                 />
               </div>
             </div>
-            <button class="w-full py-2.5 rounded-full bg-brandSky group-hover:bg-black text-white font-bold text-xs uppercase tracking-wider transition-colors duration-200">
-              BUZOS
-            </button>
-          </div>
+            </div>
 
           <!-- 03 SNEAKERS -->
-          <div onclick="openCategoryPage('Sneakers')" class="group bg-neutral-50 rounded-2xl p-2.5 border border-neutral-200/90 hover:shadow-xl hover:border-brandSky transition-all duration-300 flex flex-col justify-between cursor-pointer">
+          <div onclick="openCategoryPage('Sneakers')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCategoryPage('Sneakers');}" role="button" tabindex="0" aria-label="Ver categoría Sneakers" class="group focus:outline-none focus-visible:ring-2 focus-visible:ring-brandSky bg-neutral-50 rounded-2xl p-2.5 border border-neutral-200/90 hover:shadow-xl hover:border-brandSky transition-all duration-300 flex flex-col justify-between cursor-pointer">
             <div>
               <div class="flex items-center justify-between text-xs font-bold text-neutral-400 mb-2 px-1">
                 <span>03</span>
                 <span class="w-5 h-5 rounded-full bg-neutral-900 group-hover:bg-brandSky transition-colors"></span>
               </div>
-              <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
+              <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden flex items-center justify-center">
                 <img 
                   src="CATEGORIA SNEAKERS_page-0001.jpg" 
                   alt="Categoría Sneakers" 
@@ -460,19 +446,16 @@
                 />
               </div>
             </div>
-            <button class="w-full py-2.5 rounded-full bg-brandSky group-hover:bg-black text-white font-bold text-xs uppercase tracking-wider transition-colors duration-200">
-              SNEAKERS
-            </button>
-          </div>
+            </div>
 
           <!-- 04 PANTALONES -->
-          <div onclick="openCategoryPage('Pantalones')" class="group bg-neutral-50 rounded-2xl p-2.5 border border-neutral-200/90 hover:shadow-xl hover:border-brandSky transition-all duration-300 flex flex-col justify-between cursor-pointer">
+          <div onclick="openCategoryPage('Pantalones')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCategoryPage('Pantalones');}" role="button" tabindex="0" aria-label="Ver categoría Pantalones" class="group focus:outline-none focus-visible:ring-2 focus-visible:ring-brandSky bg-neutral-50 rounded-2xl p-2.5 border border-neutral-200/90 hover:shadow-xl hover:border-brandSky transition-all duration-300 flex flex-col justify-between cursor-pointer">
             <div>
               <div class="flex items-center justify-between text-xs font-bold text-neutral-400 mb-2 px-1">
                 <span>04</span>
                 <span class="w-5 h-5 rounded-full bg-neutral-900 group-hover:bg-brandSky transition-colors"></span>
               </div>
-              <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
+              <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden flex items-center justify-center">
                 <img 
                   src="CATEGORIA PANTALONES_page-0001.jpg" 
                   alt="Categoría Pantalones" 
@@ -481,19 +464,16 @@
                 />
               </div>
             </div>
-            <button class="w-full py-2.5 rounded-full bg-brandSky group-hover:bg-black text-white font-bold text-xs uppercase tracking-wider transition-colors duration-200">
-              PANTALONES
-            </button>
-          </div>
+            </div>
 
           <!-- 05 CAMPERAS -->
-          <div onclick="openCategoryPage('Camperas')" class="group bg-neutral-50 rounded-2xl p-2.5 border border-neutral-200/90 hover:shadow-xl hover:border-brandSky transition-all duration-300 flex flex-col justify-between cursor-pointer">
+          <div onclick="openCategoryPage('Camperas')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCategoryPage('Camperas');}" role="button" tabindex="0" aria-label="Ver categoría Camperas" class="group focus:outline-none focus-visible:ring-2 focus-visible:ring-brandSky bg-neutral-50 rounded-2xl p-2.5 border border-neutral-200/90 hover:shadow-xl hover:border-brandSky transition-all duration-300 flex flex-col justify-between cursor-pointer">
             <div>
               <div class="flex items-center justify-between text-xs font-bold text-neutral-400 mb-2 px-1">
                 <span>05</span>
                 <span class="w-5 h-5 rounded-full bg-neutral-900 group-hover:bg-brandSky transition-colors"></span>
               </div>
-              <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
+              <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden flex items-center justify-center">
                 <img 
                   src="CATEGORIA CAMPERASpdf_page-0001.jpg" 
                   alt="Categoría Camperas" 
@@ -502,19 +482,16 @@
                 />
               </div>
             </div>
-            <button class="w-full py-2.5 rounded-full bg-brandSky group-hover:bg-black text-white font-bold text-xs uppercase tracking-wider transition-colors duration-200">
-              CAMPERAS
-            </button>
-          </div>
+            </div>
 
           <!-- 06 ACCESORIOS -->
-          <div onclick="openCategoryPage('Accesorios')" class="group bg-neutral-50 rounded-2xl p-2.5 border border-neutral-200/90 hover:shadow-xl hover:border-brandSky transition-all duration-300 flex flex-col justify-between cursor-pointer">
+          <div onclick="openCategoryPage('Accesorios')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCategoryPage('Accesorios');}" role="button" tabindex="0" aria-label="Ver categoría Accesorios" class="group focus:outline-none focus-visible:ring-2 focus-visible:ring-brandSky bg-neutral-50 rounded-2xl p-2.5 border border-neutral-200/90 hover:shadow-xl hover:border-brandSky transition-all duration-300 flex flex-col justify-between cursor-pointer">
             <div>
               <div class="flex items-center justify-between text-xs font-bold text-neutral-400 mb-2 px-1">
                 <span>06</span>
                 <span class="w-5 h-5 rounded-full bg-neutral-900 group-hover:bg-brandSky transition-colors"></span>
               </div>
-              <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
+              <div class="w-full aspect-[4/5] bg-neutral-100 rounded-xl overflow-hidden flex items-center justify-center">
                 <img 
                   src="CATEGORIA ACCESORIOS_page-0001.jpg" 
                   alt="Categoría Accesorios" 
@@ -523,10 +500,7 @@
                 />
               </div>
             </div>
-            <button class="w-full py-2.5 rounded-full bg-brandSky group-hover:bg-black text-white font-bold text-xs uppercase tracking-wider transition-colors duration-200">
-              ACCESORIOS
-            </button>
-          </div>
+            </div>
         </div>
       </section>
 
@@ -693,9 +667,7 @@
           <!-- Cabecera de la tarjeta: Perfil y Botón "Ver perfil" -->
           <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
             <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0">
-              <div class="w-7 h-7 rounded-full bg-neutral-900 text-white font-bold text-[10px] flex items-center justify-center border border-brandSky shrink-0">
-                BK
-              </div>
+              <span class="relative w-8 h-8 rounded-full p-[1.5px] bg-gradient-to-tr from-[#feda75] via-[#d62976] to-[#4f5bd5] shrink-0"><img src="perfil-instagram.jpg" alt="Foto de perfil de blaskicks" class="w-full h-full rounded-full object-cover bg-white border-2 border-white" onerror="this.onerror=null; this.src='3dgifmaker83430.gif';" /></span>
               <div class="min-w-0 leading-tight">
                 <span class="block text-xs font-bold text-neutral-900 truncate">blaskicks</span>
                 <span class="block text-[10px] text-neutral-400 truncate">Audio original</span>
@@ -718,20 +690,12 @@
             rel="noopener noreferrer"
             class="relative aspect-[9/16] bg-neutral-950 overflow-hidden flex items-center justify-center cursor-pointer block"
           >
-            <img 
-              src="Imagen fondo blaskicks.jpeg" 
-              alt="Reel Blaskicks Stand"
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=600&q=80';"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
+            <video class="reel-video w-full h-full object-cover" autoplay muted loop playsinline preload="metadata" poster="Imagen fondo blaskicks.jpeg" aria-label="Reel Blaskicks Stand">
+              <source src="reel-1.mp4" type="video/mp4" />
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
             
-            <!-- Botón Play Central Estilo Instagram -->
-            <div class="absolute w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center group-hover:scale-110 group-hover:bg-[#0095F6] transition-all duration-300">
-              <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
+            <span class="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6"/></svg></span>
 
             <!-- Overlay texto inferior -->
             <div class="absolute bottom-3 inset-x-3 text-white text-left">
@@ -764,9 +728,7 @@
         <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
           <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
             <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0">
-              <div class="w-7 h-7 rounded-full bg-neutral-900 text-white font-bold text-[10px] flex items-center justify-center border border-brandSky shrink-0">
-                BK
-              </div>
+              <span class="relative w-8 h-8 rounded-full p-[1.5px] bg-gradient-to-tr from-[#feda75] via-[#d62976] to-[#4f5bd5] shrink-0"><img src="perfil-instagram.jpg" alt="Foto de perfil de blaskicks" class="w-full h-full rounded-full object-cover bg-white border-2 border-white" onerror="this.onerror=null; this.src='3dgifmaker83430.gif';" /></span>
               <div class="min-w-0 leading-tight">
                 <span class="block text-xs font-bold text-neutral-900 truncate">blaskicks</span>
                 <span class="block text-[10px] text-neutral-400 truncate">Audio original</span>
@@ -789,18 +751,12 @@
             class="relative aspect-[9/16] bg-neutral-900 overflow-hidden flex items-center justify-center cursor-pointer block"
           >
             <!-- Imagen preview Cloudflare R2 -->
-            <img 
-              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/jordan%201%20low%20travis%20scott%20tropical%20pink%201%20blaskicks.avif" 
-              alt="Reel Unboxing Travis Scott"
-              class="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
+            <video class="reel-video w-full h-full object-cover" autoplay muted loop playsinline preload="metadata" poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/jordan%201%20low%20travis%20scott%20tropical%20pink%201%20blaskicks.avif" aria-label="Reel Unboxing Travis Scott">
+              <source src="reel-2.mp4" type="video/mp4" />
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
 
-            <div class="absolute w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center group-hover:scale-110 group-hover:bg-[#0095F6] transition-all duration-300">
-              <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
+            <span class="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6"/></svg></span>
 
             <div class="absolute bottom-3 inset-x-3 text-white text-left">
               <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/70 px-2 py-0.5 rounded">
@@ -831,9 +787,7 @@
         <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
           <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
             <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0">
-              <div class="w-7 h-7 rounded-full bg-neutral-900 text-white font-bold text-[10px] flex items-center justify-center border border-brandSky shrink-0">
-                BK
-              </div>
+              <span class="relative w-8 h-8 rounded-full p-[1.5px] bg-gradient-to-tr from-[#feda75] via-[#d62976] to-[#4f5bd5] shrink-0"><img src="perfil-instagram.jpg" alt="Foto de perfil de blaskicks" class="w-full h-full rounded-full object-cover bg-white border-2 border-white" onerror="this.onerror=null; this.src='3dgifmaker83430.gif';" /></span>
               <div class="min-w-0 leading-tight">
                 <span class="block text-xs font-bold text-neutral-900 truncate">blaskicks</span>
                 <span class="block text-[10px] text-neutral-400 truncate">Audio original</span>
@@ -855,18 +809,12 @@
             rel="noopener noreferrer"
             class="relative aspect-[9/16] bg-neutral-900 overflow-hidden flex items-center justify-center cursor-pointer block"
           >
-            <img 
-              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/balenciaga%20classic%20middle%20back%20logo%20hoodie%20black%201%20blaskicks.avif" 
-              alt="Reel Streetwear Rack"
-              class="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
+            <video class="reel-video w-full h-full object-cover" autoplay muted loop playsinline preload="metadata" poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/balenciaga%20classic%20middle%20back%20logo%20hoodie%20black%201%20blaskicks.avif" aria-label="Reel Streetwear Rack">
+              <source src="reel-3.mp4" type="video/mp4" />
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
 
-            <div class="absolute w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center group-hover:scale-110 group-hover:bg-[#0095F6] transition-all duration-300">
-              <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
+            <span class="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6"/></svg></span>
 
             <div class="absolute bottom-3 inset-x-3 text-white text-left">
               <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/70 px-2 py-0.5 rounded">
@@ -897,9 +845,7 @@
         <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
           <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
             <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0">
-              <div class="w-7 h-7 rounded-full bg-neutral-900 text-white font-bold text-[10px] flex items-center justify-center border border-brandSky shrink-0">
-                BK
-              </div>
+              <span class="relative w-8 h-8 rounded-full p-[1.5px] bg-gradient-to-tr from-[#feda75] via-[#d62976] to-[#4f5bd5] shrink-0"><img src="perfil-instagram.jpg" alt="Foto de perfil de blaskicks" class="w-full h-full rounded-full object-cover bg-white border-2 border-white" onerror="this.onerror=null; this.src='3dgifmaker83430.gif';" /></span>
               <div class="min-w-0 leading-tight">
                 <span class="block text-xs font-bold text-neutral-900 truncate">blaskicks</span>
                 <span class="block text-[10px] text-neutral-400 truncate">Audio original</span>
@@ -921,18 +867,12 @@
             rel="noopener noreferrer"
             class="relative aspect-[9/16] bg-neutral-950 overflow-hidden flex items-center justify-center cursor-pointer block"
           >
-            <img 
-              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/out%20of%20office%20grey%20white%201%20blaskicks.avif" 
-              alt="Reel Off-White Details"
-              class="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
+            <video class="reel-video w-full h-full object-cover" autoplay muted loop playsinline preload="metadata" poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/out%20of%20office%20grey%20white%201%20blaskicks.avif" aria-label="Reel Off-White Details">
+              <source src="reel-4.mp4" type="video/mp4" />
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
 
-            <div class="absolute w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center group-hover:scale-110 group-hover:bg-[#0095F6] transition-all duration-300">
-              <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
+            <span class="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6"/></svg></span>
 
             <div class="absolute bottom-3 inset-x-3 text-white text-left">
               <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/70 px-2 py-0.5 rounded">
@@ -1159,6 +1099,23 @@
 
     </div> <!-- FIN CATEGORY-VIEW -->
 
+    <!-- LIGHTBOX DE IMAGEN DE PRODUCTO (CLICK PARA ZOOM) -->
+    <div id="image-lightbox" class="fixed inset-0 z-[60] bg-white/95 backdrop-blur-sm hidden items-center justify-center" role="dialog" aria-modal="true" aria-label="Imagen ampliada del producto">
+      <button type="button" onclick="closeImageLightbox()" class="absolute top-4 right-4 z-10 w-11 h-11 rounded-full bg-neutral-900 text-white flex items-center justify-center hover:bg-brandSky transition-colors" aria-label="Cerrar imagen">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <button type="button" id="lightbox-prev" onclick="stepLightbox(-1)" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-neutral-200 text-neutral-900 flex items-center justify-center hover:border-black transition-colors" aria-label="Imagen anterior">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <button type="button" id="lightbox-next" onclick="stepLightbox(1)" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-neutral-200 text-neutral-900 flex items-center justify-center hover:border-black transition-colors" aria-label="Imagen siguiente">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+      </button>
+      <div id="image-lightbox-stage" class="w-full h-full overflow-hidden flex items-center justify-center p-4 sm:p-12">
+        <img id="image-lightbox-img" src="" alt="Imagen ampliada" class="max-w-full max-h-full object-contain cursor-zoom-in select-none" draggable="false" />
+      </div>
+      <p class="absolute bottom-4 left-1/2 -translate-x-1/2 text-[11px] font-semibold text-neutral-500 bg-white/90 px-3 py-1 rounded-full border border-neutral-200">Hacé click en la imagen para hacer zoom</p>
+    </div>
+
     <!-- ========================================================== -->
     <!-- DEDICATED PRODUCT DETAIL VIEW (PDP - SHAREABLE VIA LINK)   -->
     <!-- ========================================================== -->
@@ -1193,19 +1150,25 @@
           </div>
 
           <!-- Imagen Principal con Insignia de Autenticidad Minimalista Propia -->
-          <div class="relative w-full flex-1 bg-neutral-50/60 rounded-3xl p-6 sm:p-10 border border-neutral-200 flex items-center justify-center min-h-[380px] sm:min-h-[500px]">
+          <div class="relative w-full flex-1 bg-neutral-50/60 rounded-3xl p-2 sm:p-4 border border-neutral-200 flex items-center justify-center min-h-[380px] sm:min-h-[500px]">
             <!-- Insignia de Autenticidad Estilizada -->
             <div class="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900/90 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-sm border border-neutral-700 shadow-sm">
               <span class="w-2 h-2 rounded-full bg-brandSky animate-pulse"></span>
               <span>VERIFICADO ORIGINAL</span>
             </div>
 
-            <img 
-              id="pdp-main-image"
-              src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85" 
-              alt="Producto" 
-              class="w-full max-h-[460px] object-contain mix-blend-multiply drop-shadow-2xl transition-all duration-300"
-            />
+            <button type="button" onclick="openImageLightbox()" class="w-full flex items-center justify-center cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-brandSky rounded-2xl" aria-label="Ampliar imagen del producto">
+              <img 
+                id="pdp-main-image"
+                src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85" 
+                alt="Producto" 
+                class="w-full h-[360px] sm:h-[520px] lg:h-[640px] object-contain mix-blend-multiply transition-all duration-300"
+              />
+            </button>
+            <span class="pointer-events-none absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 border border-neutral-200 text-[10px] font-bold uppercase tracking-wider text-neutral-600">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 8v6m-3-3h6m5 0a8 8 0 11-16 0 8 8 0 0116 0z"/></svg>
+              Ampliar
+            </span>
           </div>
         </div>
 
@@ -3459,6 +3422,76 @@
       }, 260);
     }
 
+    const imageLightbox = document.getElementById("image-lightbox");
+    const imageLightboxImg = document.getElementById("image-lightbox-img");
+    let lightboxGallery = [];
+    let lightboxIndex = 0;
+
+    function renderLightboxImage() {
+      imageLightbox.classList.remove("zoomed");
+      imageLightboxImg.style.transformOrigin = "center center";
+      imageLightboxImg.src = lightboxGallery[lightboxIndex];
+      imageLightboxImg.alt = currentActiveProduct ? currentActiveProduct.name : "Imagen ampliada";
+      const multiple = lightboxGallery.length > 1;
+      document.getElementById("lightbox-prev").classList.toggle("hidden", !multiple);
+      document.getElementById("lightbox-next").classList.toggle("hidden", !multiple);
+    }
+
+    function openImageLightbox() {
+      const currentSrc = document.getElementById("pdp-main-image").src;
+      const product = currentActiveProduct;
+      lightboxGallery = product && product.gallery && product.gallery.length ? product.gallery.slice() : [currentSrc];
+      const idx = lightboxGallery.findIndex(src => new URL(src, location.href).href === currentSrc);
+      if (idx === -1) lightboxGallery.unshift(currentSrc);
+      lightboxIndex = Math.max(idx, 0);
+      renderLightboxImage();
+      imageLightbox.classList.remove("hidden");
+      imageLightbox.classList.add("flex");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeImageLightbox() {
+      imageLightbox.classList.add("hidden");
+      imageLightbox.classList.remove("flex", "zoomed");
+      document.body.style.overflow = "";
+    }
+
+    function stepLightbox(dir) {
+      lightboxIndex = (lightboxIndex + dir + lightboxGallery.length) % lightboxGallery.length;
+      renderLightboxImage();
+    }
+
+    function setLightboxOrigin(e) {
+      const rect = imageLightboxImg.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      imageLightboxImg.style.transformOrigin = `${Math.min(Math.max(x, 0), 100)}% ${Math.min(Math.max(y, 0), 100)}%`;
+    }
+
+    imageLightboxImg.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (!imageLightbox.classList.contains("zoomed")) setLightboxOrigin(e);
+      imageLightbox.classList.toggle("zoomed");
+    });
+    imageLightboxImg.addEventListener("mousemove", (e) => {
+      if (imageLightbox.classList.contains("zoomed")) setLightboxOrigin(e);
+    });
+    imageLightboxImg.addEventListener("touchmove", (e) => {
+      if (imageLightbox.classList.contains("zoomed") && e.touches[0]) {
+        e.preventDefault();
+        setLightboxOrigin(e.touches[0]);
+      }
+    }, { passive: false });
+    document.getElementById("image-lightbox-stage").addEventListener("click", (e) => {
+      if (e.target === e.currentTarget) closeImageLightbox();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (imageLightbox.classList.contains("hidden")) return;
+      if (e.key === "Escape") closeImageLightbox();
+      if (e.key === "ArrowRight" && lightboxGallery.length > 1) stepLightbox(1);
+      if (e.key === "ArrowLeft" && lightboxGallery.length > 1) stepLightbox(-1);
+    });
+
     function changePdpImage(src, btn) {
       document.getElementById("pdp-main-image").src = src;
       const allThumbs = document.querySelectorAll("#pdp-thumbnails button");
@@ -4366,7 +4399,7 @@
       // Micro-feedback con el logo girando mientras busca
       searchResults.innerHTML = `
         <div class="py-6 flex flex-col items-center justify-center gap-2">
-          <img src="3dgifmaker83430.gif" class="w-8 h-8 object-contain" onerror="this.src='Logo bk inverso.png'" />
+          <div class="w-6 h-6 rounded-full border-2 border-neutral-200 border-t-brandSky animate-spin" aria-hidden="true"></div>
           <span class="text-[11px] font-bold text-neutral-400">Buscando productos...</span>
         </div>
       `;
