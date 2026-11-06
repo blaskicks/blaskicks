@@ -2219,7 +2219,7 @@
         slug: "supreme-new-era-box-logo-navy",
         brand: "Supreme",
         category: "Accesorios",
-        name: "SUPREME NEW ERA BOX LOGO NAVY",
+        name: "SUPREME NEW ERA BOX LOGO CAP NAVY",
         size: "7 3/8",
         price: 90,
         originalPrice: 100,
@@ -2304,13 +2304,15 @@
         category: "Pantalones",
         name: "MNML RIPPED ULTRA BAGGY JEANS VINTAGE BLUE",
         size: "32 y 33 US",
-        price: 140,
+        price: 120,
+        originalPrice: 140,
+        onSale: true,
         img: `${R2_BASE}/mnml%20ripped%20ultra%20baggy%20jeans%20vintage%20blue%201%20blaskicks.avif`,
         gallery: [
           `${R2_BASE}/mnml%20ripped%20ultra%20baggy%20jeans%20vintage%20blue%201%20blaskicks.avif`,
           `${R2_BASE}/mnml%20ripped%20ultra%20baggy%20jeans%20vintage%20blue%202%20blaskicks.avif`
         ],
-        badge: "DS",
+        badge: "SALE",
         condition: "Nuevo",
         availableSizes: [
           { us: "32", cm: "Ultra Baggy", default: true },
@@ -2529,8 +2531,7 @@
         img: `${R2_BASE}/balenciaga%20classic%20middle%20back%20logo%20hoodie%20black%201%20blaskicks.avif`,
         gallery: [
           `${R2_BASE}/balenciaga%20classic%20middle%20back%20logo%20hoodie%20black%201%20blaskicks.avif`,
-          `${R2_BASE}/balenciaga%20classic%20middle%20back%20logo%20hoodie%20black%202%20blaskicks.avif`,
-          `${R2_BASE}/balenciaga%20classic%20middle%20back%20logo%20hoodie%20black%201%20blaskicks%20(1).avif`
+          `${R2_BASE}/balenciaga%20classic%20middle%20back%20logo%20hoodie%20black%202%20blaskicks.avif`
         ],
         badge: "SALE",
         condition: "Nuevo",
@@ -3779,33 +3780,36 @@
             return p.category === "Accesorios" && nameLower.includes("beanie");
           });
         } else if (subLower.includes("riñonera") || subLower.includes("bolso") || subLower === "riñoneras / bolsos") {
-          // Filtrar riñoneras, bolsos, fundas y mochilas
+          // Filtrar estrictamente riñoneras, bolsos, bandoleras y mochilas (excluye fundas/cases como AirPods)
           list = list.filter(p => {
             const nameLower = p.name.toLowerCase();
             return p.category === "Accesorios" && (
               nameLower.includes("bag") || 
               nameLower.includes("bolso") || 
               nameLower.includes("riñonera") || 
-              nameLower.includes("case") || 
-              nameLower.includes("pouch") || 
+              nameLower.includes("crossbody") || 
+              nameLower.includes("shoulder bag") || 
+              nameLower.includes("waist bag") || 
               nameLower.includes("backpack")
             );
           });
         } else if (subLower === "coleccionables") {
-          // Accesorios estilo lifestyle / objetos de colección que no sean lentes, gorras, beanies ni bolsos
+          // Accesorios estilo lifestyle / objetos de colección (incluyendo fundas de AirPods, bandejas, etc.) que no sean lentes, gorras, beanies ni bolsos
           list = list.filter(p => {
             const nameLower = p.name.toLowerCase();
-            const isWearable = (
+            const isWearableOrBag = (
               nameLower.includes("sunglass") || 
               nameLower.includes("eyeglass") || 
               nameLower.includes("glasses") || 
+              nameLower.includes("lentes") || 
               nameLower.includes("cap") || 
               nameLower.includes("beanie") || 
               nameLower.includes("bag") || 
               nameLower.includes("bolso") || 
-              nameLower.includes("riñonera")
+              nameLower.includes("riñonera") ||
+              nameLower.includes("backpack")
             );
-            return p.category === "Accesorios" && !isWearable;
+            return p.category === "Accesorios" && !isWearableOrBag;
           });
         } else if (subLower === "men" || subLower === "women") {
           list = list.filter(p => !p.gender || p.gender.toLowerCase() === subLower);
