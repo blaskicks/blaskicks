@@ -4808,13 +4808,42 @@
       }
     ];
 
+    function getLocalStoredReviews() {
+      try {
+        const raw = localStorage.getItem("blaskicks_user_reviews");
+        if (raw) return JSON.parse(raw);
+      } catch (e) {}
+      return [];
+    }
+
+    function saveLocalStoredReview(rev) {
+      try {
+        const current = getLocalStoredReviews();
+        current.unshift(rev);
+        localStorage.setItem("blaskicks_user_reviews", JSON.stringify(current));
+      } catch (e) {}
+    }
+
     let liveCloudReviews = [];
+
+    function getCombinedReviews() {
+      const localRevs = getLocalStoredReviews();
+      const basePool = liveCloudReviews.length > 0 ? liveCloudReviews : INITIAL_REVIEWS;
+      const combined = [...localRevs];
+
+      basePool.forEach(item => {
+        if (!combined.some(c => (c.id && c.id === item.id) || (c.comment === item.comment && c.author === item.author))) {
+          combined.push(item);
+        }
+      });
+      return combined;
+    }
 
     function renderReviewsList(reviewsToRender = null) {
       const container = document.getElementById("dynamic-reviews-list");
       if (!container) return;
 
-      const reviews = reviewsToRender || (liveCloudReviews.length > 0 ? liveCloudReviews : INITIAL_REVIEWS);
+      const reviews = reviewsToRender || getCombinedReviews();
 
       container.innerHTML = reviews.map(rev => {
         const ratingNum = Math.max(1, Math.min(5, Number(rev.rating) || 5));
@@ -4904,13 +4933,15 @@
         createdAt: Date.now()
       };
 
+      // Guardado local inmediato para persistencia permanente al refrescar la página
+      saveLocalStoredReview(newReview);
+
       // Si el servicio en la nube está disponible, lo enviamos públicamente a todos
       if (window.submitReviewToCloud) {
         window.submitReviewToCloud(newReview);
-      } else {
-        liveCloudReviews.unshift(newReview);
-        renderReviewsList();
       }
+
+      renderReviewsList();
 
       // Desplazar suavemente hacia la izquierda para mostrar la opinión recién publicada
       if (reviewsTrack) {
