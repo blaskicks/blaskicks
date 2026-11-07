@@ -4807,11 +4807,12 @@
     // Asignar al objeto global para acceso universal seguro entre scripts y módulos
     window.INITIAL_REVIEWS = INITIAL_REVIEWS;
 
-    // STORAGE PÚBLICO EN LA NUBE CON CORS ABIERTO Y SIN RESTRICCIONES DE LLAVE PRIVADA
-    const KV_STORE_URL = "https://kvdb.io/4y9h8tX9aWdE1R2bFzG9wK/blaskicks_public_reviews";
+    // ==========================================================
+    // SISTEMA DE RESEÑAS CONECTADO A TU API EN VERCEL KV
+    // ==========================================================
+    const REVIEWS_API_URL = "/api/reviews";
 
     // Variables globales de reseñas sincronizadas
-    let liveCloudReviews = [];
     let globalCloudReviews = [];
 
     function getLocalStoredReviews() {
@@ -4830,85 +4831,74 @@
       } catch (e) {}
     }
 
-    // Cargar opiniones públicas desde la nube compartida (accesible por cualquier celular o PC)
+    // 1. Cargar reseñas desde tu API /api/reviews
     async function fetchPublicGlobalReviews() {
       try {
-        const res = await fetch(KV_STORE_URL + "?t=" + Date.now(), {
+        const res = await fetch(REVIEWS_API_URL + "?t=" + Date.now(), {
           method: "GET",
           headers: { "Accept": "application/json" }
         });
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data)) {
-            globalCloudReviews = data;
+            globalCloudReviews = data.map(r => ({
+              ...r,
+              author: r.name || r.author || "Cliente Verificado"
+            }));
             renderReviewsList();
           }
         }
       } catch (err) {
-        console.warn("Fallo temporal al consultar KV en la nube:", err);
+        console.warn("Fallo temporal al consultar la API de reseñas:", err);
       }
     }
 
-    // Guardar una nueva opinión en la nube compartida para que todos los dispositivos la vean
+    // 2. Guardar nueva reseña enviándola por POST a /api/reviews
     async function syncReviewToPublicGlobalCloud(newReview) {
       try {
-        let currentReviews = [];
-        try {
-          const res = await fetch(KV_STORE_URL + "?t=" + Date.now());
-          if (res.ok) {
-            const data = await res.json();
-            if (Array.isArray(data)) currentReviews = data;
-          }
-        } catch (e) {}
-
-        // Filtrar duplicados por autor y comentario
-        currentReviews = currentReviews.filter(r => !(r.comment === newReview.comment && r.author === newReview.author));
-        currentReviews.unshift(newReview);
-
-        // Guardar la lista actualizada en el almacén público
-        await fetch(KV_STORE_URL, {
+        const res = await fetch(REVIEWS_API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(currentReviews)
+          body: JSON.stringify(newReview)
         });
 
-        globalCloudReviews = currentReviews;
-        renderReviewsList();
+        if (res.ok) {
+          const result = await res.json();
+          if (result.reviews && Array.isArray(result.reviews)) {
+            globalCloudReviews = result.reviews.map(r => ({
+              ...r,
+              author: r.name || r.author || "Cliente Verificado"
+            }));
+            renderReviewsList();
+          }
+        }
       } catch (err) {
-        console.warn("Error al sincronizar con la nube pública:", err);
+        console.warn("Error al sincronizar con la API de reseñas:", err);
       }
     }
 
     function getCombinedReviews() {
-      const localRevs = getLocalStoredReviews();
       const cloudRevs = globalCloudReviews;
-      const firestoreRevs = liveCloudReviews;
+      const localRevs = getLocalStoredReviews();
       const combined = [];
 
-      // 1. Reseñas globales de Firestore en tiempo real
-      firestoreRevs.forEach(r => {
-        if (!combined.some(c => c.id === r.id || (c.comment === r.comment && c.author === r.author))) {
-          combined.push(r);
-        }
-      });
-
-      // 2. Reseñas públicas globales compartidas por todos los dispositivos
+      // 1. Reseñas reales guardadas en Vercel KV
       cloudRevs.forEach(r => {
-        if (!combined.some(c => c.id === r.id || (c.comment === r.comment && c.author === r.author))) {
+        if (!combined.some(c => (c.comment === r.comment && (c.author === r.author || c.name === r.name)))) {
           combined.push(r);
         }
       });
 
-      // 3. Reseñas locales del dispositivo actual
+      // 2. Reseñas locales en el dispositivo actual (render inmediato)
       localRevs.forEach(r => {
-        if (!combined.some(c => c.id === r.id || (c.comment === r.comment && c.author === r.author))) {
+        if (!combined.some(c => (c.comment === r.comment && (c.author === r.author || c.name === r.name)))) {
           combined.push(r);
         }
       });
 
-      // 4. Reseñas base iniciales de Blaskicks
+      // 3. Reseñas base por defecto
       INITIAL_REVIEWS.forEach(baseRev => {
-        if (!combined.some(c => (c.comment === baseRev.comment && c.author === baseRev.author))) {
+        if (!combined.some(c => (c.comment === baseRev.comment && (c.author === baseRev.author || c.name === baseRev.author)))) {
           combined.push(baseRev);
         }
       });
@@ -4926,6 +4916,8 @@
         const ratingNum = Math.max(1, Math.min(5, Number(rev.rating) || 5));
         const stars = "★".repeat(ratingNum) + "☆".repeat(5 - ratingNum);
         const handle = rev.instagram ? (rev.instagram.startsWith("@") ? rev.instagram : "@" + rev.instagram) : "";
+        const displayName = rev.name || rev.author || "Cliente Verificado";
+
         return `
           <div class="flex-none w-[320px] sm:w-[380px] bg-neutral-50 rounded-2xl p-6 border border-neutral-200/90 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
             <div>
@@ -4939,7 +4931,7 @@
               </p>
             </div>
             <div class="pt-3 border-t border-neutral-200 flex items-center justify-between">
-              <span class="font-bold text-xs text-neutral-900">${rev.author}</span>
+              <span class="font-bold text-xs text-neutral-900">${displayName}</span>
               <span class="text-[11px] text-neutral-400">${rev.location || "Cliente Verificado"}</span>
             </div>
           </div>
@@ -5008,6 +5000,7 @@
 
       const newReview = {
         id: "rev-" + Date.now(),
+        name: author,
         author: author,
         instagram: instagram,
         location: location,
@@ -5018,17 +5011,10 @@
 
       // 1. Guardar copia local inmediata
       saveLocalStoredReview(newReview);
-
-      // 2. Renderizar de inmediato para el autor
       renderReviewsList();
 
-      // 3. Sincronizar en la nube pública compartida
+      // 2. Enviar a Vercel KV a través de tu endpoint
       await syncReviewToPublicGlobalCloud(newReview);
-
-      // 4. Si el canal en tiempo real está habilitado, emitir
-      if (window.submitReviewToCloud) {
-        window.submitReviewToCloud(newReview);
-      }
 
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -5046,7 +5032,7 @@
       const photoLabel = document.getElementById("photo-label");
       if (photoLabel) photoLabel.textContent = "Agregar foto";
 
-      alertMessage("¡Gracias por tu opinión! Ya es visible para todos.");
+      alertMessage("¡Gracias por tu opinión! Ya quedó guardada.");
     }
 
     const cartDrawer = document.getElementById("cart-drawer-backdrop");
@@ -5400,73 +5386,5 @@
     }
   </script>
 
-  <!-- ========================================================== -->
-  <!-- CLOUD SYNC: SINCRONIZACIÓN PÚBLICA EN TIEMPO REAL          -->
-  <!-- ========================================================== -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'blaskicks-store';
-
-    if (typeof __firebase_config !== 'undefined') {
-      try {
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Autenticación requerida antes de consultas
-        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-          await signInWithCustomToken(auth, __initial_auth_token);
-        } else {
-          await signInAnonymously(auth);
-        }
-
-        const reviewsCol = collection(db, 'artifacts', appId, 'public', 'data', 'customer_reviews');
-
-        // Escucha en tiempo real de todas las opiniones de todos los clientes
-        onSnapshot(reviewsCol, (snapshot) => {
-          const remoteList = [];
-          snapshot.forEach((doc) => {
-            remoteList.push({ id: doc.id, ...doc.data() });
-          });
-
-          // Ordenar en memoria por fecha más reciente primero
-          remoteList.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-
-          // Combinar con las opiniones oficiales base de la marca
-          const baseList = window.INITIAL_REVIEWS || [];
-          const merged = [...remoteList];
-          baseList.forEach(baseRev => {
-            if (!merged.some(r => r.comment === baseRev.comment && r.author === baseRev.author)) {
-              merged.push(baseRev);
-            }
-          });
-
-          liveCloudReviews = merged;
-          if (typeof renderReviewsList === 'function') {
-            renderReviewsList(liveCloudReviews);
-          }
-        }, (error) => {
-          console.warn("Sincronización en tiempo real:", error);
-        });
-
-        // Función global para publicar la opinión y guardarla para todos
-        window.submitReviewToCloud = async (reviewData) => {
-          try {
-            await addDoc(reviewsCol, reviewData);
-          } catch (err) {
-            console.error("Error al publicar opinión:", err);
-            liveCloudReviews.unshift(reviewData);
-            renderReviewsList();
-          }
-        };
-      } catch (err) {
-        console.warn("Configuración de base de datos:", err);
-      }
-    }
-  </script>
 </body>
 </html>
