@@ -642,10 +642,6 @@
       <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 bg-white">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
-            <div class="flex items-center gap-1.5 text-brandSky mb-1">
-              <span class="text-sm">★★★★★</span>
-              <span class="text-[11px] font-extrabold uppercase tracking-widest text-emerald-800 ml-1.5">+20.000 CLIENTES SATISFECHOS</span>
-            </div>
             <h2 class="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-neutral-950">
               NUESTROS CLIENTES
             </h2>
@@ -4811,6 +4807,10 @@
     // STORAGE GLOBAL EN LA NUBE PARA QUE TODOS LOS DISPOSITIVOS (PC, CELULARES) VEAN LAS MISMAS RESEÑAS
     const GLOBAL_STORE_URL = "https://api.jsonstorage.net/v1/json/56e709fc-fa8e-4a6c-b715-00c733eb0c96/blaskicks-reviews";
 
+    // Declaración global para evitar ReferenceError en Firestore listener
+    let liveCloudReviews = [];
+    let globalCloudReviews = [];
+
     function getLocalStoredReviews() {
       try {
         const raw = localStorage.getItem("blaskicks_user_reviews");
@@ -4826,8 +4826,6 @@
         localStorage.setItem("blaskicks_user_reviews", JSON.stringify(current));
       } catch (e) {}
     }
-
-    let globalCloudReviews = [];
 
     // Cargar opiniones públicas desde la nube para todos los dispositivos
     async function fetchPublicGlobalReviews() {
@@ -4878,7 +4876,15 @@
     function getCombinedReviews() {
       const localRevs = getLocalStoredReviews();
       const cloudRevs = globalCloudReviews;
+      const firestoreRevs = liveCloudReviews;
       const combined = [];
+
+      // Prioridad 0: Reseñas en tiempo real de Firestore si están activas
+      firestoreRevs.forEach(r => {
+        if (!combined.some(c => c.id === r.id || (c.comment === r.comment && c.author === r.author))) {
+          combined.push(r);
+        }
+      });
 
       // Prioridad 1: Reseñas públicas globales de la nube
       cloudRevs.forEach(r => {
