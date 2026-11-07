@@ -682,7 +682,7 @@
 
           <!-- TARJETA: FORMULARIO "DEJANOS TU OPINIÓN" EN LA MISMA FILA -->
           <div class="flex-none w-[340px] sm:w-[480px] bg-white rounded-2xl p-6 sm:p-7 border-2 border-neutral-200 shadow-md flex flex-col justify-between">
-            <form id="review-form" onsubmit="handleReviewSubmit(event)" class="space-y-3.5">
+            <form id="review-form" class="space-y-3.5">
               <div>
                 <h3 class="font-display font-black text-lg sm:text-xl uppercase tracking-tight text-neutral-950 mb-3">
                   DEJANOS TU OPINIÓN
@@ -727,7 +727,7 @@
               <!-- Acciones -->
               <div class="flex items-center justify-between pt-1">
                 <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-neutral-300 text-[11px] font-semibold text-neutral-700 cursor-pointer hover:bg-neutral-50 transition-colors">
-                  <input type="file" accept="image/*" class="hidden" onchange="handlePhotoUpload(this)" />
+                  <input type="file" id="rev-photo-input" accept="image/*" class="hidden" onchange="handlePhotoUpload(this)" />
                   <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -4805,15 +4805,22 @@
     function getStoredReviews() {
       try {
         const stored = localStorage.getItem("blaskicks_reviews");
-        if (stored) return JSON.parse(stored);
-      } catch (e) {}
-      return INITIAL_REVIEWS;
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {
+        console.warn("No se pudo leer localStorage:", e);
+      }
+      return [...INITIAL_REVIEWS];
     }
 
     function saveStoredReviews(revs) {
       try {
         localStorage.setItem("blaskicks_reviews", JSON.stringify(revs));
-      } catch (e) {}
+      } catch (e) {
+        console.warn("No se pudo guardar en localStorage:", e);
+      }
     }
 
     function renderReviewsList() {
@@ -4822,7 +4829,8 @@
       const reviews = getStoredReviews();
 
       container.innerHTML = reviews.map(rev => {
-        const stars = "★".repeat(rev.rating) + "☆".repeat(5 - rev.rating);
+        const ratingNum = Math.max(1, Math.min(5, Number(rev.rating) || 5));
+        const stars = "★".repeat(ratingNum) + "☆".repeat(5 - ratingNum);
         const handle = rev.instagram ? (rev.instagram.startsWith("@") ? rev.instagram : "@" + rev.instagram) : "";
         return `
           <div class="flex-none w-[320px] sm:w-[380px] bg-neutral-50 rounded-2xl p-6 border border-neutral-200/90 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
@@ -4879,11 +4887,22 @@
     }
 
     function handleReviewSubmit(e) {
-      e.preventDefault();
-      const author = document.getElementById("rev-author")?.value.trim() || "Cliente";
-      const instagram = document.getElementById("rev-instagram")?.value.trim() || "";
-      const comment = document.getElementById("rev-comment")?.value.trim() || "";
-      const rating = parseInt(document.getElementById("rev-rating")?.value, 10) || 5;
+      if (e) e.preventDefault();
+
+      const authorInput = document.getElementById("rev-author");
+      const commentInput = document.getElementById("rev-comment");
+      const instagramInput = document.getElementById("rev-instagram");
+      const ratingInput = document.getElementById("rev-rating");
+
+      const author = authorInput?.value.trim() || "";
+      const comment = commentInput?.value.trim() || "";
+      const instagram = instagramInput?.value.trim() || "";
+      const rating = parseInt(ratingInput?.value, 10) || selectedRating || 5;
+
+      if (!author || !comment) {
+        alertMessage("Por favor completá tu nombre y comentario.");
+        return;
+      }
 
       const newReview = {
         id: "rev-" + Date.now(),
@@ -4899,11 +4918,15 @@
       saveStoredReviews(reviews);
       renderReviewsList();
 
+      // Desplazar suavemente hacia la izquierda para mostrar la opinión recién publicada
       if (reviewsTrack) {
         reviewsTrack.scrollTo({ left: 0, behavior: "smooth" });
       }
 
-      document.getElementById("review-form")?.reset();
+      // Resetear inputs del formulario
+      const reviewForm = document.getElementById("review-form");
+      if (reviewForm) reviewForm.reset();
+
       setRating(5);
       const photoLabel = document.getElementById("photo-label");
       if (photoLabel) photoLabel.textContent = "Agregar foto";
@@ -5102,6 +5125,12 @@
     window.addEventListener("DOMContentLoaded", () => {
       renderCatalog();
       renderReviewsList();
+
+      // Listener explícito y seguro para el formulario de opiniones
+      const reviewFormEl = document.getElementById("review-form");
+      if (reviewFormEl) {
+        reviewFormEl.addEventListener("submit", handleReviewSubmit);
+      }
 
       // Forzar reproducción silenciosa continua segura en los videos sin arrojar unhandled rejections
       const silentVideos = document.querySelectorAll(".reel-silent-video");
