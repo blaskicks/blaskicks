@@ -687,7 +687,7 @@
                 <h3 class="font-display font-black text-lg sm:text-xl uppercase tracking-tight text-neutral-950 mb-3">
                   DEJANOS TU OPINIÓN
                 </h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-2.5">
                   <input 
                     type="text" 
                     id="rev-author" 
@@ -702,6 +702,12 @@
                     class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-neutral-300 outline-none focus:border-brandSky transition-colors placeholder:text-neutral-400"
                   />
                 </div>
+                <input 
+                  type="text" 
+                  id="rev-location" 
+                  placeholder="Tu ciudad / provincia (ej: Rosario, Santa Fe)" 
+                  class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-neutral-300 outline-none focus:border-brandSky transition-colors placeholder:text-neutral-400"
+                />
               </div>
 
               <!-- Estrellas interactivas -->
@@ -4802,31 +4808,13 @@
       }
     ];
 
-    function getStoredReviews() {
-      try {
-        const stored = localStorage.getItem("blaskicks_reviews");
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-        }
-      } catch (e) {
-        console.warn("No se pudo leer localStorage:", e);
-      }
-      return [...INITIAL_REVIEWS];
-    }
+    let liveCloudReviews = [];
 
-    function saveStoredReviews(revs) {
-      try {
-        localStorage.setItem("blaskicks_reviews", JSON.stringify(revs));
-      } catch (e) {
-        console.warn("No se pudo guardar en localStorage:", e);
-      }
-    }
-
-    function renderReviewsList() {
+    function renderReviewsList(reviewsToRender = null) {
       const container = document.getElementById("dynamic-reviews-list");
       if (!container) return;
-      const reviews = getStoredReviews();
+
+      const reviews = reviewsToRender || (liveCloudReviews.length > 0 ? liveCloudReviews : INITIAL_REVIEWS);
 
       container.innerHTML = reviews.map(rev => {
         const ratingNum = Math.max(1, Math.min(5, Number(rev.rating) || 5));
@@ -4892,11 +4880,13 @@
       const authorInput = document.getElementById("rev-author");
       const commentInput = document.getElementById("rev-comment");
       const instagramInput = document.getElementById("rev-instagram");
+      const locationInput = document.getElementById("rev-location");
       const ratingInput = document.getElementById("rev-rating");
 
       const author = authorInput?.value.trim() || "";
       const comment = commentInput?.value.trim() || "";
       const instagram = instagramInput?.value.trim() || "";
+      const location = locationInput?.value.trim() || "Cliente Verificado";
       const rating = parseInt(ratingInput?.value, 10) || selectedRating || 5;
 
       if (!author || !comment) {
@@ -4908,15 +4898,19 @@
         id: "rev-" + Date.now(),
         author: author,
         instagram: instagram,
-        location: "Cliente Verificado",
+        location: location,
         rating: rating,
-        comment: comment
+        comment: comment,
+        createdAt: Date.now()
       };
 
-      const reviews = getStoredReviews();
-      reviews.unshift(newReview);
-      saveStoredReviews(reviews);
-      renderReviewsList();
+      // Si el servicio en la nube está disponible, lo enviamos públicamente a todos
+      if (window.submitReviewToCloud) {
+        window.submitReviewToCloud(newReview);
+      } else {
+        liveCloudReviews.unshift(newReview);
+        renderReviewsList();
+      }
 
       // Desplazar suavemente hacia la izquierda para mostrar la opinión recién publicada
       if (reviewsTrack) {
@@ -4931,7 +4925,7 @@
       const photoLabel = document.getElementById("photo-label");
       if (photoLabel) photoLabel.textContent = "Agregar foto";
 
-      alertMessage("¡Gracias por tu opinión! Se ha publicado con éxito.");
+      alertMessage("¡Gracias por tu opinión! Se ha publicado para todos los usuarios.");
     }
 
     const cartDrawer = document.getElementById("cart-drawer-backdrop");
@@ -5272,16 +5266,76 @@
 
     function closeLegalModal() {
       if (legalModal) {
-        legalModal.classList.add('hidden');
-        legalModal.classList.remove('flex');
-        document.body.classList.remove('overflow-hidden');
+        legalModal.addEventListener('click', (e) => {
+          if (e.target === legalModal) closeLegalModal();
+        });
       }
     }
+  </script>
 
-    if (legalModal) {
-      legalModal.addEventListener('click', (e) => {
-        if (e.target === legalModal) closeLegalModal();
-      });
+  <!-- ========================================================== -->
+  <!-- CLOUD SYNC: SINCRONIZACIÓN PÚBLICA EN TIEMPO REAL          -->
+  <!-- ========================================================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'blaskicks-store';
+
+    if (typeof __firebase_config !== 'undefined') {
+      try {
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Autenticación requerida antes de consultas
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+
+        const reviewsCol = collection(db, 'artifacts', appId, 'public', 'data', 'customer_reviews');
+
+        // Escucha en tiempo real de todas las opiniones de todos los clientes
+        onSnapshot(reviewsCol, (snapshot) => {
+          const remoteList = [];
+          snapshot.forEach((doc) => {
+            remoteList.push({ id: doc.id, ...doc.data() });
+          });
+
+          // Ordenar en memoria por fecha más reciente primero
+          remoteList.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+          // Combinar con las opiniones oficiales base de la marca
+          const merged = [...remoteList];
+          INITIAL_REVIEWS.forEach(baseRev => {
+            if (!merged.some(r => r.comment === baseRev.comment && r.author === baseRev.author)) {
+              merged.push(baseRev);
+            }
+          });
+
+          liveCloudReviews = merged;
+          renderReviewsList(liveCloudReviews);
+        }, (error) => {
+          console.warn("Sincronización en tiempo real:", error);
+        });
+
+        // Función global para publicar la opinión y guardarla para todos
+        window.submitReviewToCloud = async (reviewData) => {
+          try {
+            await addDoc(reviewsCol, reviewData);
+          } catch (err) {
+            console.error("Error al publicar opinión:", err);
+            liveCloudReviews.unshift(reviewData);
+            renderReviewsList();
+          }
+        };
+      } catch (err) {
+        console.warn("Configuración de base de datos:", err);
+      }
     }
   </script>
 </body>
