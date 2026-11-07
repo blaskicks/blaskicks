@@ -43,6 +43,13 @@
   }
   </script>
 
+  <!-- REDIRECCIÓN AUTOMÁTICA DE VERCEL.APP A BLASKICKS.COM -->
+  <script>
+    if (window.location.hostname.includes('vercel.app')) {
+      window.location.replace('https://blaskicks.com' + window.location.pathname + window.location.search + window.location.hash);
+    }
+  </script>
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Plus Jakarta Sans (Titles) & Space Grotesk (Prices) & Inter (Body) -->
@@ -1153,33 +1160,80 @@
             <option value="Accesorios">Accesorios</option>
           </select>
 
-          <!-- Filtro Marca -->
-          <select id="filter-brand-select" onchange="applyCategoryFilters()" class="text-xs font-semibold px-3 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black cursor-pointer">
-            <option value="ALL">Marca ▼</option>
-            <option value="Fear of God Essentials">Fear of God Essentials</option>
-            <option value="Nike">Nike</option>
-            <option value="Jordan">Jordan</option>
-            <option value="Travis Scott">Travis Scott</option>
-            <option value="Off-White">Off-White</option>
-            <option value="Supreme">Supreme</option>
-            <option value="Corteiz">Corteiz</option>
-            <option value="Balenciaga">Balenciaga</option>
-            <option value="Stüssy">Stüssy</option>
-            <option value="Chrome Hearts">Chrome Hearts</option>
-          </select>
+          <!-- Dropdown Multi-Filtro: Marcas -->
+          <div class="relative inline-block text-left" id="multi-brand-wrapper">
+            <button 
+              type="button" 
+              onclick="toggleFilterDropdown('brand')" 
+              id="filter-brand-btn" 
+              class="text-xs font-semibold px-3.5 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black flex items-center gap-1.5 shadow-sm transition-colors"
+            >
+              <span id="filter-brand-btn-label">Marcas</span>
+              <span class="text-[10px] text-neutral-500 font-sans">▼</span>
+            </button>
+            <div 
+              id="filter-brand-menu" 
+              class="hidden absolute left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-neutral-200 z-50 p-2.5 max-h-64 overflow-y-auto no-scrollbar"
+            >
+              <div class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-2 py-1 flex items-center justify-between border-b border-neutral-100 mb-1">
+                <span>Seleccionar marcas</span>
+                <button type="button" onclick="clearSpecificMultiFilter('brand')" class="text-brandSkyDark hover:underline">Limpiar</button>
+              </div>
+              <div id="filter-brand-options" class="space-y-1">
+                <!-- Rellenado dinámico con checkboxes -->
+              </div>
+            </div>
+          </div>
 
-          <!-- Filtro Talle Dinámico según Indumentaria o Calzado -->
-          <select id="filter-size-select" onchange="applyCategoryFilters()" class="text-xs font-semibold px-3 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black cursor-pointer">
-            <option value="ALL">Talle ▼</option>
-          </select>
+          <!-- Dropdown Multi-Filtro: Talles -->
+          <div class="relative inline-block text-left" id="multi-size-wrapper">
+            <button 
+              type="button" 
+              onclick="toggleFilterDropdown('size')" 
+              id="filter-size-btn" 
+              class="text-xs font-semibold px-3.5 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black flex items-center gap-1.5 shadow-sm transition-colors"
+            >
+              <span id="filter-size-btn-label">Talles</span>
+              <span class="text-[10px] text-neutral-500 font-sans">▼</span>
+            </button>
+            <div 
+              id="filter-size-menu" 
+              class="hidden absolute left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-neutral-200 z-50 p-2.5 max-h-64 overflow-y-auto no-scrollbar"
+            >
+              <div class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-2 py-1 flex items-center justify-between border-b border-neutral-100 mb-1">
+                <span>Seleccionar talles</span>
+                <button type="button" onclick="clearSpecificMultiFilter('size')" class="text-brandSkyDark hover:underline">Limpiar</button>
+              </div>
+              <div id="filter-size-options" class="space-y-1">
+                <!-- Rellenado dinámico con checkboxes -->
+              </div>
+            </div>
+          </div>
 
-          <!-- Filtro Estado (Nuevo, Usado como nuevo, Usado) -->
-          <select id="filter-condition-select" onchange="applyCategoryFilters()" class="text-xs font-semibold px-3 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black cursor-pointer">
-            <option value="ALL">Estado ▼</option>
-            <option value="Nuevo">Nuevo</option>
-            <option value="Usado (como nuevo)">Usado (como nuevo)</option>
-            <option value="Usado">Usado</option>
-          </select>
+          <!-- Dropdown Multi-Filtro: Estado (Condición) -->
+          <div class="relative inline-block text-left" id="multi-condition-wrapper">
+            <button 
+              type="button" 
+              onclick="toggleFilterDropdown('condition')" 
+              id="filter-condition-btn" 
+              class="text-xs font-semibold px-3.5 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black flex items-center gap-1.5 shadow-sm transition-colors"
+            >
+              <span id="filter-condition-btn-label">Estado</span>
+              <span class="text-[10px] text-neutral-500 font-sans">▼</span>
+            </button>
+            <div 
+              id="filter-condition-menu" 
+              class="hidden absolute left-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-neutral-200 z-50 p-2.5 max-h-64 overflow-y-auto no-scrollbar"
+            >
+              <div class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-2 py-1 flex items-center justify-between border-b border-neutral-100 mb-1">
+                <span>Condición</span>
+                <button type="button" onclick="clearSpecificMultiFilter('condition')" class="text-brandSkyDark hover:underline">Limpiar</button>
+              </div>
+              <div id="filter-condition-options" class="space-y-1">
+                <!-- Rellenado con opciones de condición -->
+              </div>
+            </div>
+          </div>
 
           <!-- Reset filtros -->
           <button id="btn-reset-filters" onclick="resetCategoryFilters()" class="text-[11px] font-bold text-neutral-400 hover:text-black underline ml-1 hidden">
@@ -1197,6 +1251,11 @@
             <option value="alpha-desc">Nombre: Z - A</option>
           </select>
         </div>
+      </div>
+
+      <!-- Fila de Filtros Activos (Pill tags clickeables para remover) -->
+      <div id="active-filter-chips-container" class="flex flex-wrap items-center gap-1.5 mb-6 hidden">
+        <!-- Renderizado dinámico de chips seleccionados -->
       </div>
 
       <!-- Grilla de productos de la categoría: mínimo 2 por fila en móvil (grid-cols-2) -->
@@ -1914,8 +1973,8 @@
     // VALOR DEL DÓLAR BLUE VENTA (Base 1565; actualizable automáticamente con API)
     const DOLAR_BLUE_VENTA = 1565;
 
-    // BASE URL DE TU BUCKET PÚBLICO EN CLOUDFLARE R2
-    const R2_BASE = "https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev";
+    // BASE URL DE TU BUCKET PÚBLICO EN CLOUDFLARE R2 CON TU CUSTOM DOMAIN EXACTO
+    const R2_BASE = "https://assests.blaskicks.com";
 
     // CATÁLOGO REAL DE PRODUCTOS CON TUS FOTOS AVIF EN CLOUDFLARE R2
     const PRODUCTS = [
@@ -1926,6 +1985,7 @@
         id: "prod-bk-1",
         slug: "nike-mind-001-summit-white",
         brand: "Nike",
+        brands: ["Nike"],
         category: "Sneakers",
         name: "NIKE MIND 001 SUMMIT WHITE",
         size: "7.5 y 8.5 US (MEN)",
@@ -1947,6 +2007,7 @@
         id: "prod-bk-2",
         slug: "dunk-sb-orange-lobster",
         brand: "Nike",
+        brands: ["Nike"],
         category: "Sneakers",
         name: "DUNK SB ORANGE LOBSTER",
         size: "10.5 US",
@@ -1965,6 +2026,7 @@
         id: "prod-bk-3",
         slug: "air-force-1-nocta-white-cobalt-tint",
         brand: "Nike",
+        brands: ["Nike", "NOCTA"],
         category: "Sneakers",
         name: "AIR FORCE 1 NOCTA WHITE COBALT TINT",
         size: "10.5 US",
@@ -1983,6 +2045,7 @@
         id: "prod-bk-4",
         slug: "jordan-1-low-travis-scott-tropical-pink",
         brand: "Travis Scott",
+        brands: ["Travis Scott", "Jordan", "Nike"],
         category: "Sneakers",
         name: "JORDAN 1 LOW TRAVIS SCOTT TROPICAL PINK",
         size: "9.5 y 10.5 US",
@@ -2002,6 +2065,7 @@
         id: "prod-bk-5",
         slug: "out-of-office-grey-white",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Sneakers",
         name: "OUT OF OFFICE GREY WHITE",
         size: "7.5 US",
@@ -2020,6 +2084,7 @@
         id: "prod-bk-6",
         slug: "adidas-gazelle-bad-bunny-cabo-rojo",
         brand: "Adidas",
+        brands: ["Adidas", "Bad Bunny"],
         category: "Sneakers",
         name: "ADIDAS GAZELLE BAD BUNNY CABO ROJO",
         size: "10.5 US",
@@ -2042,6 +2107,7 @@
         id: "prod-bk-7",
         slug: "off-white-grey-black-airpods-case",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Accesorios",
         name: "OFF WHITE GREY & BLACK AIRPODS CASE",
         size: "Único (AirPods 3)",
@@ -2060,6 +2126,7 @@
         id: "prod-bk-8",
         slug: "off-white-dish-tray-white",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Accesorios",
         name: "OFF WHITE DISH TRAY WHITE",
         size: "Único",
@@ -2080,6 +2147,7 @@
         id: "prod-bk-9",
         slug: "off-white-arthur-sunglasses-animal-print",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Accesorios",
         name: "OFF WHITE ARTHUR SUNGLASSES ANIMAL PRINT",
         size: "Único",
@@ -2099,6 +2167,7 @@
         id: "prod-bk-10",
         slug: "off-white-virgil-sunglasses-black",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Accesorios",
         name: "OFF WHITE VIRGIL SUNGLASSES BLACK",
         size: "Único",
@@ -2118,6 +2187,7 @@
         id: "prod-bk-11",
         slug: "palm-angels-melrose-sunglasses-black",
         brand: "Palm Angels",
+        brands: ["Palm Angels"],
         category: "Accesorios",
         name: "PALM ANGELS MELROSE SUNGLASSES BLACK",
         size: "Único",
@@ -2139,6 +2209,7 @@
         id: "prod-bk-12",
         slug: "palm-angels-palm-sunglasses",
         brand: "Palm Angels",
+        brands: ["Palm Angels"],
         category: "Accesorios",
         name: "PALM ANGELS PALM SUNGLASSES",
         size: "Único",
@@ -2160,6 +2231,7 @@
         id: "prod-bk-13",
         slug: "supreme-rhinestone-label-camp-cap-black",
         brand: "Supreme",
+        brands: ["Supreme"],
         category: "Accesorios",
         name: "SUPREME RHINESTONE LABEL CAMP CAP BLACK",
         size: "REGULABLE",
@@ -2179,6 +2251,7 @@
         id: "prod-bk-14",
         slug: "amiri-ma-logo-cap-white",
         brand: "Amiri",
+        brands: ["Amiri"],
         category: "Accesorios",
         name: "AMIRI MA LOGO CAP WHITE",
         size: "7 1/8",
@@ -2199,6 +2272,7 @@
         id: "prod-bk-15",
         slug: "supreme-s-logo-cap-blue-denim",
         brand: "Supreme",
+        brands: ["Supreme"],
         category: "Accesorios",
         name: "SUPREME S LOGO CAP BLUE DENIM",
         size: "REGULABLE",
@@ -2218,6 +2292,7 @@
         id: "prod-bk-16",
         slug: "supreme-new-era-box-logo-navy",
         brand: "Supreme",
+        brands: ["Supreme", "New Era"],
         category: "Accesorios",
         name: "SUPREME NEW ERA BOX LOGO CAP NAVY",
         size: "7 3/8",
@@ -2240,6 +2315,7 @@
         id: "prod-bk-17",
         slug: "supreme-camo-beanie",
         brand: "Supreme",
+        brands: ["Supreme"],
         category: "Accesorios",
         name: "SUPREME CAMO BEANIE",
         size: "Único",
@@ -2258,6 +2334,7 @@
         id: "prod-bk-18",
         slug: "supreme-new-era-monogram-beanie-brown",
         brand: "Supreme",
+        brands: ["Supreme", "New Era"],
         category: "Accesorios",
         name: "SUPREME NEW ERA MONOGRAM BEANIE BROWN",
         size: "Único",
@@ -2281,6 +2358,7 @@
         id: "prod-bk-pant-1",
         slug: "off-white-off-jeans-denim-blue",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Pantalones",
         name: "OFF WHITE OFF JEANS DENIM BLUE",
         size: "33 US",
@@ -2301,6 +2379,7 @@
         id: "prod-bk-pant-2",
         slug: "mnml-ripped-ultra-baggy-jeans-vintage-blue",
         brand: "MNML",
+        brands: ["MNML"],
         category: "Pantalones",
         name: "MNML RIPPED ULTRA BAGGY JEANS VINTAGE BLUE",
         size: "32 y 33 US",
@@ -2323,6 +2402,7 @@
         id: "prod-bk-pant-3",
         slug: "off-white-sand-shorts",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Pantalones",
         name: "OFF WHITE SAND SHORTS",
         size: "L",
@@ -2341,6 +2421,7 @@
         id: "prod-bk-pant-4",
         slug: "off-white-arrow-sweatpant-black",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Pantalones",
         name: "OFF WHITE ARROW SWEATPANT BLACK",
         size: "L",
@@ -2360,6 +2441,7 @@
         id: "prod-bk-pant-5",
         slug: "essentials-lounge-fleece-sweatpant-homestead-heather",
         brand: "Fear of God Essentials",
+        brands: ["Fear of God Essentials", "Fear of God"],
         category: "Pantalones",
         name: "ESSENTIALS LOUNGE FLEECE SWEATPANT HOMESTEAD HEATHER",
         size: "XL (fit XXL)",
@@ -2378,6 +2460,7 @@
         id: "prod-bk-pant-6",
         slug: "jordan-diamond-short-black",
         brand: "Jordan",
+        brands: ["Jordan", "Nike"],
         category: "Pantalones",
         name: "JORDAN DIAMOND SHORT BLACK",
         size: "XL",
@@ -2396,14 +2479,14 @@
         id: "prod-bk-pant-7",
         slug: "essentials-short-homestead-heather",
         brand: "Fear of God Essentials",
+        brands: ["Fear of God Essentials", "Fear of God"],
         category: "Pantalones",
         name: "ESSENTIALS SHORT HOMESTEAD HEATHER",
         size: "XL",
         price: 120,
         img: `${R2_BASE}/essentials%20short%20homestead%20heather%201%20blaskicks.avif`,
         gallery: [
-          `${R2_BASE}/essentials%20short%20homestead%20heather%201%20blaskicks.avif`,
-          `${R2_BASE}/essentials%20short%20homestead%20heather%202%20blaskicks.avif`
+          `${R2_BASE}/essentials%20short%20homestead%20heather%201%20blaskicks.avif`
         ],
         badge: "DS",
         condition: "Nuevo",
@@ -2419,6 +2502,7 @@
         id: "prod-bk-camp-1",
         slug: "supreme-thermal-zip-up-heather-grey",
         brand: "Supreme",
+        brands: ["Supreme"],
         category: "Camperas",
         name: "SUPREME THERMAL ZIP UP HEATHER GREY",
         size: "L",
@@ -2438,6 +2522,7 @@
         id: "prod-bk-camp-2",
         slug: "corteiz-vvs-leopard-jacquard-knit-black",
         brand: "Corteiz",
+        brands: ["Corteiz"],
         category: "Camperas",
         name: "CORTEIZ VVS LEOPARD JACQUARD KNIT BLACK",
         size: "M",
@@ -2457,6 +2542,7 @@
         id: "prod-bk-camp-3",
         slug: "supreme-x-jordan-zip-up-light-blue",
         brand: "Supreme",
+        brands: ["Supreme", "Jordan", "Nike"],
         category: "Camperas",
         name: "SUPREME X JORDAN ZIP UP LIGHT BLUE",
         size: "L",
@@ -2478,6 +2564,7 @@
         id: "prod-bk-camp-4",
         slug: "supreme-x-jordan-zip-up-black",
         brand: "Supreme",
+        brands: ["Supreme", "Jordan", "Nike"],
         category: "Camperas",
         name: "SUPREME X JORDAN ZIP UP BLACK",
         size: "M",
@@ -2499,6 +2586,7 @@
         id: "prod-bk-camp-5",
         slug: "vale-forever-zip-up-orange",
         brand: "Vale Forever",
+        brands: ["Vale Forever"],
         category: "Camperas",
         name: "VALE FOREVER ZIP UP ORANGE",
         size: "XL",
@@ -2522,6 +2610,7 @@
         id: "prod-bk-buzo-1",
         slug: "balenciaga-classic-middle-back-logo-hoodie-black",
         brand: "Balenciaga",
+        brands: ["Balenciaga"],
         category: "Buzos",
         name: "BALENCIAGA CLASSIC MIDDLE BACK LOGO HOODIE BLACK",
         size: "XXS (fit S)",
@@ -2543,6 +2632,7 @@
         id: "prod-bk-buzo-2",
         slug: "off-white-logo-skate-hoodie-white",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Buzos",
         name: "OFF WHITE LOGO SKATE HOODIE WHITE",
         size: "L",
@@ -2564,6 +2654,7 @@
         id: "prod-bk-buzo-3",
         slug: "travis-scott-x-mcdonalds-cactus-jack-crewneck-grey",
         brand: "Travis Scott",
+        brands: ["Travis Scott", "Cactus Jack", "McDonald's"],
         category: "Buzos",
         name: "TRAVIS SCOTT X MCDONALDS CACTUS JACK CREWNECK GREY",
         size: "L",
@@ -2583,6 +2674,7 @@
         id: "prod-bk-buzo-4",
         slug: "off-white-tattoo-arrow-crewneck-white",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Buzos",
         name: "OFF WHITE TATTOO ARROW CREWNECK WHITE",
         size: "M",
@@ -2602,6 +2694,7 @@
         id: "prod-bk-buzo-5",
         slug: "off-white-off-stamp-hoodie-light-stone",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Buzos",
         name: "OFF WHITE OFF STAMP HOODIE LIGHT STONE",
         size: "XL",
@@ -2622,6 +2715,7 @@
         id: "prod-bk-buzo-6",
         slug: "diesel-s-baxt-hoodie-white",
         brand: "Diesel",
+        brands: ["Diesel"],
         category: "Buzos",
         name: "DIESEL S-BAXT HOODIE WHITE",
         size: "M",
@@ -2641,6 +2735,7 @@
         id: "prod-bk-buzo-7",
         slug: "essentials-hoodie-homestead-heather",
         brand: "Fear of God Essentials",
+        brands: ["Fear of God Essentials", "Fear of God"],
         category: "Buzos",
         name: "ESSENTIALS HOODIE HOMESTEAD HEATHER",
         size: "M",
@@ -2660,6 +2755,7 @@
         id: "prod-bk-buzo-8",
         slug: "off-white-off-stamp-crewneck-black",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Buzos",
         name: "OFF WHITE OFF STAMP CREWNECK BLACK",
         size: "L",
@@ -2678,6 +2774,7 @@
         id: "prod-bk-buzo-9",
         slug: "essentials-crewneck-jet-black",
         brand: "Fear of God Essentials",
+        brands: ["Fear of God Essentials", "Fear of God"],
         category: "Buzos",
         name: "ESSENTIALS CREWNECK JET BLACK",
         size: "M",
@@ -2697,6 +2794,7 @@
         id: "prod-bk-buzo-10",
         slug: "essentials-fleece-crewneck-jet-black",
         brand: "Fear of God Essentials",
+        brands: ["Fear of God Essentials", "Fear of God"],
         category: "Buzos",
         name: "ESSENTIALS FLEECE CREWNECK JET BLACK",
         size: "XL",
@@ -2720,6 +2818,7 @@
         id: "prod-bk-rem-1",
         slug: "supreme-mlb-tee-white",
         brand: "Supreme",
+        brands: ["Supreme", "MLB"],
         category: "Remeras",
         name: "SUPREME MLB TEE WHITE",
         size: "L",
@@ -2739,13 +2838,15 @@
         id: "prod-bk-rem-2",
         slug: "supreme-hard-tee-white",
         brand: "Supreme",
+        brands: ["Supreme"],
         category: "Remeras",
         name: "SUPREME HARD TEE WHITE",
         size: "XL",
         price: 100,
         img: `${R2_BASE}/supreme%20hard%20tee%20white%201%20blaskicks.avif`,
         gallery: [
-          `${R2_BASE}/supreme%20hard%20tee%20white%201%20blaskicks.avif`
+          `${R2_BASE}/supreme%20hard%20tee%20white%201%20blaskicks.avif`,
+          `${R2_BASE}/supreme%20hard%20tee%20white%202%20blaskicks.avif`
         ],
         badge: "DS",
         condition: "Nuevo",
@@ -2757,6 +2858,7 @@
         id: "prod-bk-rem-3",
         slug: "vale-forever-faith-bling-tee-black",
         brand: "Vale Forever",
+        brands: ["Vale Forever"],
         category: "Remeras",
         name: "VALE FOREVER FAITH BLING TEE BLACK",
         size: "M",
@@ -2775,6 +2877,7 @@
         id: "prod-bk-rem-4",
         slug: "essentials-vintage-tee-concrete-heather",
         brand: "Fear of God Essentials",
+        brands: ["Fear of God Essentials", "Fear of God"],
         category: "Remeras",
         name: "ESSENTIALS VINTAGE TEE CONCRETE HEATHER",
         size: "XL",
@@ -2793,6 +2896,7 @@
         id: "prod-bk-rem-5",
         slug: "diesel-big-logo-tee-black",
         brand: "Diesel",
+        brands: ["Diesel"],
         category: "Remeras",
         name: "DIESEL BIG LOGO TEE BLACK",
         size: "M",
@@ -2812,6 +2916,7 @@
         id: "prod-bk-rem-6",
         slug: "palm-angels-bear-tee-black",
         brand: "Palm Angels",
+        brands: ["Palm Angels"],
         category: "Remeras",
         name: "PALM ANGELS BEAR TEE BLACK",
         size: "M",
@@ -2830,6 +2935,7 @@
         id: "prod-bk-rem-8",
         slug: "yeezy-gap-balenciaga-dove-no-seam-tee",
         brand: "Balenciaga",
+        brands: ["Balenciaga", "Yeezy", "Gap"],
         category: "Remeras",
         name: "YEEZY X GAP X BALENCIAGA DOVE NO SEAM TEE",
         size: "L (fit XXL)",
@@ -2851,6 +2957,7 @@
         id: "prod-bk-rem-9",
         slug: "ttt-automobile-club-long-sleeve-white",
         brand: "TTT",
+        brands: ["TTT"],
         category: "Remeras",
         name: "TTT AUTOMOBILE CLUB LONG SLEEVE WHITE",
         size: "M",
@@ -2870,6 +2977,7 @@
         id: "prod-bk-rem-10",
         slug: "ttt-stripes-long-sleeve-white",
         brand: "TTT",
+        brands: ["TTT"],
         category: "Remeras",
         name: "TTT STRIPES LONG SLEEVE WHITE",
         size: "M",
@@ -2888,6 +2996,7 @@
         id: "prod-bk-rem-11",
         slug: "yeezy-gap-balenciaga-dove-sleeve-tee",
         brand: "Balenciaga",
+        brands: ["Balenciaga", "Yeezy", "Gap"],
         category: "Remeras",
         name: "YEEZY X GAP X BALENCIAGA DOVE SLEEVE TEE",
         size: "S (fit XL)",
@@ -2909,6 +3018,7 @@
         id: "prod-bk-rem-12",
         slug: "supreme-hard-tee-black",
         brand: "Supreme",
+        brands: ["Supreme"],
         category: "Remeras",
         name: "SUPREME HARD TEE BLACK",
         size: "M",
@@ -2928,6 +3038,7 @@
         id: "prod-bk-rem-13",
         slug: "corteiz-og-island-logo-tee-puffer-print-olive",
         brand: "Corteiz",
+        brands: ["Corteiz"],
         category: "Remeras",
         name: "CORTEIZ OG ISLAND LOGO TEE PUFFER PRINT OLIVE",
         size: "L",
@@ -2947,6 +3058,7 @@
         id: "prod-bk-rem-14",
         slug: "trapstar-hot-rod-strikeout-tee-black",
         brand: "Trapstar",
+        brands: ["Trapstar"],
         category: "Remeras",
         name: "TRAPSTAR HOT ROD STRIKEOUT TEE BLACK",
         size: "L",
@@ -2967,6 +3079,7 @@
         id: "prod-bk-rem-15",
         slug: "trapstar-hot-rod-strikeout-tee-white",
         brand: "Trapstar",
+        brands: ["Trapstar"],
         category: "Remeras",
         name: "TRAPSTAR HOT ROD STRIKEOUT TEE WHITE",
         size: "M",
@@ -2987,6 +3100,7 @@
         id: "prod-bk-rem-16",
         slug: "trapstar-london-strikeout-tee-black",
         brand: "Trapstar",
+        brands: ["Trapstar"],
         category: "Remeras",
         name: "TRAPSTAR LONDON STRIKEOUT TEE BLACK",
         size: "XL",
@@ -3007,6 +3121,7 @@
         id: "prod-bk-rem-17",
         slug: "supreme-mlb-tee-black",
         brand: "Supreme",
+        brands: ["Supreme", "MLB"],
         category: "Remeras",
         name: "SUPREME MLB TEE BLACK",
         size: "M",
@@ -3026,6 +3141,7 @@
         id: "prod-bk-rem-18",
         slug: "off-white-chain-arrow-tee-black",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Remeras",
         name: "OFF WHITE CHAIN ARROW TEE BLACK",
         size: "M",
@@ -3047,6 +3163,7 @@
         id: "prod-bk-rem-19",
         slug: "supreme-studded-logo-ss-tee-black",
         brand: "Supreme",
+        brands: ["Supreme"],
         category: "Remeras",
         name: "SUPREME STUDDED LOGO S/S TEE BLACK",
         size: "M",
@@ -3065,6 +3182,7 @@
         id: "prod-bk-rem-20",
         slug: "off-white-vibe-arrow-tee-black",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Remeras",
         name: "OFF WHITE VIBE ARROW TEE BLACK",
         size: "L",
@@ -3086,6 +3204,7 @@
         id: "prod-bk-rem-21",
         slug: "off-white-flower-arrow-tee-black",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Remeras",
         name: "OFF WHITE FLOWER ARROW TEE BLACK",
         size: "L",
@@ -3107,6 +3226,7 @@
         id: "prod-bk-rem-22",
         slug: "off-white-flower-arrow-tee-white",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Remeras",
         name: "OFF WHITE FLOWER ARROW TEE WHITE",
         size: "M",
@@ -3128,6 +3248,7 @@
         id: "prod-bk-rem-23",
         slug: "off-white-matthew-red-tee",
         brand: "Off-White",
+        brands: ["Off-White"],
         category: "Remeras",
         name: "OFF WHITE MATTHEW RED TEE",
         size: "XL",
@@ -3147,6 +3268,7 @@
         id: "prod-bk-rem-24",
         slug: "yeezy-gap-balenciaga-long-sleeve-tee",
         brand: "Balenciaga",
+        brands: ["Balenciaga", "Yeezy", "Gap"],
         category: "Remeras",
         name: "YEEZY X GAP X BALENCIAGA LONG SLEEVE TEE",
         size: "S (fit XL)",
@@ -3168,6 +3290,7 @@
         id: "prod-bk-rem-25",
         slug: "balenciaga-tape-tee-green",
         brand: "Balenciaga",
+        brands: ["Balenciaga"],
         category: "Remeras",
         name: "BALENCIAGA TAPE TEE GREEN",
         size: "S (fit L)",
@@ -3187,6 +3310,7 @@
         id: "prod-bk-rem-26",
         slug: "amiri-art-district-tee-black",
         brand: "Amiri",
+        brands: ["Amiri"],
         category: "Remeras",
         name: "AMIRI ART DISTRICT TEE BLACK",
         size: "M",
@@ -3208,6 +3332,7 @@
         id: "prod-bk-rem-27",
         slug: "travis-scott-cactus-jack-vegas-tee-green",
         brand: "Travis Scott",
+        brands: ["Travis Scott", "Cactus Jack"],
         category: "Remeras",
         name: "TRAVIS SCOTT CACTUS JACK VEGAS TEE GREEN",
         size: "M",
@@ -3227,6 +3352,7 @@
         id: "prod-bk-rem-28",
         slug: "supreme-ducati-soccer-jersey-blue",
         brand: "Supreme",
+        brands: ["Supreme", "Ducati"],
         category: "Remeras",
         name: "SUPREME DUCATI SOCCER JERSEY BLUE",
         size: "M",
@@ -3246,6 +3372,7 @@
         id: "prod-bk-rem-29",
         slug: "amiri-bar-logo-tee-black",
         brand: "Amiri",
+        brands: ["Amiri"],
         category: "Remeras",
         name: "AMIRI BAR LOGO TEE BLACK",
         size: "XS (fit M)",
@@ -3264,6 +3391,7 @@
         id: "prod-bk-rem-30",
         slug: "palm-angels-burning-logo-tee-white",
         brand: "Palm Angels",
+        brands: ["Palm Angels"],
         category: "Remeras",
         name: "PALM ANGELS BURNING LOGO TEE WHITE",
         size: "L",
@@ -3339,6 +3467,11 @@
     let currentSelectedSize = null;
     let currentCategory = "Remeras";
     let currentSubFilter = null; // Para filtros específicos como 'Shorts', 'Lentes', 'Men', etc.
+
+    // MULTI-FILTROS SELECCIONADOS (SETS)
+    let selectedBrands = new Set();
+    let selectedSizes = new Set();
+    let selectedConditions = new Set();
 
     // FORMATO DE PRECIO EN PESOS CON PUNTOS (Ej: 313.000)
     function formatARS(num) {
@@ -3523,10 +3656,15 @@
         if (thumbsContainer) {
           thumbsContainer.innerHTML = galleryList.map((src, idx) => `
             <button 
-              onclick="changePdpImage('${src}', this)" 
+              onclick="changePdpImage(this)" 
               class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl border-2 ${idx === 0 ? 'border-brandSky' : 'border-neutral-200'} bg-white p-1 overflow-hidden flex-shrink-0 transition-colors hover:border-neutral-400"
             >
-              <img src="${src}" class="w-full h-full object-contain mix-blend-multiply" />
+              <img 
+                src="${src}" 
+                alt="Miniatura ${idx + 1}"
+                onerror="handleThumbnailFallback(this, '${product.slug}', ${idx + 1})" 
+                class="w-full h-full object-contain mix-blend-multiply" 
+              />
             </button>
           `).join("");
         }
@@ -3576,12 +3714,38 @@
       });
     }
 
-    function changePdpImage(src, btn) {
+    function changePdpImage(btn) {
+      const thumbImg = btn.querySelector("img");
       const mainImg = document.getElementById("pdp-main-image");
-      if (mainImg) mainImg.src = src;
+      if (thumbImg && mainImg) {
+        mainImg.src = thumbImg.src;
+      }
       const allThumbs = document.querySelectorAll("#pdp-thumbnails button");
       allThumbs.forEach(b => b.classList.replace("border-brandSky", "border-neutral-200"));
-      btn.classList.replace("border-neutral-200", "border-brandSky");
+      if (btn) btn.classList.replace("border-neutral-200", "border-brandSky");
+    }
+
+    // MANEJADOR DE RESCATE AUTOMÁTICO DE NOMBRES EN CLOUDFLARE R2
+    function handleThumbnailFallback(imgElement, slug, photoIndex) {
+      if (imgElement.dataset.fallbackAttempted) {
+        imgElement.onerror = null;
+        if (currentActiveProduct && currentActiveProduct.img) {
+          imgElement.src = currentActiveProduct.img;
+        }
+        return;
+      }
+      imgElement.dataset.fallbackAttempted = "1";
+
+      const currentSrc = imgElement.src;
+      // 1. Probar alternar entre el endpoint directo y el subdominio
+      if (currentSrc.includes("assests.blaskicks.com")) {
+        imgElement.src = currentSrc.replace("https://assests.blaskicks.com", "https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev");
+        return;
+      }
+
+      if (slug === "supreme-hard-tee-white" && photoIndex === 2) {
+        imgElement.src = `https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/supreme%20hard%20tee%20white%202%20blaskicks.avif`;
+      }
     }
 
     function selectPdpSize(us, cm, btn) {
@@ -3656,25 +3820,78 @@
       return lower.includes("sneaker") || lower.includes("jordan") || lower.includes("dunk") || lower.includes("yeezy");
     }
 
+    // TOGGLE MENÚS DESPLEGABLES DE MULTI-FILTRO
+    function toggleFilterDropdown(type) {
+      const menuIds = {
+        brand: "filter-brand-menu",
+        size: "filter-size-menu",
+        condition: "filter-condition-menu"
+      };
+      
+      const targetMenu = document.getElementById(menuIds[type]);
+      if (!targetMenu) return;
+
+      const willOpen = targetMenu.classList.contains("hidden");
+
+      // Cerrar los otros menús abiertos
+      Object.values(menuIds).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add("hidden");
+      });
+
+      if (willOpen) {
+        targetMenu.classList.remove("hidden");
+      }
+    }
+
+    // Cerrar menús de filtros si se hace clic afuera
+    document.addEventListener("click", (e) => {
+      const isInside = e.target.closest("#multi-brand-wrapper, #multi-size-wrapper, #multi-condition-wrapper");
+      if (!isInside) {
+        ["filter-brand-menu", "filter-size-menu", "filter-condition-menu"].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add("hidden");
+        });
+      }
+    });
+
     function updateBrandFilterDropdown(categoryProducts) {
-      const brandSelect = document.getElementById("filter-brand-select");
-      if (!brandSelect) return;
-      const prevBrand = brandSelect.value;
-      const brands = Array.from(new Set(categoryProducts.map(p => p.brand).filter(Boolean))).sort();
+      const container = document.getElementById("filter-brand-options");
+      if (!container) return;
 
-      brandSelect.innerHTML = `<option value="ALL">Marca ▼</option>` + 
-        brands.map(b => `<option value="${b}">${b}</option>`).join("");
+      const brandSet = new Set();
+      categoryProducts.forEach(p => {
+        const itemBrands = getProductBrands(p);
+        itemBrands.forEach(b => brandSet.add(b));
+      });
+      const brands = Array.from(brandSet).sort();
+      
+      // Mantener marcas seleccionadas que sigan existiendo
+      selectedBrands = new Set(Array.from(selectedBrands).filter(b => brands.includes(b)));
 
-      const exists = brands.includes(prevBrand);
-      brandSelect.value = exists ? prevBrand : "ALL";
+      container.innerHTML = brands.map(b => {
+        const checked = selectedBrands.has(b);
+        return `
+          <label class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium text-neutral-800 hover:bg-neutral-100 cursor-pointer select-none">
+            <span class="truncate pr-2">${b}</span>
+            <input 
+              type="checkbox" 
+              value="${b}" 
+              ${checked ? 'checked' : ''} 
+              onchange="handleMultiFilterChange('brand', '${b}', this.checked)"
+              class="w-4 h-4 rounded text-brandSky focus:ring-brandSky border-neutral-300 accent-sky-500 cursor-pointer"
+            />
+          </label>
+        `;
+      }).join("");
+
+      updateFilterButtonLabels();
     }
 
     function updateSizeFilterDropdown(categoryProducts, categoryName) {
-      const sizeSelect = document.getElementById("filter-size-select");
-      if (!sizeSelect) return;
+      const container = document.getElementById("filter-size-options");
+      if (!container) return;
 
-      const previousVal = sizeSelect.value;
-      
       const availableSizesSet = new Set();
       categoryProducts.forEach(p => {
         if (p.availableSizes && p.availableSizes.length > 0) {
@@ -3688,11 +3905,7 @@
       let sortedSizes = Array.from(availableSizesSet);
 
       if (isSneakers) {
-        sortedSizes.sort((a, b) => {
-          const numA = parseFloat(a) || 0;
-          const numB = parseFloat(b) || 0;
-          return numA - numB;
-        });
+        sortedSizes.sort((a, b) => (parseFloat(a) || 0) - (parseFloat(b) || 0));
       } else {
         const order = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "30", "32", "33", "34", "36", "ONE SIZE", "REGULABLE"];
         sortedSizes.sort((a, b) => {
@@ -3705,17 +3918,240 @@
         });
       }
 
-      sizeSelect.innerHTML = `<option value="ALL">Talle ▼</option>` + 
-        sortedSizes.map(s => `<option value="${s}">${s}</option>`).join("");
+      // Mantener talles seleccionados que sigan existiendo
+      selectedSizes = new Set(Array.from(selectedSizes).filter(s => sortedSizes.includes(s)));
 
-      const exists = sortedSizes.includes(previousVal);
-      sizeSelect.value = exists ? previousVal : "ALL";
+      container.innerHTML = sortedSizes.map(s => {
+        const checked = selectedSizes.has(s);
+        return `
+          <label class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium text-neutral-800 hover:bg-neutral-100 cursor-pointer select-none">
+            <span class="truncate pr-2">${s}</span>
+            <input 
+              type="checkbox" 
+              value="${s}" 
+              ${checked ? 'checked' : ''} 
+              onchange="handleMultiFilterChange('size', '${s}', this.checked)"
+              class="w-4 h-4 rounded text-brandSky focus:ring-brandSky border-neutral-300 accent-sky-500 cursor-pointer"
+            />
+          </label>
+        `;
+      }).join("");
+
+      updateConditionFilterDropdown();
+      updateFilterButtonLabels();
+    }
+
+    function updateConditionFilterDropdown() {
+      const container = document.getElementById("filter-condition-options");
+      if (!container) return;
+
+      const conditions = ["Nuevo", "Usado (como nuevo)", "Usado"];
+      container.innerHTML = conditions.map(c => {
+        const checked = selectedConditions.has(c);
+        return `
+          <label class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium text-neutral-800 hover:bg-neutral-100 cursor-pointer select-none">
+            <span class="truncate pr-2">${c}</span>
+            <input 
+              type="checkbox" 
+              value="${c}" 
+              ${checked ? 'checked' : ''} 
+              onchange="handleMultiFilterChange('condition', '${c}', this.checked)"
+              class="w-4 h-4 rounded text-brandSky focus:ring-brandSky border-neutral-300 accent-sky-500 cursor-pointer"
+            />
+          </label>
+        `;
+      }).join("");
+    }
+
+    function handleMultiFilterChange(type, value, isChecked) {
+      if (type === "brand") {
+        if (isChecked) selectedBrands.add(value);
+        else selectedBrands.delete(value);
+      } else if (type === "size") {
+        if (isChecked) selectedSizes.add(value);
+        else selectedSizes.delete(value);
+      } else if (type === "condition") {
+        if (isChecked) selectedConditions.add(value);
+        else selectedConditions.delete(value);
+      }
+      updateFilterButtonLabels();
+      applyCategoryFilters();
+    }
+
+    function clearSpecificMultiFilter(type) {
+      if (type === "brand") {
+        selectedBrands.clear();
+        const inputs = document.querySelectorAll("#filter-brand-options input");
+        inputs.forEach(i => i.checked = false);
+      } else if (type === "size") {
+        selectedSizes.clear();
+        const inputs = document.querySelectorAll("#filter-size-options input");
+        inputs.forEach(i => i.checked = false);
+      } else if (type === "condition") {
+        selectedConditions.clear();
+        const inputs = document.querySelectorAll("#filter-condition-options input");
+        inputs.forEach(i => i.checked = false);
+      }
+      updateFilterButtonLabels();
+      applyCategoryFilters();
+    }
+
+    function updateFilterButtonLabels() {
+      // Marcas
+      const brandBtn = document.getElementById("filter-brand-btn");
+      const brandLabel = document.getElementById("filter-brand-btn-label");
+      if (brandBtn && brandLabel) {
+        if (selectedBrands.size === 0) {
+          brandLabel.textContent = "Marcas";
+          brandBtn.className = "text-xs font-semibold px-3.5 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black flex items-center gap-1.5 shadow-sm transition-colors";
+        } else if (selectedBrands.size === 1) {
+          brandLabel.textContent = Array.from(selectedBrands)[0];
+          brandBtn.className = "text-xs font-bold px-3.5 py-1.5 rounded-full border border-brandSky bg-sky-50 text-brandSkyDark outline-none flex items-center gap-1.5 shadow-sm transition-colors";
+        } else {
+          brandLabel.textContent = `Marcas (${selectedBrands.size})`;
+          brandBtn.className = "text-xs font-bold px-3.5 py-1.5 rounded-full border border-brandSky bg-sky-50 text-brandSkyDark outline-none flex items-center gap-1.5 shadow-sm transition-colors";
+        }
+      }
+
+      // Talles
+      const sizeBtn = document.getElementById("filter-size-btn");
+      const sizeLabel = document.getElementById("filter-size-btn-label");
+      if (sizeBtn && sizeLabel) {
+        if (selectedSizes.size === 0) {
+          sizeLabel.textContent = "Talles";
+          sizeBtn.className = "text-xs font-semibold px-3.5 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black flex items-center gap-1.5 shadow-sm transition-colors";
+        } else if (selectedSizes.size === 1) {
+          sizeLabel.textContent = `Talle ${Array.from(selectedSizes)[0]}`;
+          sizeBtn.className = "text-xs font-bold px-3.5 py-1.5 rounded-full border border-brandSky bg-sky-50 text-brandSkyDark outline-none flex items-center gap-1.5 shadow-sm transition-colors";
+        } else {
+          sizeLabel.textContent = `Talles (${selectedSizes.size})`;
+          sizeBtn.className = "text-xs font-bold px-3.5 py-1.5 rounded-full border border-brandSky bg-sky-50 text-brandSkyDark outline-none flex items-center gap-1.5 shadow-sm transition-colors";
+        }
+      }
+
+      // Condición
+      const condBtn = document.getElementById("filter-condition-btn");
+      const condLabel = document.getElementById("filter-condition-btn-label");
+      if (condBtn && condLabel) {
+        if (selectedConditions.size === 0) {
+          condLabel.textContent = "Estado";
+          condBtn.className = "text-xs font-semibold px-3.5 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black flex items-center gap-1.5 shadow-sm transition-colors";
+        } else {
+          condLabel.textContent = selectedConditions.size === 1 ? Array.from(selectedConditions)[0] : `Estado (${selectedConditions.size})`;
+          condBtn.className = "text-xs font-bold px-3.5 py-1.5 rounded-full border border-brandSky bg-sky-50 text-brandSkyDark outline-none flex items-center gap-1.5 shadow-sm transition-colors";
+        }
+      }
+
+      renderActiveChips();
+    }
+
+    function renderActiveChips() {
+      const container = document.getElementById("active-filter-chips-container");
+      if (!container) return;
+
+      const chips = [];
+
+      selectedBrands.forEach(b => {
+        chips.push({ type: 'brand', val: b, label: b });
+      });
+      selectedSizes.forEach(s => {
+        chips.push({ type: 'size', val: s, label: `Talle: ${s}` });
+      });
+      selectedConditions.forEach(c => {
+        chips.push({ type: 'condition', val: c, label: c });
+      });
+
+      if (chips.length === 0) {
+        container.innerHTML = "";
+        container.classList.add("hidden");
+        return;
+      }
+
+      container.classList.remove("hidden");
+      container.innerHTML = `
+        <span class="text-[11px] font-bold text-neutral-400 uppercase tracking-wider mr-1">Filtros activos:</span>
+        ${chips.map(chip => `
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900 text-white text-[11px] font-bold shadow-sm">
+            <span>${chip.label}</span>
+            <button 
+              type="button" 
+              onclick="removeSingleFilter('${chip.type}', '${chip.val}')" 
+              class="hover:text-brandSky ml-0.5 text-xs focus:outline-none"
+            >
+              ✕
+            </button>
+          </span>
+        `).join("")}
+        <button 
+          type="button" 
+          onclick="resetCategoryFilters()" 
+          class="text-xs font-bold text-red-600 hover:text-red-700 underline ml-2"
+        >
+          Borrar todos
+        </button>
+      `;
+    }
+
+    function removeSingleFilter(type, value) {
+      if (type === 'brand') {
+        selectedBrands.delete(value);
+        const el = document.querySelector(`#filter-brand-options input[value="${value}"]`);
+        if (el) el.checked = false;
+      } else if (type === 'size') {
+        selectedSizes.delete(value);
+        const el = document.querySelector(`#filter-size-options input[value="${value}"]`);
+        if (el) el.checked = false;
+      } else if (type === 'condition') {
+        selectedConditions.delete(value);
+        const el = document.querySelector(`#filter-condition-options input[value="${value}"]`);
+        if (el) el.checked = false;
+      }
+      updateFilterButtonLabels();
+      applyCategoryFilters();
     }
 
     function isShortsProduct(product) {
       if (!product) return false;
       const text = `${product.name || ""} ${product.slug || ""}`.toLowerCase();
       return /\bshorts?\b/i.test(text);
+    }
+
+    // OBTENER TODAS LAS MARCAS / COLABORADORES ASOCIADOS AL PRODUCTO
+    function getProductBrands(product) {
+      if (!product) return [];
+      const set = new Set();
+      if (Array.isArray(product.brands)) {
+        product.brands.forEach(b => b && set.add(b.trim()));
+      }
+      if (product.brand) {
+        set.add(product.brand.trim());
+      }
+      // Detección automática en nombres de colaboraciones (ej: 'x Jordan', 'x Balenciaga')
+      const name = product.name || "";
+      if (/jordan/i.test(name)) set.add("Jordan");
+      if (/travis\s*scott/i.test(name) || /cactus\s*jack/i.test(name)) set.add("Travis Scott");
+      if (/supreme/i.test(name)) set.add("Supreme");
+      if (/nike/i.test(name)) set.add("Nike");
+      if (/balenciaga/i.test(name)) set.add("Balenciaga");
+      if (/yeezy/i.test(name)) set.add("Yeezy");
+      if (/essentials/i.test(name) || /fear of god/i.test(name)) set.add("Fear of God Essentials");
+      if (/off[- ]white/i.test(name)) set.add("Off-White");
+      if (/corteiz/i.test(name)) set.add("Corteiz");
+      if (/amiri/i.test(name)) set.add("Amiri");
+      if (/palm\s*angels/i.test(name)) set.add("Palm Angels");
+      if (/diesel/i.test(name)) set.add("Diesel");
+      if (/trapstar/i.test(name)) set.add("Trapstar");
+
+      return Array.from(set);
+    }
+
+    // COMPROBAR SI UN PRODUCTO COINCIDE CON ALGUNA DE LAS MARCAS FILTRADAS
+    function productMatchesBrands(product, filterBrandsArr) {
+      const prodBrands = getProductBrands(product).map(b => b.toLowerCase());
+      return filterBrandsArr.some(filterBrand => {
+        const fb = filterBrand.toLowerCase();
+        return prodBrands.some(pb => pb === fb || pb.includes(fb) || fb.includes(pb));
+      });
     }
 
     function getBaseCategoryProducts(catName, subFilter = null) {
@@ -3870,12 +4306,9 @@
         if (isMenuOpen) toggleMegaMenu();
 
         // Limpiar únicamente selects sin resetear currentSubFilter
-        const bSel = document.getElementById("filter-brand-select");
-        if (bSel) bSel.value = "ALL";
-        const sSel = document.getElementById("filter-size-select");
-        if (sSel) sSel.value = "ALL";
-        const cSel = document.getElementById("filter-condition-select");
-        if (cSel) cSel.value = "ALL";
+        selectedBrands.clear();
+        selectedSizes.clear();
+        selectedConditions.clear();
         const saleCatSel = document.getElementById("filter-sale-category-select");
         if (saleCatSel) saleCatSel.value = "ALL";
         const sortSel = document.getElementById("cat-sort-select");
@@ -3924,11 +4357,12 @@
         if (isMenuOpen) toggleMegaMenu();
 
         const baseProducts = getBaseCategoryProducts("Todos los Productos", null);
+        selectedBrands.clear();
+        selectedBrands.add(brandName);
+        selectedSizes.clear();
+        selectedConditions.clear();
         updateBrandFilterDropdown(baseProducts);
         updateSizeFilterDropdown(baseProducts, "Todos los Productos");
-        resetCategoryFilters(false);
-        const brandSel = document.getElementById("filter-brand-select");
-        if (brandSel) brandSel.value = brandName;
         applyCategoryFilters();
 
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -3938,9 +4372,6 @@
     }
 
     function applyCategoryFilters() {
-      const brandFilter = document.getElementById("filter-brand-select")?.value || "ALL";
-      const sizeFilter = document.getElementById("filter-size-select")?.value || "ALL";
-      const conditionFilter = document.getElementById("filter-condition-select")?.value || "ALL";
       const saleCategoryFilter = document.getElementById("filter-sale-category-select")?.value || "ALL";
       const sortValue = document.getElementById("cat-sort-select")?.value || "bestsellers";
 
@@ -3979,21 +4410,26 @@
         }
       }
 
-      if (brandFilter !== "ALL") {
-        list = list.filter(p => p.brand.toLowerCase() === brandFilter.toLowerCase());
+      // Multi-filtro de Marcas (OR entre las marcas seleccionadas, soportando colaboraciones)
+      if (selectedBrands.size > 0) {
+        const brandsArr = Array.from(selectedBrands);
+        list = list.filter(p => productMatchesBrands(p, brandsArr));
       }
 
-      if (sizeFilter !== "ALL") {
+      // Multi-filtro de Talles (OR entre los talles seleccionados)
+      if (selectedSizes.size > 0) {
         list = list.filter(p => {
           if (p.availableSizes && p.availableSizes.length > 0) {
-            return p.availableSizes.some(s => (s.us || "").trim() === sizeFilter);
+            return p.availableSizes.some(s => selectedSizes.has((s.us || "").trim()));
           }
-          return (p.size || "").includes(sizeFilter);
+          return Array.from(selectedSizes).some(s => (p.size || "").includes(s));
         });
       }
 
-      if (conditionFilter !== "ALL") {
-        list = list.filter(p => (p.condition || "").toLowerCase() === conditionFilter.toLowerCase());
+      // Multi-filtro de Condición (OR entre las condiciones seleccionadas)
+      if (selectedConditions.size > 0) {
+        const condArr = Array.from(selectedConditions).map(c => c.toLowerCase());
+        list = list.filter(p => condArr.includes((p.condition || "").toLowerCase()));
       }
 
       if (sortValue === "price-asc") {
@@ -4009,20 +4445,19 @@
       const countEl = document.getElementById("cat-product-count");
       if (countEl) countEl.textContent = list.length;
 
-      const hasActiveFilters = (brandFilter !== "ALL" || sizeFilter !== "ALL" || conditionFilter !== "ALL" || saleCategoryFilter !== "ALL" || currentSubFilter !== null);
+      const hasActiveFilters = (selectedBrands.size > 0 || selectedSizes.size > 0 || selectedConditions.size > 0 || saleCategoryFilter !== "ALL" || currentSubFilter !== null);
       const resetBtn = document.getElementById("btn-reset-filters");
       if (resetBtn) resetBtn.classList.toggle("hidden", !hasActiveFilters);
 
+      updateFilterButtonLabels();
       renderCategoryGrid(list);
     }
 
     function resetCategoryFilters(render = true) {
-      const bSel = document.getElementById("filter-brand-select");
-      if (bSel) bSel.value = "ALL";
-      const sSel = document.getElementById("filter-size-select");
-      if (sSel) sSel.value = "ALL";
-      const cSel = document.getElementById("filter-condition-select");
-      if (cSel) cSel.value = "ALL";
+      selectedBrands.clear();
+      selectedSizes.clear();
+      selectedConditions.clear();
+
       const saleCatSel = document.getElementById("filter-sale-category-select");
       if (saleCatSel) saleCatSel.value = "ALL";
       const sortSel = document.getElementById("cat-sort-select");
@@ -4030,6 +4465,13 @@
       const resetBtn = document.getElementById("btn-reset-filters");
       if (resetBtn) resetBtn.classList.add("hidden");
       currentSubFilter = null;
+
+      // Desmarcar todos los checkboxes
+      document.querySelectorAll("#filter-brand-options input, #filter-size-options input, #filter-condition-options input").forEach(input => {
+        input.checked = false;
+      });
+
+      updateFilterButtonLabels();
       if (render) applyCategoryFilters();
     }
 
