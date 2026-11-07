@@ -7,8 +7,9 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const KV_URL = process.env.KV_REST_API_URL;
-  const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+  // Detecta variables automáticas de Upstash o Vercel KV
+  const KV_URL = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+  const KV_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
 
   if (req.method === "GET") {
     try {
@@ -54,7 +55,7 @@ export default async function handler(req, res) {
         return res.status(200).json({ success: true, reviews: existing });
       }
 
-      return res.status(200).json({ success: true, warning: "Sin KV configurado" });
+      return res.status(200).json({ success: true, warning: "Sin base de datos" });
     } catch (e) {
       return res.status(500).json({ error: e.message });
     }
