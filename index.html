@@ -4804,10 +4804,13 @@
       }
     ];
 
-    // STORAGE GLOBAL EN LA NUBE PARA QUE TODOS LOS DISPOSITIVOS (PC, CELULARES) VEAN LAS MISMAS RESEÑAS
-    const GLOBAL_STORE_URL = "https://api.jsonstorage.net/v1/json/56e709fc-fa8e-4a6c-b715-00c733eb0c96/blaskicks-reviews";
+    // Asignar al objeto global para acceso universal seguro entre scripts y módulos
+    window.INITIAL_REVIEWS = INITIAL_REVIEWS;
 
-    // Declaración global para evitar ReferenceError en Firestore listener
+    // STORAGE PÚBLICO EN LA NUBE CON CORS ABIERTO Y SIN RESTRICCIONES DE LLAVE PRIVADA
+    const KV_STORE_URL = "https://kvdb.io/4y9h8tX9aWdE1R2bFzG9wK/blaskicks_public_reviews";
+
+    // Variables globales de reseñas sincronizadas
     let liveCloudReviews = [];
     let globalCloudReviews = [];
 
@@ -4827,41 +4830,44 @@
       } catch (e) {}
     }
 
-    // Cargar opiniones públicas desde la nube para todos los dispositivos
+    // Cargar opiniones públicas desde la nube compartida (accesible por cualquier celular o PC)
     async function fetchPublicGlobalReviews() {
       try {
-        const response = await fetch(GLOBAL_STORE_URL, { cache: "no-store" });
-        if (response.ok) {
-          const data = await response.json();
+        const res = await fetch(KV_STORE_URL + "?t=" + Date.now(), {
+          method: "GET",
+          headers: { "Accept": "application/json" }
+        });
+        if (res.ok) {
+          const data = await res.json();
           if (Array.isArray(data)) {
             globalCloudReviews = data;
             renderReviewsList();
           }
         }
       } catch (err) {
-        // Fallback transparente si no hay conexión
-        console.warn("Carga global de reseñas:", err);
+        console.warn("Fallo temporal al consultar KV en la nube:", err);
       }
     }
 
+    // Guardar una nueva opinión en la nube compartida para que todos los dispositivos la vean
     async function syncReviewToPublicGlobalCloud(newReview) {
       try {
-        // Obtenemos las reseñas actuales de la nube
         let currentReviews = [];
         try {
-          const res = await fetch(GLOBAL_STORE_URL, { cache: "no-store" });
+          const res = await fetch(KV_STORE_URL + "?t=" + Date.now());
           if (res.ok) {
             const data = await res.json();
             if (Array.isArray(data)) currentReviews = data;
           }
         } catch (e) {}
 
-        // Insertamos la nueva arriba de todo
+        // Filtrar duplicados por autor y comentario
+        currentReviews = currentReviews.filter(r => !(r.comment === newReview.comment && r.author === newReview.author));
         currentReviews.unshift(newReview);
 
-        // Guardamos en la nube pública
-        await fetch(GLOBAL_STORE_URL, {
-          method: "PUT",
+        // Guardar la lista actualizada en el almacén público
+        await fetch(KV_STORE_URL, {
+          method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(currentReviews)
         });
@@ -4869,7 +4875,7 @@
         globalCloudReviews = currentReviews;
         renderReviewsList();
       } catch (err) {
-        console.warn("Sincronización global:", err);
+        console.warn("Error al sincronizar con la nube pública:", err);
       }
     }
 
@@ -4879,28 +4885,28 @@
       const firestoreRevs = liveCloudReviews;
       const combined = [];
 
-      // Prioridad 0: Reseñas en tiempo real de Firestore si están activas
+      // 1. Reseñas globales de Firestore en tiempo real
       firestoreRevs.forEach(r => {
         if (!combined.some(c => c.id === r.id || (c.comment === r.comment && c.author === r.author))) {
           combined.push(r);
         }
       });
 
-      // Prioridad 1: Reseñas públicas globales de la nube
+      // 2. Reseñas públicas globales compartidas por todos los dispositivos
       cloudRevs.forEach(r => {
         if (!combined.some(c => c.id === r.id || (c.comment === r.comment && c.author === r.author))) {
           combined.push(r);
         }
       });
 
-      // Prioridad 2: Reseñas locales
+      // 3. Reseñas locales del dispositivo actual
       localRevs.forEach(r => {
         if (!combined.some(c => c.id === r.id || (c.comment === r.comment && c.author === r.author))) {
           combined.push(r);
         }
       });
 
-      // Prioridad 3: Reseñas base oficiales (Valentín y Enzo)
+      // 4. Reseñas base iniciales de Blaskicks
       INITIAL_REVIEWS.forEach(baseRev => {
         if (!combined.some(c => (c.comment === baseRev.comment && c.author === baseRev.author))) {
           combined.push(baseRev);
@@ -4994,6 +5000,12 @@
         return;
       }
 
+      const submitBtn = document.querySelector("#review-form button[type='submit']");
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Publicando...";
+      }
+
       const newReview = {
         id: "rev-" + Date.now(),
         author: author,
@@ -5007,15 +5019,21 @@
       // 1. Guardar copia local inmediata
       saveLocalStoredReview(newReview);
 
-      // 2. Publicar en la nube global pública (para que cualquier celular o PC lo lea)
-      syncReviewToPublicGlobalCloud(newReview);
+      // 2. Renderizar de inmediato para el autor
+      renderReviewsList();
 
-      // 3. Si Firebase está activo en el entorno, también sincronizar
+      // 3. Sincronizar en la nube pública compartida
+      await syncReviewToPublicGlobalCloud(newReview);
+
+      // 4. Si el canal en tiempo real está habilitado, emitir
       if (window.submitReviewToCloud) {
         window.submitReviewToCloud(newReview);
       }
 
-      renderReviewsList();
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Publicar Opinión";
+      }
 
       if (reviewsTrack) {
         reviewsTrack.scrollTo({ left: 0, behavior: "smooth" });
@@ -5028,7 +5046,7 @@
       const photoLabel = document.getElementById("photo-label");
       if (photoLabel) photoLabel.textContent = "Agregar foto";
 
-      alertMessage("¡Gracias por tu opinión! Se ha publicado para todos los visitantes.");
+      alertMessage("¡Gracias por tu opinión! Ya es visible para todos.");
     }
 
     const cartDrawer = document.getElementById("cart-drawer-backdrop");
@@ -5223,8 +5241,11 @@
       renderCatalog();
       renderReviewsList();
 
-      // Cargar las opiniones globales compartidas desde la nube
+      // Cargar de inmediato las reseñas públicas globales
       fetchPublicGlobalReviews();
+
+      // Sondeo periódico cada 20 segundos para actualizar nuevas reseñas en vivo para todos los clientes
+      setInterval(fetchPublicGlobalReviews, 20000);
 
       // Listener explícito y seguro para el formulario de opiniones
       const reviewFormEl = document.getElementById("review-form");
@@ -5416,15 +5437,18 @@
           remoteList.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
           // Combinar con las opiniones oficiales base de la marca
+          const baseList = window.INITIAL_REVIEWS || [];
           const merged = [...remoteList];
-          INITIAL_REVIEWS.forEach(baseRev => {
+          baseList.forEach(baseRev => {
             if (!merged.some(r => r.comment === baseRev.comment && r.author === baseRev.author)) {
               merged.push(baseRev);
             }
           });
 
           liveCloudReviews = merged;
-          renderReviewsList(liveCloudReviews);
+          if (typeof renderReviewsList === 'function') {
+            renderReviewsList(liveCloudReviews);
+          }
         }, (error) => {
           console.warn("Sincronización en tiempo real:", error);
         });
