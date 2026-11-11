@@ -131,10 +131,8 @@
   <!-- ========================================================== -->
   <div id="preloader" class="fixed inset-0 z-50 bg-[#0c0c0c] flex flex-col items-center justify-center select-none">
     <div class="relative flex flex-col items-center">
-      <!-- Halo ultra sutil de fondo sin teñir el GIF -->
       <div class="absolute w-44 h-44 rounded-full bg-brandSky/10 blur-3xl pointer-events-none"></div>
 
-      <!-- Contenedor del GIF 3D limpio y nítido -->
       <div class="relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center loader-glow rounded-3xl p-3 bg-neutral-900/60 border border-neutral-800/60 backdrop-blur-md">
         <img 
           src="3dgifmaker83430.gif" 
@@ -144,13 +142,11 @@
         />
       </div>
 
-      <!-- Sutil indicador de carga y tipografía -->
       <div class="mt-6 flex flex-col items-center gap-2">
         <div class="flex items-center gap-1.5">
           <span class="w-1.5 h-1.5 rounded-full bg-brandSky animate-ping"></span>
           <span class="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400">BLASKICKS</span>
         </div>
-        <!-- Barra de progreso mínima ultraligera -->
         <div class="w-24 h-0.5 bg-neutral-800 rounded-full overflow-hidden">
           <div class="h-full bg-brandSky rounded-full animate-[pulse_1s_infinite] w-full"></div>
         </div>
@@ -220,7 +216,7 @@
         </a>
       </div>
 
-      <!-- LADO DERECHO: Solamente Buscador + Carrito -->
+      <!-- LADO DERECHO: Buscador + Carrito -->
       <div class="flex items-center gap-2 sm:gap-3">
         <!-- Buscador -->
         <button 
@@ -253,9 +249,7 @@
       </div>
     </div>
 
-    <!-- ========================================================== -->
-    <!-- 3. MENÚ DESPLEGABLE CON LAS CATEGORÍAS SOLICITADAS         -->
-    <!-- ========================================================== -->
+    <!-- 3. MENÚ DESPLEGABLE CON CATEGORÍAS -->
     <div 
       id="mega-menu" 
       class="hidden overflow-hidden bg-white border-t border-neutral-200 shadow-2xl mega-menu-enter"
@@ -280,7 +274,7 @@
             </ul>
           </div>
 
-          <!-- Columna 2: Sneakers ▽ (Únicamente Men, Women y Shop All) -->
+          <!-- Columna 2: Sneakers ▽ -->
           <div class="space-y-3">
             <h4 class="font-display font-black text-neutral-900 uppercase tracking-wider text-xs flex items-center gap-1.5 border-b border-neutral-100 pb-2">
               Sneakers <span class="text-neutral-950 font-sans">▼</span>
@@ -292,13 +286,12 @@
             </ul>
           </div>
 
-          <!-- Columna 3: Indumentaria ▽ (Men & Women) -->
+          <!-- Columna 3: Indumentaria ▽ -->
           <div class="space-y-3">
             <h4 class="font-display font-black text-neutral-900 uppercase tracking-wider text-xs flex items-center gap-1.5 border-b border-neutral-100 pb-2">
               Indumentaria <span class="text-neutral-950 font-sans">▼</span>
             </h4>
             <div class="grid grid-cols-2 gap-4">
-              <!-- Men -->
               <div>
                 <span class="text-[11px] font-bold uppercase text-neutral-400 block mb-1.5">Men</span>
                 <ul class="space-y-1.5 font-medium text-neutral-600 text-xs">
@@ -310,7 +303,6 @@
                   <li class="pt-1.5"><button onclick="openCategoryPage('Indumentaria Men')" class="text-xs font-bold text-neutral-950 underline underline-offset-4 text-left">Ver todo</button></li>
                 </ul>
               </div>
-              <!-- Women -->
               <div>
                 <span class="text-[11px] font-bold uppercase text-neutral-400 block mb-1.5">Women</span>
                 <ul class="space-y-1.5 font-medium text-neutral-600 text-xs">
@@ -340,7 +332,7 @@
             </ul>
           </div>
 
-          <!-- Columna 5: SALE (Solo el botón/enlace en rojo, sin desplegables) -->
+          <!-- Columna 5: SALE -->
           <div class="flex items-start">
             <button 
               onclick="openCategoryPage('Sale')" 
@@ -363,24 +355,20 @@
     
     <!-- VISTA PRINCIPAL (HOME) -->
     <div id="home-view">
-      <!-- Hero Banner Estilo Editorial Panorámico (Inspirado en tu referencia) -->
+      <!-- Hero Banner -->
       <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-6">
         <div class="relative w-full rounded-3xl bg-neutral-950 text-white overflow-hidden flex flex-col lg:flex-row items-stretch border border-neutral-900 shadow-xl h-auto lg:h-64">
           
-          <!-- LADO IZQUIERDO: TEXTO, ESTILO Y BOTONES -->
           <div class="relative z-10 w-full lg:w-[46%] p-5 sm:p-6 lg:p-7 flex flex-col justify-between bg-neutral-950/95 backdrop-blur-sm lg:bg-transparent">
             <div class="space-y-2">
-              <!-- Tag Celeste idéntico a "ENVÍOS A TODO EL PAÍS" de la foto de referencia -->
               <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-sm bg-brandSky text-slate-950 text-[10px] sm:text-[11px] font-black uppercase tracking-wider shadow-sm">
                 <span>ENVÍOS A TODO EL PAÍS</span>
               </div>
 
-              <!-- Título Gigante con Tipografía Fuerte -->
               <h1 class="font-display font-black text-2xl sm:text-3xl lg:text-[32px] uppercase tracking-tighter leading-[1.05] text-white pt-0.5">
                 TU PLUG DE CONFIANZA.
               </h1>
 
-              <!-- Subtítulo en Cursiva Elegante (Estilo "Descubrí tu nueva adquisición") -->
               <p class="font-serif italic text-neutral-300 text-xs sm:text-sm tracking-wide">
                 Descubrí tu nueva adquisición • 100% Auténtico
               </p>
@@ -390,7 +378,6 @@
               </p>
             </div>
 
-            <!-- Botones de Acción -->
             <div class="pt-3 flex flex-wrap gap-2.5">
               <button onclick="openCategoryPage('Todos los Productos')" class="px-5 py-2 rounded-full bg-brandSky text-slate-950 font-black text-xs uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-200 shadow-md hover:scale-105 active:scale-95">
                 Explorar Catálogo
@@ -401,9 +388,7 @@
             </div>
           </div>
 
-          <!-- LADO DERECHO: FOTO COMPLETA Y DESTACADA CON EFECTO RASGADO / DEGRADÉ -->
           <div class="relative w-full lg:w-[54%] h-48 sm:h-56 lg:h-full overflow-hidden flex items-center justify-end">
-            <!-- Imagen del Stand ocupando todo el lateral derecho -->
             <img 
               src="Imagen fondo blaskicks.jpeg" 
               alt="Stand Blaskicks" 
@@ -413,17 +398,14 @@
               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85';"
             />
 
-            <!-- Degradado suave lateral que funde la foto con el fondo negro del texto -->
             <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-neutral-950 via-neutral-950/60 lg:via-neutral-950/40 to-transparent pointer-events-none"></div>
 
-            <!-- Borde rasgado orgánico vertical (visible en desktop) -->
             <div class="hidden lg:block absolute inset-y-0 left-0 w-8 pointer-events-none">
               <svg class="h-full w-full text-neutral-950 fill-current" preserveAspectRatio="none" viewBox="0 0 20 100">
                 <path d="M0,0 L20,0 L14,8 L18,17 L12,25 L16,35 L10,48 L17,60 L12,72 L18,85 L14,92 L20,100 L0,100 Z"/>
               </svg>
             </div>
 
-            <!-- Badge de Autenticidad sobre la foto -->
             <div class="absolute bottom-3 right-4 z-10 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-neutral-700 text-white text-[10px] font-bold uppercase tracking-widest shadow">
               <span class="w-2 h-2 rounded-full bg-brandSky animate-pulse"></span>
               <span>100% Originales • Stock Físico</span>
@@ -433,7 +415,7 @@
         </div>
       </section>
 
-      <!-- ÚLTIMOS INGRESOS: ENCAPSULADO CON EL MISMO ANCHO Y PADDING EXACTO QUE EL HERO -->
+      <!-- ÚLTIMOS INGRESOS -->
       <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <div class="mb-4 flex items-center justify-between">
           <div>
@@ -441,9 +423,7 @@
               Últimos Ingresos
             </h2>
           </div>
-          <!-- Flechas de navegación interactiva (Izquierda / Derecha) -->
           <div class="flex items-center gap-2">
-            <!-- Flecha Izquierda -->
             <button 
               id="slider-prev-btn"
               aria-label="Anterior producto"
@@ -454,7 +434,6 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <!-- Flecha Derecha -->
             <button 
               id="slider-next-btn"
               aria-label="Siguiente producto"
@@ -467,15 +446,12 @@
           </div>
         </div>
 
-        <!-- Fila única deslizable alineada con los bordes anchos de la cuadrícula -->
         <div class="w-full overflow-x-auto pb-4 flex items-stretch gap-5 no-scrollbar scroll-smooth" id="products-track">
-          <!-- Renderizado dinámico vía JS con la tarjeta final "VER TODO" -->
+          <!-- Render dinámico vía JS -->
         </div>
       </section>
 
-      <!-- ========================================================== -->
-      <!-- SECCIÓN: CATEGORÍAS (6 TARJETAS CONECTADAS Y FUNCIONALES)   -->
-      <!-- ========================================================== -->
+      <!-- CATEGORÍAS -->
       <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pb-14 bg-white">
         <div class="mb-6">
           <h2 class="font-display font-black text-2xl uppercase tracking-tight text-neutral-950">
@@ -613,9 +589,7 @@
         </div>
       </section>
 
-      <!-- ========================================================== -->
-      <!-- SECCIÓN ENCARGOS: LO CONSEGUIMOS POR VOS                   -->
-      <!-- ========================================================== -->
+      <!-- SECCIÓN ENCARGOS -->
       <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 bg-white">
         <div class="bg-[#E4E4E4] rounded-2xl relative overflow-hidden border-l-[8px] sm:border-l-[10px] border-brandSky py-12 px-6 sm:px-12 md:px-16 text-center flex flex-col items-center justify-center shadow-sm">
           <h3 class="font-display font-black text-2xl sm:text-3xl lg:text-4xl text-neutral-950 uppercase tracking-tight mb-4">
@@ -636,9 +610,7 @@
         </div>
       </section>
 
-      <!-- ========================================================== -->
-      <!-- 1° SECCIÓN: OPINIONES / NUESTROS CLIENTES                  -->
-      <!-- ========================================================== -->
+      <!-- OPINIONES -->
       <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 bg-white">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
@@ -648,7 +620,6 @@
             <div class="w-12 h-1 bg-brandSky mt-2 rounded-full"></div>
           </div>
 
-          <!-- Controles para deslizar opiniones -->
           <div class="flex items-center gap-2 self-end sm:self-auto">
             <button 
               id="reviews-prev-btn" 
@@ -671,12 +642,9 @@
           </div>
         </div>
 
-        <!-- Fila deslizable horizontal: Opiniones de clientes + Formulario para dejar opinión -->
         <div id="reviews-track" class="w-full overflow-x-auto pb-6 flex items-stretch gap-6 no-scrollbar scroll-smooth">
-          <!-- Contenedor dinámico de opiniones (renderizado vía JS) -->
           <div id="dynamic-reviews-list" class="flex items-stretch gap-6"></div>
 
-          <!-- TARJETA: FORMULARIO "DEJANOS TU OPINIÓN" EN LA MISMA FILA -->
           <div class="flex-none w-[340px] sm:w-[480px] bg-white rounded-2xl p-6 sm:p-7 border-2 border-neutral-200 shadow-md flex flex-col justify-between">
             <form id="review-form" class="space-y-3.5">
               <div>
@@ -706,7 +674,6 @@
                 />
               </div>
 
-              <!-- Estrellas interactivas -->
               <div class="flex items-center gap-1.5" id="star-rating-container">
                 <span class="text-xs text-neutral-500 font-medium mr-1">Calificación:</span>
                 <button type="button" onclick="setRating(1)" class="text-xl star-btn text-brandSky transition-transform hover:scale-125 focus:outline-none">★</button>
@@ -717,7 +684,6 @@
                 <input type="hidden" id="rev-rating" value="5" />
               </div>
 
-              <!-- Experiencia -->
               <textarea 
                 id="rev-comment" 
                 required
@@ -726,7 +692,6 @@
                 class="w-full text-xs p-3 rounded-xl border border-neutral-300 outline-none focus:border-brandSky transition-colors placeholder:text-neutral-400 resize-none"
               ></textarea>
 
-              <!-- Acciones -->
               <div class="flex items-center justify-between pt-1">
                 <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-neutral-300 text-[11px] font-semibold text-neutral-700 cursor-pointer hover:bg-neutral-50 transition-colors">
                   <input type="file" id="rev-photo-input" accept="image/*" class="hidden" onchange="handlePhotoUpload(this)" />
@@ -745,7 +710,6 @@
                 </button>
               </div>
 
-              <!-- Disclaimer -->
               <p class="text-[10px] text-neutral-400 leading-tight pt-1">
                 *Para asegurar opiniones reales, te pedimos iniciar sesión o brindar tu correo electrónico. Tu mail nunca será hecho público ni compartido.
               </p>
@@ -755,360 +719,202 @@
         </div>
       </section>
 
-      <!-- ========================================================== -->
-      <!-- NUEVA SECCIÓN: BLASKICKS ON SCREEN (REELS DE INSTAGRAM)     -->
-      <!-- ========================================================== -->
+      <!-- BLASKICKS ON SCREEN (REELS) -->
       <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 bg-white">
-      <!-- Encabezado centrado -->
-      <div class="text-center mb-8">
-        <h2 class="font-display font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-tight text-neutral-950 mb-2">
-          BLASKICKS ON SCREEN
-        </h2>
-        <p class="text-xs sm:text-sm text-neutral-500 max-w-xl mx-auto">
-          Mirá los unboxings, drops exclusivos y los detalles de cada par en video
-        </p>
-        <div class="w-12 h-1 bg-brandSky mx-auto mt-3 rounded-full"></div>
-      </div>
-
-      <!-- Grilla interactiva de 4 tarjetas estilo Instagram Reel Embed con reproducción continua en silencio -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        
-        <!-- Reel Card 1: Coinflip con ustedes -->
-        <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
-          <!-- Cabecera limpia con @blaskicks -->
-          <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
-            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0 group/author">
-              <span class="text-xs font-bold text-neutral-900 group-hover/author:text-brandSkyDark transition-colors">@blaskicks</span>
-            </a>
-            <a 
-              href="https://www.instagram.com/blaskicks/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="px-3 py-1 rounded-md bg-[#0095F6] hover:bg-brandSky text-white text-[11px] font-bold tracking-wide transition-colors shrink-0"
-            >
-              Ver perfil
-            </a>
-          </div>
-
-          <!-- Video en loop continuo sin sonido desde Cloudflare R2 -->
-          <a 
-            href="https://www.instagram.com/reel/DaeEU5YtTr7/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="relative aspect-[9/16] bg-neutral-950 overflow-hidden flex items-center justify-center cursor-pointer block"
-          >
-            <video 
-              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/coinflips%20con%20ustedes.mp4" 
-              poster="Imagen fondo blaskicks.jpeg"
-              autoplay 
-              muted 
-              loop 
-              playsinline
-              webkit-playsinline
-              class="reel-silent-video w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            ></video>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none"></div>
-
-            <!-- Overlay texto inferior con pie real del reel -->
-            <div class="absolute bottom-3 inset-x-3 text-white text-left pointer-events-none">
-              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/75 px-2 py-0.5 rounded backdrop-blur-sm">
-                Desafío
-              </span>
-              <p class="text-xs font-semibold text-white/95 mt-1.5 line-clamp-2 drop-shadow-md leading-snug">
-                coinflip con ustedes
-              </p>
-            </div>
-          </a>
-
-          <!-- Pie de tarjeta: Ver más en Instagram -->
-          <div class="p-3 border-t border-neutral-100 bg-white text-center">
-            <a 
-              href="https://www.instagram.com/reel/DaeEU5YtTr7/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="text-xs font-semibold text-[#0095F6] hover:text-black hover:underline transition-colors flex items-center justify-center gap-1.5"
-            >
-              <span>Ver en Instagram</span>
-              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-            </a>
-          </div>
+        <div class="text-center mb-8">
+          <h2 class="font-display font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-tight text-neutral-950 mb-2">
+            BLASKICKS ON SCREEN
+          </h2>
+          <p class="text-xs sm:text-sm text-neutral-500 max-w-xl mx-auto">
+            Mirá los unboxings, drops exclusivos y los detalles de cada par en video
+          </p>
+          <div class="w-12 h-1 bg-brandSky mx-auto mt-3 rounded-full"></div>
         </div>
 
-        <!-- Reel Card 2: Comprando en Supreme -->
-        <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
-          <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
-            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0 group/author">
-              <span class="text-xs font-bold text-neutral-900 group-hover/author:text-brandSkyDark transition-colors">@blaskicks</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <!-- Reel Card 1 -->
+          <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+            <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
+              <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0 group/author">
+                <span class="text-xs font-bold text-neutral-900 group-hover/author:text-brandSkyDark transition-colors">@blaskicks</span>
+              </a>
+              <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="px-3 py-1 rounded-md bg-[#0095F6] hover:bg-brandSky text-white text-[11px] font-bold tracking-wide transition-colors shrink-0">
+                Ver perfil
+              </a>
+            </div>
+            <a href="https://www.instagram.com/reel/DaeEU5YtTr7/" target="_blank" rel="noopener noreferrer" class="relative aspect-[9/16] bg-neutral-950 overflow-hidden flex items-center justify-center cursor-pointer block">
+              <video src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/coinflips%20con%20ustedes.mp4" poster="Imagen fondo blaskicks.jpeg" autoplay muted loop playsinline webkit-playsinline class="reel-silent-video w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></video>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none"></div>
+              <div class="absolute bottom-3 inset-x-3 text-white text-left pointer-events-none">
+                <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/75 px-2 py-0.5 rounded backdrop-blur-sm">Desafío</span>
+                <p class="text-xs font-semibold text-white/95 mt-1.5 line-clamp-2 drop-shadow-md leading-snug">coinflip con ustedes</p>
+              </div>
             </a>
-            <a 
-              href="https://www.instagram.com/blaskicks/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="px-3 py-1 rounded-md bg-[#0095F6] hover:bg-brandSky text-white text-[11px] font-bold tracking-wide transition-colors shrink-0"
-            >
-              Ver perfil
-            </a>
+            <div class="p-3 border-t border-neutral-100 bg-white text-center">
+              <a href="https://www.instagram.com/reel/DaeEU5YtTr7/" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-[#0095F6] hover:text-black hover:underline transition-colors flex items-center justify-center gap-1.5">
+                <span>Ver en Instagram</span>
+              </a>
+            </div>
           </div>
 
-          <a 
-            href="https://www.instagram.com/reel/DaGrX_FN0f-/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="relative aspect-[9/16] bg-neutral-900 overflow-hidden flex items-center justify-center cursor-pointer block"
-          >
-            <video 
-              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/comrpando%20en%20supreme.mp4" 
-              poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/supreme%20thermal%20zip%20up%20heather%20grey%201%20blaskicks.avif"
-              autoplay 
-              muted 
-              loop 
-              playsinline
-              webkit-playsinline
-              class="reel-silent-video w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            ></video>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none"></div>
-
-            <div class="absolute bottom-3 inset-x-3 text-white text-left pointer-events-none">
-              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/75 px-2 py-0.5 rounded backdrop-blur-sm">
-                Shopping & Pickups
-              </span>
-              <p class="text-xs font-semibold text-white/95 mt-1.5 line-clamp-2 drop-shadow-md leading-snug">
-                comprando en supreme
-              </p>
+          <!-- Reel Card 2 -->
+          <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+            <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
+              <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0 group/author">
+                <span class="text-xs font-bold text-neutral-900 group-hover/author:text-brandSkyDark transition-colors">@blaskicks</span>
+              </a>
+              <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="px-3 py-1 rounded-md bg-[#0095F6] hover:bg-brandSky text-white text-[11px] font-bold tracking-wide transition-colors shrink-0">
+                Ver perfil
+              </a>
             </div>
-          </a>
-
-          <div class="p-3 border-t border-neutral-100 bg-white text-center">
-            <a 
-              href="https://www.instagram.com/reel/DaGrX_FN0f-/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="text-xs font-semibold text-[#0095F6] hover:text-black hover:underline transition-colors flex items-center justify-center gap-1.5"
-            >
-              <span>Ver en Instagram</span>
-              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
+            <a href="https://www.instagram.com/reel/DaGrX_FN0f-/" target="_blank" rel="noopener noreferrer" class="relative aspect-[9/16] bg-neutral-900 overflow-hidden flex items-center justify-center cursor-pointer block">
+              <video src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/comrpando%20en%20supreme.mp4" poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/supreme%20thermal%20zip%20up%20heather%20grey%201%20blaskicks.avif" autoplay muted loop playsinline webkit-playsinline class="reel-silent-video w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></video>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none"></div>
+              <div class="absolute bottom-3 inset-x-3 text-white text-left pointer-events-none">
+                <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/75 px-2 py-0.5 rounded backdrop-blur-sm">Shopping & Pickups</span>
+                <p class="text-xs font-semibold text-white/95 mt-1.5 line-clamp-2 drop-shadow-md leading-snug">comprando en supreme</p>
+              </div>
             </a>
+            <div class="p-3 border-t border-neutral-100 bg-white text-center">
+              <a href="https://www.instagram.com/reel/DaGrX_FN0f-/" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-[#0095F6] hover:text-black hover:underline transition-colors flex items-center justify-center gap-1.5">
+                <span>Ver en Instagram</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Reel Card 3 -->
+          <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+            <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
+              <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0 group/author">
+                <span class="text-xs font-bold text-neutral-900 group-hover/author:text-brandSkyDark transition-colors">@blaskicks</span>
+              </a>
+              <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="px-3 py-1 rounded-md bg-[#0095F6] hover:bg-brandSky text-white text-[11px] font-bold tracking-wide transition-colors shrink-0">
+                Ver perfil
+              </a>
+            </div>
+            <a href="https://www.instagram.com/reel/DYGG7MstrO4/" target="_blank" rel="noopener noreferrer" class="relative aspect-[9/16] bg-neutral-900 overflow-hidden flex items-center justify-center cursor-pointer block">
+              <video src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/noche%20de%20entregas.mp4" poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/jordan%201%20low%20travis%20scott%20tropical%20pink%201%20blaskicks.avif" autoplay muted loop playsinline webkit-playsinline class="reel-silent-video w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></video>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none"></div>
+              <div class="absolute bottom-3 inset-x-3 text-white text-left pointer-events-none">
+                <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/75 px-2 py-0.5 rounded backdrop-blur-sm">Envíos & Entregas</span>
+                <p class="text-xs font-semibold text-white/95 mt-1.5 line-clamp-2 drop-shadow-md leading-snug">noche de entregas</p>
+              </div>
+            </a>
+            <div class="p-3 border-t border-neutral-100 bg-white text-center">
+              <a href="https://www.instagram.com/reel/DYGG7MstrO4/" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-[#0095F6] hover:text-black hover:underline transition-colors flex items-center justify-center gap-1.5">
+                <span>Ver en Instagram</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Reel Card 4 -->
+          <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+            <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
+              <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0 group/author">
+                <span class="text-xs font-bold text-neutral-900 group-hover/author:text-brandSkyDark transition-colors">@blaskicks</span>
+              </a>
+              <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="px-3 py-1 rounded-md bg-[#0095F6] hover:bg-brandSky text-white text-[11px] font-bold tracking-wide transition-colors shrink-0">
+                Ver perfil
+              </a>
+            </div>
+            <a href="https://www.instagram.com/reel/DVMtPY0jqs2/" target="_blank" rel="noopener noreferrer" class="relative aspect-[9/16] bg-neutral-950 overflow-hidden flex items-center justify-center cursor-pointer block">
+              <video src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/legit%20check%20out%20of%20office.mp4" poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/out%20of%20office%20grey%20white%201%20blaskicks.avif" autoplay muted loop playsinline webkit-playsinline class="reel-silent-video w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></video>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none"></div>
+              <div class="absolute bottom-3 inset-x-3 text-white text-left pointer-events-none">
+                <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/75 px-2 py-0.5 rounded backdrop-blur-sm">Autenticación</span>
+                <p class="text-xs font-semibold text-white/95 mt-1.5 line-clamp-2 drop-shadow-md leading-snug">legit check "out of office"</p>
+              </div>
+            </a>
+            <div class="p-3 border-t border-neutral-100 bg-white text-center">
+              <a href="https://www.instagram.com/reel/DVMtPY0jqs2/" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-[#0095F6] hover:text-black hover:underline transition-colors flex items-center justify-center gap-1.5">
+                <span>Ver en Instagram</span>
+              </a>
+            </div>
           </div>
         </div>
+      </section>
 
-        <!-- Reel Card 3: Noche de entregas -->
-        <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
-          <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
-            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0 group/author">
-              <span class="text-xs font-bold text-neutral-900 group-hover/author:text-brandSkyDark transition-colors">@blaskicks</span>
-            </a>
-            <a 
-              href="https://www.instagram.com/blaskicks/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="px-3 py-1 rounded-md bg-[#0095F6] hover:bg-brandSky text-white text-[11px] font-bold tracking-wide transition-colors shrink-0"
-            >
-              Ver perfil
-            </a>
-          </div>
-
-          <a 
-            href="https://www.instagram.com/reel/DYGG7MstrO4/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="relative aspect-[9/16] bg-neutral-900 overflow-hidden flex items-center justify-center cursor-pointer block"
-          >
-            <video 
-              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/noche%20de%20entregas.mp4" 
-              poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/jordan%201%20low%20travis%20scott%20tropical%20pink%201%20blaskicks.avif"
-              autoplay 
-              muted 
-              loop 
-              playsinline
-              webkit-playsinline
-              class="reel-silent-video w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            ></video>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none"></div>
-
-            <div class="absolute bottom-3 inset-x-3 text-white text-left pointer-events-none">
-              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/75 px-2 py-0.5 rounded backdrop-blur-sm">
-                Envíos & Entregas
-              </span>
-              <p class="text-xs font-semibold text-white/95 mt-1.5 line-clamp-2 drop-shadow-md leading-snug">
-                noche de entregas
-              </p>
-            </div>
-          </a>
-
-          <div class="p-3 border-t border-neutral-100 bg-white text-center">
-            <a 
-              href="https://www.instagram.com/reel/DYGG7MstrO4/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="text-xs font-semibold text-[#0095F6] hover:text-black hover:underline transition-colors flex items-center justify-center gap-1.5"
-            >
-              <span>Ver en Instagram</span>
-              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Reel Card 4: Legit check "out of office" -->
-        <div class="bg-white rounded-2xl border border-neutral-200/90 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
-          <div class="p-3.5 flex items-center justify-between border-b border-neutral-100 bg-neutral-50/50">
-            <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 min-w-0 group/author">
-              <span class="text-xs font-bold text-neutral-900 group-hover/author:text-brandSkyDark transition-colors">@blaskicks</span>
-            </a>
-            <a 
-              href="https://www.instagram.com/blaskicks/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="px-3 py-1 rounded-md bg-[#0095F6] hover:bg-brandSky text-white text-[11px] font-bold tracking-wide transition-colors shrink-0"
-            >
-              Ver perfil
-            </a>
-          </div>
-
-          <a 
-            href="https://www.instagram.com/reel/DVMtPY0jqs2/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="relative aspect-[9/16] bg-neutral-950 overflow-hidden flex items-center justify-center cursor-pointer block"
-          >
-            <video 
-              src="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/legit%20check%20out%20of%20office.mp4" 
-              poster="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/out%20of%20office%20grey%20white%201%20blaskicks.avif"
-              autoplay 
-              muted 
-              loop 
-              playsinline
-              webkit-playsinline
-              class="reel-silent-video w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            ></video>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none"></div>
-
-            <div class="absolute bottom-3 inset-x-3 text-white text-left pointer-events-none">
-              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brandSky bg-black/75 px-2 py-0.5 rounded backdrop-blur-sm">
-                Autenticación
-              </span>
-              <p class="text-xs font-semibold text-white/95 mt-1.5 line-clamp-2 drop-shadow-md leading-snug">
-                legit check "out of office"
-              </p>
-            </div>
-          </a>
-
-          <div class="p-3 border-t border-neutral-100 bg-white text-center">
-            <a 
-              href="https://www.instagram.com/reel/DVMtPY0jqs2/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="text-xs font-semibold text-[#0095F6] hover:text-black hover:underline transition-colors flex items-center justify-center gap-1.5"
-            >
-              <span>Ver en Instagram</span>
-              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ========================================================== -->
-    <!-- 2° SECCIÓN: CONTACTO & UBICACIÓN EN MONSERRAT             -->
-    <!-- ========================================================== -->
-    <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 bg-white">
-      <div class="bg-white rounded-3xl border border-neutral-200/90 shadow-sm p-6 sm:p-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          <!-- Columna izquierda: Información de contacto -->
-          <div class="lg:col-span-5 space-y-6">
-            <div>
-              <h3 class="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-neutral-950 mb-1">
-                CONTACTO
-              </h3>
-              <div class="w-12 h-1 bg-brandSky rounded-full"></div>
-            </div>
-
-            <div class="space-y-5 pt-2">
-              <!-- Dirección -->
-              <div class="flex items-start gap-4">
-                <div class="w-10 h-10 rounded-full bg-sky-50 flex items-center justify-center text-brandSky shrink-0">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                  </svg>
-                </div>
-                <div>
-                  <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Punto de retiro</h4>
-                  <p class="text-sm font-semibold text-neutral-800">Monserrat, CABA, Argentina</p>
-                </div>
+      <!-- CONTACTO & UBICACIÓN -->
+      <section class="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 bg-white">
+        <div class="bg-white rounded-3xl border border-neutral-200/90 shadow-sm p-6 sm:p-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div class="lg:col-span-5 space-y-6">
+              <div>
+                <h3 class="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-neutral-950 mb-1">
+                  CONTACTO
+                </h3>
+                <div class="w-12 h-1 bg-brandSky rounded-full"></div>
               </div>
 
-              <!-- Teléfono clickeable -->
-              <div class="flex items-start gap-4">
-                <div class="w-10 h-10 rounded-full bg-sky-50 flex items-center justify-center text-brandSky shrink-0">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                  </svg>
+              <div class="space-y-5 pt-2">
+                <div class="flex items-start gap-4">
+                  <div class="w-10 h-10 rounded-full bg-sky-50 flex items-center justify-center text-brandSky shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Punto de retiro</h4>
+                    <p class="text-sm font-semibold text-neutral-800">Monserrat, CABA, Argentina</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Atención Directa</h4>
-                  <a href="tel:1161109123" class="text-sm font-bold text-neutral-900 hover:text-brandSkyDark transition-colors">
-                    11 6110-9123
-                  </a>
-                </div>
-              </div>
 
-              <!-- Horarios -->
-              <div class="flex items-start gap-4">
-                <div class="w-10 h-10 rounded-full bg-sky-50 flex items-center justify-center text-brandSky shrink-0">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
+                <div class="flex items-start gap-4">
+                  <div class="w-10 h-10 rounded-full bg-sky-50 flex items-center justify-center text-brandSky shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Atención Directa</h4>
+                    <a href="tel:1161109123" class="text-sm font-bold text-neutral-900 hover:text-brandSkyDark transition-colors">
+                      11 6110-9123
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Horarios de Entrega</h4>
-                  <p class="text-sm font-semibold text-neutral-800">Lunes a Viernes: 09:00 a 21:00 hs</p>
-                  <p class="text-xs text-neutral-500 font-medium">Sábados y Domingos: 11:00 a 20:00 hs</p>
+
+                <div class="flex items-start gap-4">
+                  <div class="w-10 h-10 rounded-full bg-sky-50 flex items-center justify-center text-brandSky shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-400">Horarios de Entrega</h4>
+                    <p class="text-sm font-semibold text-neutral-800">Lunes a Viernes: 09:00 a 21:00 hs</p>
+                    <p class="text-xs text-neutral-500 font-medium">Sábados y Domingos: 11:00 a 20:00 hs</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Columna derecha: Mapa interactivo ampliado de Monserrat -->
-          <div class="lg:col-span-7">
-            <div class="w-full h-[400px] sm:h-[460px] lg:h-[500px] rounded-2xl overflow-hidden border border-neutral-200 shadow-inner relative">
-              <iframe 
-                src="https://maps.google.com/maps?q=Monserrat%2C%20CABA%2C%20Argentina&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-                class="w-full h-full border-0" 
-                loading="lazy" 
-                allowfullscreen
-                title="Ubicación Monserrat CABA"
-              ></iframe>
+            <div class="lg:col-span-7">
+              <div class="w-full h-[400px] sm:h-[460px] lg:h-[500px] rounded-2xl overflow-hidden border border-neutral-200 shadow-inner relative">
+                <iframe 
+                  src="https://maps.google.com/maps?q=Monserrat%2C%20CABA%2C%20Argentina&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                  class="w-full h-full border-0" 
+                  loading="lazy" 
+                  allowfullscreen
+                  title="Ubicación Monserrat CABA"
+                ></iframe>
+              </div>
             </div>
-          </div>
 
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </div> <!-- FIN HOME-VIEW -->
 
-    <!-- ========================================================== -->
-    <!-- DEDICATED CATEGORY CATALOG VIEW (PLP - EXACTO AL SCREENSHOT)-->
-    <!-- ========================================================== -->
+    <!-- DEDICATED CATEGORY CATALOG VIEW (PLP) -->
     <div id="category-view" class="hidden max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      
-      <!-- Breadcrumb superior -->
       <div class="flex items-center gap-2 text-xs text-neutral-400 font-medium mb-3">
         <button onclick="navigateToHome()" class="hover:text-neutral-900 transition-colors">‹ Inicio</button>
         <span>/</span>
         <span id="cat-breadcrumb-title" class="font-bold text-neutral-900">Remeras</span>
       </div>
 
-      <!-- Título de Categoría + Subtítulo + Cantidad de Productos -->
       <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-2 pb-4 mb-4">
         <div class="flex flex-wrap items-baseline gap-2.5">
           <h1 id="cat-main-title" class="font-display font-black text-2xl sm:text-3xl text-neutral-950 uppercase tracking-tight">
@@ -1123,7 +929,6 @@
         </div>
       </div>
 
-      <!-- Barra de navegación rápida de categorías secundarias -->
       <div class="flex items-center gap-6 overflow-x-auto text-xs font-semibold text-neutral-600 border-b border-neutral-100 pb-3 mb-6 no-scrollbar">
         <button onclick="openCategoryPage('Todos los Productos')" class="hover:text-black whitespace-nowrap transition-colors">Ver Todo</button>
         <button onclick="openCategoryPage('New Arrivals')" class="hover:text-black whitespace-nowrap transition-colors">New Arrivals</button>
@@ -1133,11 +938,8 @@
         <button onclick="openCategoryPage('Sale')" class="text-red-600 hover:text-red-700 font-bold whitespace-nowrap transition-colors">Sale</button>
       </div>
 
-      <!-- Barra de Filtros y Ordenamiento -->
       <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-8">
-        <!-- Lado Izquierdo: Botones de Filtro (Filtros, Marca, Talle, Estado) -->
         <div class="flex flex-wrap items-center gap-2">
-          <!-- Botón Filtros General -->
           <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 text-xs font-semibold text-neutral-800 bg-white">
             <svg class="w-3.5 h-3.5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
@@ -1145,13 +947,11 @@
             <span>Filtros</span>
           </div>
 
-          <!-- Tag de filtro activo específico (ej: Shorts, Lentes, Men, etc.) -->
           <div id="active-subfilter-badge" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-900 text-white text-xs font-bold shadow-sm">
             <span id="active-subfilter-text">Filtro</span>
             <button onclick="clearSubFilter()" class="hover:text-brandSky ml-1 text-sm leading-none focus:outline-none">✕</button>
           </div>
 
-          <!-- Filtro Categoría (EXCLUSIVO Y VISIBLE SOLO EN VISTA 'SALE') -->
           <select id="filter-sale-category-select" onchange="applyCategoryFilters()" class="hidden text-xs font-semibold px-3 py-1.5 rounded-full border-2 border-red-500 bg-red-50 text-red-700 outline-none hover:border-red-600 cursor-pointer">
             <option value="ALL">Categoría en Sale ▼</option>
             <option value="Sneakers">Sneakers</option>
@@ -1173,17 +973,12 @@
               <span id="filter-brand-btn-label">Marcas</span>
               <span class="text-[10px] text-neutral-500 font-sans">▼</span>
             </button>
-            <div 
-              id="filter-brand-menu" 
-              class="hidden absolute left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-neutral-200 z-50 p-2.5 max-h-64 overflow-y-auto no-scrollbar"
-            >
+            <div id="filter-brand-menu" class="hidden absolute left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-neutral-200 z-50 p-2.5 max-h-64 overflow-y-auto no-scrollbar">
               <div class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-2 py-1 flex items-center justify-between border-b border-neutral-100 mb-1">
                 <span>Seleccionar marcas</span>
                 <button type="button" onclick="clearSpecificMultiFilter('brand')" class="text-brandSkyDark hover:underline">Limpiar</button>
               </div>
-              <div id="filter-brand-options" class="space-y-1">
-                <!-- Rellenado dinámico con checkboxes -->
-              </div>
+              <div id="filter-brand-options" class="space-y-1"></div>
             </div>
           </div>
 
@@ -1198,21 +993,16 @@
               <span id="filter-size-btn-label">Talles</span>
               <span class="text-[10px] text-neutral-500 font-sans">▼</span>
             </button>
-            <div 
-              id="filter-size-menu" 
-              class="hidden absolute left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-neutral-200 z-50 p-2.5 max-h-64 overflow-y-auto no-scrollbar"
-            >
+            <div id="filter-size-menu" class="hidden absolute left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-neutral-200 z-50 p-2.5 max-h-64 overflow-y-auto no-scrollbar">
               <div class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-2 py-1 flex items-center justify-between border-b border-neutral-100 mb-1">
                 <span>Seleccionar talles</span>
                 <button type="button" onclick="clearSpecificMultiFilter('size')" class="text-brandSkyDark hover:underline">Limpiar</button>
               </div>
-              <div id="filter-size-options" class="space-y-1">
-                <!-- Rellenado dinámico con checkboxes -->
-              </div>
+              <div id="filter-size-options" class="space-y-1"></div>
             </div>
           </div>
 
-          <!-- Dropdown Multi-Filtro: Estado (Condición) -->
+          <!-- Dropdown Multi-Filtro: Estado -->
           <div class="relative inline-block text-left" id="multi-condition-wrapper">
             <button 
               type="button" 
@@ -1223,27 +1013,20 @@
               <span id="filter-condition-btn-label">Estado</span>
               <span class="text-[10px] text-neutral-500 font-sans">▼</span>
             </button>
-            <div 
-              id="filter-condition-menu" 
-              class="hidden absolute left-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-neutral-200 z-50 p-2.5 max-h-64 overflow-y-auto no-scrollbar"
-            >
+            <div id="filter-condition-menu" class="hidden absolute left-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-neutral-200 z-50 p-2.5 max-h-64 overflow-y-auto no-scrollbar">
               <div class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-2 py-1 flex items-center justify-between border-b border-neutral-100 mb-1">
                 <span>Condición</span>
                 <button type="button" onclick="clearSpecificMultiFilter('condition')" class="text-brandSkyDark hover:underline">Limpiar</button>
               </div>
-              <div id="filter-condition-options" class="space-y-1">
-                <!-- Rellenado con opciones de condición -->
-              </div>
+              <div id="filter-condition-options" class="space-y-1"></div>
             </div>
           </div>
 
-          <!-- Reset filtros -->
           <button id="btn-reset-filters" onclick="resetCategoryFilters()" class="text-[11px] font-bold text-neutral-400 hover:text-black underline ml-1 hidden">
             Limpiar filtros
           </button>
         </div>
 
-        <!-- Lado Derecho: Ordenar por -->
         <div class="flex items-center justify-end">
           <select id="cat-sort-select" onchange="applyCategoryFilters()" class="text-xs font-semibold px-3.5 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black cursor-pointer">
             <option value="bestsellers">Ordenar: Destacados ▼</option>
@@ -1255,17 +1038,10 @@
         </div>
       </div>
 
-      <!-- Fila de Filtros Activos (Pill tags clickeables para remover) -->
-      <div id="active-filter-chips-container" class="flex flex-wrap items-center gap-1.5 mb-6 hidden">
-        <!-- Renderizado dinámico de chips seleccionados -->
-      </div>
+      <div id="active-filter-chips-container" class="flex flex-wrap items-center gap-1.5 mb-6 hidden"></div>
 
-      <!-- Grilla de productos de la categoría: mínimo 2 por fila en móvil (grid-cols-2) -->
-      <div id="cat-products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-5">
-        <!-- Renderizado dinámico vía JS -->
-      </div>
+      <div id="cat-products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-5"></div>
 
-      <!-- Estado vacío cuando no coinciden filtros -->
       <div id="cat-empty-filters" class="hidden text-center py-20">
         <p class="text-base font-bold text-neutral-900 mb-1">No se encontraron productos con estos filtros</p>
         <p class="text-xs text-neutral-400 mb-4">Probá cambiando los talles o marcas seleccionadas.</p>
@@ -1273,14 +1049,10 @@
           Restablecer Filtros
         </button>
       </div>
+    </div>
 
-    </div> <!-- FIN CATEGORY-VIEW -->
-
-    <!-- ========================================================== -->
-    <!-- DEDICATED PRODUCT DETAIL VIEW (PDP - SHAREABLE VIA LINK)   -->
-    <!-- ========================================================== -->
+    <!-- DEDICATED PRODUCT DETAIL VIEW (PDP) -->
     <div id="product-view" class="hidden max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <!-- Breadcrumbs & Volver -->
       <div class="flex items-center justify-between mb-6 text-xs text-neutral-500 font-medium border-b border-neutral-100 pb-4">
         <div class="flex items-center gap-2 overflow-x-auto whitespace-nowrap py-1">
           <button onclick="navigateToHome()" class="hover:text-black font-semibold flex items-center gap-1 transition-colors">
@@ -1303,29 +1075,26 @@
         </button>
       </div>
 
-      <!-- Layout 2 Columnas: Galería Izquierda / Información y Compra Derecha -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         
-        <!-- COLUMNA IZQUIERDA: FOTOS (Miniaturas verticales + Imagen Principal) -->
+        <!-- FOTOS -->
         <div class="lg:col-span-7 flex flex-col-reverse sm:flex-row gap-4 items-start">
-          <!-- Miniaturas -->
-          <div id="pdp-thumbnails" class="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-visible w-full sm:w-auto shrink-0 pb-2 sm:pb-0">
-            <!-- Rellenado dinámico con JS -->
-          </div>
+          <div id="pdp-thumbnails" class="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-visible w-full sm:w-auto shrink-0 pb-2 sm:pb-0"></div>
 
-          <!-- Imagen Principal con Insignia de Autenticidad Minimalista Propia y Click para Zoom -->
           <div 
             onclick="openImageLightbox()"
             title="Hacé clic para ampliar"
             class="relative w-full flex-1 bg-neutral-50/60 rounded-3xl p-2 sm:p-4 border border-neutral-200 flex items-center justify-center min-h-[560px] sm:min-h-[660px] cursor-zoom-in group/pdp overflow-hidden"
           >
-            <!-- Insignia de Autenticidad Estilizada -->
+            <div id="pdp-sold-badge" class="hidden absolute top-4 left-4 z-20 px-3 py-1 bg-red-600 text-white text-xs font-black uppercase tracking-wider rounded-full shadow">
+              AGOTADO / SOLD OUT
+            </div>
+
             <div class="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900/90 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-sm border border-neutral-700 shadow-sm z-10">
               <span class="w-2 h-2 rounded-full bg-brandSky animate-pulse"></span>
               <span>VERIFICADO ORIGINAL</span>
             </div>
 
-            <!-- Botón hover para ampliar -->
             <div class="absolute bottom-4 right-4 w-9 h-9 rounded-full bg-white/90 shadow border border-neutral-200 flex items-center justify-center text-neutral-800 opacity-0 group-hover/pdp:opacity-100 transition-opacity z-10">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/>
@@ -1334,22 +1103,20 @@
 
             <img 
               id="pdp-main-image"
-              src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85" 
+              src="" 
               alt="Producto" 
               class="w-full h-[520px] sm:h-[640px] max-h-[85vh] object-contain mix-blend-multiply drop-shadow-2xl group-hover/pdp:scale-[1.03] transition-all duration-300"
             />
           </div>
         </div>
 
-        <!-- COLUMNA DERECHA: DATOS, PRECIOS, TALLES Y ACCIONES -->
+        <!-- INFO PRODUCTO -->
         <div class="lg:col-span-5 space-y-6">
-          <!-- Título y Precios -->
           <div class="border-b border-neutral-200 pb-5 space-y-2">
             <h1 id="pdp-title" class="font-display font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-tight text-neutral-950 leading-tight">
-              Air Jordan 4 Retro
+              -
             </h1>
 
-            <!-- Precios USD y Cálculo automático en Pesos (Dólar Blue Venta) -->
             <div class="pt-2">
               <div id="pdp-price-usd" class="font-price font-bold text-3xl sm:text-4xl text-neutral-950 tracking-tight flex items-baseline gap-3">
                 <span>0 USD</span>
@@ -1364,7 +1131,6 @@
               </div>
             </div>
 
-            <!-- Métodos de pago aceptados -->
             <div class="pt-3">
               <p class="text-[11px] font-bold uppercase text-neutral-400 tracking-wider mb-1.5">
                 Medios de pago aceptados:
@@ -1380,35 +1146,28 @@
             </div>
           </div>
 
-          <!-- Selector de Talles -->
           <div>
             <div class="flex items-center justify-between mb-3">
               <span class="text-xs font-bold uppercase text-neutral-900 tracking-wider">
-                Talle: <span id="pdp-selected-size-label" class="text-brandSkyDark">9.5 US - 27.5 CM</span>
+                Talle: <span id="pdp-selected-size-label" class="text-brandSkyDark">-</span>
               </span>
             </div>
-
-            <!-- Grilla interactiva de talles -->
-            <div id="pdp-sizes-grid" class="grid grid-cols-4 sm:grid-cols-5 gap-2">
-              <!-- Renderizado dinámico vía JS -->
-            </div>
+            <div id="pdp-sizes-grid" class="grid grid-cols-4 sm:grid-cols-5 gap-2"></div>
           </div>
 
-          <!-- Estado y Disponibilidad -->
           <div class="space-y-1.5">
             <div class="flex items-center gap-2 text-xs font-bold text-neutral-800">
               <span class="uppercase tracking-wider text-neutral-400">Condición:</span>
               <span id="pdp-condition-label" class="bg-neutral-100 px-2.5 py-0.5 rounded text-neutral-900">Nuevo</span>
             </div>
-            <div class="flex items-center gap-1.5 text-xs text-amber-700 font-bold pt-1">
+            <div id="pdp-stock-status-box" class="flex items-center gap-1.5 text-xs text-amber-700 font-bold pt-1">
               <span class="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-              <span>Última unidad - Stock disponible para entrega inmediata</span>
+              <span>Stock disponible para entrega inmediata</span>
             </div>
           </div>
 
           <!-- Botones de Acción Primaria -->
           <div class="space-y-3 pt-2">
-            <!-- Botón Agregar al Carrito (Celeste con hover Negro) -->
             <button 
               id="pdp-btn-add-cart"
               onclick="addCurrentProductToCart()"
@@ -1420,8 +1179,8 @@
               <span>AGREGAR AL CARRITO</span>
             </button>
 
-            <!-- Botón Comprar directo por WhatsApp -->
             <button 
+              id="pdp-btn-whatsapp-order"
               onclick="orderProductViaWhatsApp()"
               class="w-full py-3.5 rounded-xl border border-[#25D366] text-[#128C7E] hover:bg-[#25D366] hover:text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2"
             >
@@ -1432,35 +1191,24 @@
             </button>
           </div>
 
-          <!-- Bloque de Beneficios / Trust Badges con Descripciones Explicativas -->
           <div class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-neutral-200 border-y border-neutral-200 py-4 gap-3 sm:gap-0 text-center">
-            <!-- 1. Envíos gratis Andreani -->
             <div class="px-3 space-y-1.5 flex flex-col items-center">
               <svg class="w-5 h-5 text-neutral-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
               <h5 class="font-bold text-xs uppercase text-neutral-900 tracking-wider">ENVÍOS A TODO EL PAÍS</h5>
-              <p class="text-[11px] text-neutral-500 leading-snug">
-                Envíos bonificados a todo el territorio nacional vía Andreani con seguimiento en tiempo real en todas tus compras.
-              </p>
+              <p class="text-[11px] text-neutral-500 leading-snug">Envíos bonificados con seguimiento en tiempo real.</p>
             </div>
-            <!-- 2. Retiro en Monserrat CABA -->
             <div class="px-3 pt-3 sm:pt-0 space-y-1.5 flex flex-col items-center">
               <svg class="w-5 h-5 text-neutral-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
               <h5 class="font-bold text-xs uppercase text-neutral-900 tracking-wider">RETIRO & TAKE AWAY CABA</h5>
-              <p class="text-[11px] text-neutral-500 leading-snug">
-                Punto de retiro en Monserrat (Microcentro, CABA) o coordinación de entrega personalizada inmediata en CABA.
-              </p>
+              <p class="text-[11px] text-neutral-500 leading-snug">Punto de retiro en Monserrat (CABA).</p>
             </div>
-            <!-- 3. Autenticación CheckCheck / Equipo -->
             <div class="px-3 pt-3 sm:pt-0 space-y-1.5 flex flex-col items-center">
               <svg class="w-5 h-5 text-neutral-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               <h5 class="font-bold text-xs uppercase text-neutral-900 tracking-wider">AUTENTICIDAD GARANTIZADA</h5>
-              <p class="text-[11px] text-neutral-500 leading-snug">
-                Inspección minuciosa por nuestro personal y certificación a través de las apps líderes globales como CheckCheck.
-              </p>
+              <p class="text-[11px] text-neutral-500 leading-snug">Inspección minuciosa y certificación garantizada.</p>
             </div>
           </div>
 
-          <!-- Banner Personalizado de Encargo Exclusivo (Diseño con Identidad Propia) -->
           <div class="bg-neutral-50 border border-neutral-200/90 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
             <div class="space-y-0.5">
               <span class="text-xs font-black uppercase tracking-tight text-neutral-900 block font-display">
@@ -1477,16 +1225,13 @@
               Pedir por Encargo →
             </button>
           </div>
-
         </div>
 
       </div>
     </div>
   </main>
 
-  <!-- ========================================================== -->
-  <!-- MODAL: 15 ÚLTIMOS INGRESOS (AL TOCAR "VER TODO")           -->
-  <!-- ========================================================== -->
+  <!-- MODAL: 15 ÚLTIMOS INGRESOS -->
   <div id="latest-15-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4 sm:p-6 overflow-y-auto">
     <div class="bg-white w-full max-w-6xl rounded-3xl shadow-2xl p-6 sm:p-8 max-h-[90vh] flex flex-col relative">
       <div class="flex items-center justify-between pb-4 border-b border-neutral-200">
@@ -1501,13 +1246,10 @@
         </button>
       </div>
 
-      <!-- Grilla con los 15 productos -->
-      <div id="latest-15-grid" class="flex-1 overflow-y-auto py-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pr-1">
-        <!-- Renderizado dinámicamente con JS -->
-      </div>
+      <div id="latest-15-grid" class="flex-1 overflow-y-auto py-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pr-1"></div>
 
       <div class="pt-4 border-t border-neutral-200 flex flex-col sm:flex-row justify-between items-center gap-3">
-        <p class="text-xs text-neutral-400">Mostrando los 15 drops más recientes disponibles para encargo y entrega inmediata.</p>
+        <p class="text-xs text-neutral-400">Mostrando los drops más recientes disponibles para encargo y entrega inmediata.</p>
         <button onclick="closeLatest15Modal()" class="px-6 py-2.5 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider transition-colors">
           Cerrar ventana
         </button>
@@ -1515,9 +1257,7 @@
     </div>
   </div>
 
-  <!-- ========================================================== -->
-  <!-- BURBUJA FLOTANTE FIJA DE WHATSAPP (BOTTOM RIGHT)           -->
-  <!-- ========================================================== -->
+  <!-- BURBUJA FLOTANTE FIJA DE WHATSAPP -->
   <a 
     href="https://wa.me/5491161109123?text=Hola!%20Estuve%20viendo%20la%20web%20y%20quer%C3%ADa%20hacerles%20una%20consulta."
     target="_blank"
@@ -1528,15 +1268,12 @@
     <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
     </svg>
-    <!-- Tooltip al pasar el cursor -->
     <span class="absolute right-16 bg-neutral-900 text-white text-[11px] font-bold py-1 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-md">
       ¿Hablamos por WhatsApp?
     </span>
   </a>
 
-  <!-- ========================================================== -->
-  <!-- 4. MODAL DE BÚSQUEDA INTERACTIVO                           -->
-  <!-- ========================================================== -->
+  <!-- MODAL DE BÚSQUEDA -->
   <div id="search-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-start justify-center pt-20 px-4">
     <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl p-6 overflow-hidden">
       <div class="flex items-center justify-between border-b border-neutral-200 pb-3 mb-4">
@@ -1548,43 +1285,31 @@
           <input 
             id="search-input" 
             type="text" 
-            placeholder="Buscar por marca, modelo o talle (ej. Jordan 4, Travis, Essentials)..." 
+            placeholder="Buscar por marca, modelo o talle..." 
             class="w-full text-base font-medium outline-none bg-transparent placeholder:text-neutral-400"
           />
         </div>
-        <button id="btn-close-search" class="text-neutral-400 hover:text-black p-1">
-          ✕
-        </button>
+        <button id="btn-close-search" class="text-neutral-400 hover:text-black p-1">✕</button>
       </div>
-
-      <!-- Resultados rápidos -->
       <div id="search-results" class="max-h-72 overflow-y-auto space-y-2 text-sm text-neutral-600">
         <p class="text-xs text-neutral-400 py-2">Escribí algo para buscar en el catálogo...</p>
       </div>
     </div>
   </div>
 
-  <!-- ========================================================== -->
-  <!-- 5. CARRITO LATERAL (DRAWER) CON SALIDA A WHATSAPP          -->
-  <!-- ========================================================== -->
+  <!-- CARRITO LATERAL (DRAWER) -->
   <div id="cart-drawer-backdrop" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden">
     <div class="absolute inset-y-0 right-0 max-w-full flex">
       <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
-        
-        <!-- Header del Carrito -->
         <div class="px-6 py-5 border-b border-neutral-200 flex items-center justify-between bg-neutral-50">
           <div class="flex items-center gap-2">
             <span class="font-display font-black text-lg uppercase tracking-tight">Tu Selección</span>
             <span id="cart-count-title" class="text-xs bg-neutral-200 px-2 py-0.5 rounded-full font-bold">0</span>
           </div>
-          <button id="btn-close-cart" class="p-1.5 text-neutral-400 hover:text-black rounded-lg">
-            ✕
-          </button>
+          <button id="btn-close-cart" class="p-1.5 text-neutral-400 hover:text-black rounded-lg">✕</button>
         </div>
 
-        <!-- Lista de productos seleccionados -->
         <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
-          <!-- Vacio por defecto -->
           <div id="cart-empty-state" class="text-center py-16 text-neutral-400 space-y-3">
             <svg class="w-12 h-12 mx-auto stroke-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -1594,7 +1319,6 @@
           </div>
         </div>
 
-        <!-- Footer con Cálculo y Botón de WhatsApp -->
         <div class="p-6 border-t border-neutral-200 bg-neutral-50 space-y-4">
           <div class="flex justify-between items-center text-sm">
             <span class="text-neutral-500 font-medium">Subtotal estimado:</span>
@@ -1608,25 +1332,19 @@
             id="btn-whatsapp-checkout"
             class="w-full py-3.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-500/20 transition-transform active:scale-[0.98]"
           >
-            <!-- WhatsApp SVG Icon -->
             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
               <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
             </svg>
             Coordinar por WhatsApp
           </button>
         </div>
-
       </div>
     </div>
   </div>
 
-  <!-- ========================================================== -->
-  <!-- MODAL / VISTA LEGAL: TÉRMINOS, PRIVACIDAD Y COOKIES       -->
-  <!-- ========================================================== -->
+  <!-- LEGAL MODAL -->
   <div id="legal-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
     <div class="bg-white w-full max-w-3xl rounded-3xl shadow-2xl p-6 sm:p-10 max-h-[90vh] overflow-y-auto relative animate-fade-in text-neutral-800">
-      
-      <!-- Botón Volver con flecha celeste (Exacto a las capturas) -->
       <div class="mb-5">
         <button onclick="closeLegalModal()" class="inline-flex items-center gap-1.5 text-brandSky hover:text-brandSkyDark font-bold text-sm transition-colors group">
           <span class="group-hover:-translate-x-1 transition-transform">←</span>
@@ -1634,265 +1352,317 @@
         </button>
       </div>
 
-      <!-- 1. SECCIÓN: TÉRMINOS Y CONDICIONES -->
       <div id="legal-content-terms" class="legal-doc-section space-y-6">
         <div>
           <div class="flex items-center gap-2 mb-2">
             <span class="text-3xl">📄</span>
-            <h2 class="font-display font-black text-2xl sm:text-3xl text-neutral-950 uppercase tracking-tight">
-              TÉRMINOS Y CONDICIONES
-            </h2>
+            <h2 class="font-display font-black text-2xl sm:text-3xl text-neutral-950 uppercase tracking-tight">TÉRMINOS Y CONDICIONES</h2>
           </div>
           <div class="w-16 h-1 bg-brandSky rounded-full"></div>
         </div>
-
-        <p class="text-xs text-neutral-500 font-semibold">
-          <strong>Última actualización:</strong> 11/05/2026
-        </p>
-
-        <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-          Al acceder y utilizar el sitio web de Blaskicks, el usuario acepta los siguientes términos y condiciones:
-        </p>
-
-        <div class="space-y-4 text-xs sm:text-sm text-neutral-700">
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">1. SERVICIOS</h3>
-            <p class="mt-1 leading-relaxed">Blaskicks ofrece la venta online de indumentaria, calzado y accesorios.</p>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">2. USO DEL SITIO</h3>
-            <p class="mt-1 leading-relaxed">El usuario se compromete a utilizar el sitio de manera legal y adecuada. Queda prohibido:</p>
-            <ul class="list-disc pl-5 mt-1.5 space-y-1 text-neutral-600">
-              <li>Realizar actividades ilícitas</li>
-              <li>Intentar dañar o vulnerar el sitio</li>
-              <li>Utilizar el contenido sin autorización</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">3. PROPIEDAD INTELECTUAL</h3>
-            <p class="mt-1 leading-relaxed">Todo el contenido del sitio es propiedad de Blaskicks y no puede ser utilizado sin autorización.</p>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">4. COMPRAS Y PAGOS</h3>
-            <ul class="list-disc pl-5 mt-1.5 space-y-1 text-neutral-600">
-              <li>Los productos están sujetos a disponibilidad</li>
-              <li>Los precios pueden modificarse sin previo aviso</li>
-              <li>El pago debe realizarse mediante los métodos disponibles en el sitio</li>
-            </ul>
-          </div>
-
-          <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl">
-            <h3 class="font-display font-bold text-red-700 text-sm sm:text-base uppercase tracking-wide">5. POLÍTICA DE CAMBIOS Y DEVOLUCIONES (IMPORTANTE)</h3>
-            <p class="mt-1 leading-relaxed font-semibold text-neutral-900">
-              Blaskicks no acepta cambios ni devoluciones de productos bajo ninguna circunstancia, sin excepciones.
-            </p>
-            <p class="mt-1 text-xs text-neutral-600 leading-relaxed">
-              Al realizar una compra, el cliente acepta esta condición. Se recomienda verificar cuidadosamente talle, modelo, medidas y detalles del producto antes de confirmar la compra.
-            </p>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">6. RESPONSABILIDAD</h3>
-            <p class="mt-1 leading-relaxed">Blaskicks no se responsabiliza por daños derivados del uso del sitio ni por interrupciones del servicio.</p>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">7. MODIFICACIONES</h3>
-            <p class="mt-1 leading-relaxed">Nos reservamos el derecho de actualizar estos términos en cualquier momento.</p>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">8. PROMOCIONES, OFERTAS Y CAMPAÑAS ESPECIALES</h3>
-            <p class="mt-1 leading-relaxed">
-              Todas las promociones, descuentos, campañas especiales y ofertas publicadas en el sitio web tendrán una fecha y horario de inicio y de finalización expresamente informados de manera clara y visible para los usuarios.
-            </p>
-            <p class="mt-1.5 leading-relaxed">
-              Salvo que se indique lo contrario, las promociones tendrán vigencia desde las 00:00 hs de la fecha de inicio hasta las 23:59 hs de la fecha de finalización correspondiente, conforme al huso horario de la República Argentina.
-            </p>
-            <p class="mt-1.5 leading-relaxed">
-              Una vez finalizado el plazo de vigencia establecido, las ofertas dejarán automáticamente de ser válidas, sin excepción alguna, no pudiendo solicitarse descuentos, bonificaciones o condiciones promocionales fuera del período informado.
-            </p>
-            <p class="mt-1.5 leading-relaxed">
-              Las promociones serán válidas únicamente para productos seleccionados y/o hasta agotar stock disponible, según se indique en cada caso. La disponibilidad de productos podrá variar sin previo aviso.
-            </p>
-            <p class="mt-1.5 leading-relaxed">
-              Los descuentos y promociones no serán acumulables con otras ofertas, cupones, beneficios o promociones vigentes, salvo indicación expresa en contrario.
-            </p>
-            <p class="mt-1.5 leading-relaxed">
-              BLASKICKS se reserva el derecho de modificar, suspender o cancelar promociones por causas de fuerza mayor, errores técnicos, errores involuntarios de publicación, falta de stock u otras circunstancias que puedan afectar el normal desarrollo de la campaña promocional.
-            </p>
-            <p class="mt-1.5 leading-relaxed">
-              Asimismo, en caso de detectarse errores manifiestos en precios, porcentajes de descuento, publicaciones o condiciones promocionales derivados de fallas técnicas, humanas o del sistema, BLASKICKS podrá dejar sin efecto la operación correspondiente, notificando debidamente al usuario.
-            </p>
-          </div>
-
-          <div class="border-t border-neutral-200 pt-4">
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">9. CONTACTO</h3>
-            <p class="mt-1 text-xs text-neutral-600">Para consultas:</p>
-            <p class="mt-1 text-xs text-neutral-800">📩 <a href="mailto:blastorskicks@gmail.com" class="text-brandSkyDark underline">blastorskicks@gmail.com</a></p>
-            <p class="text-xs text-neutral-800">🌐 <a href="https://blaskicks.com" target="_blank" class="text-brandSkyDark underline">https://blaskicks.com</a></p>
-          </div>
-        </div>
+        <p class="text-xs text-neutral-500 font-semibold"><strong>Última actualización:</strong> 11/05/2026</p>
+        <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed">Al acceder y utilizar el sitio web de Blaskicks, el usuario acepta los siguientes términos y condiciones:</p>
       </div>
 
-      <!-- 2. SECCIÓN: POLÍTICA DE PRIVACIDAD -->
       <div id="legal-content-privacy" class="legal-doc-section hidden space-y-6">
         <div>
           <div class="flex items-center gap-2 mb-2">
             <span class="text-3xl">🔐</span>
-            <h2 class="font-display font-black text-2xl sm:text-3xl text-neutral-950 uppercase tracking-tight">
-              POLÍTICA DE PRIVACIDAD
-            </h2>
+            <h2 class="font-display font-black text-2xl sm:text-3xl text-neutral-950 uppercase tracking-tight">POLÍTICA DE PRIVACIDAD</h2>
           </div>
           <div class="w-16 h-1 bg-brandSky rounded-full"></div>
         </div>
-
-        <p class="text-xs text-neutral-500 font-semibold">
-          <strong>Última actualización:</strong> 11/05/2026
-        </p>
-
-        <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-          En Blaskicks valoramos y respetamos la privacidad de nuestros usuarios. Esta Política de Privacidad explica cómo recopilamos, utilizamos y protegemos la información personal.
-        </p>
-
-        <div class="space-y-4 text-xs sm:text-sm text-neutral-700">
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">1. INFORMACIÓN QUE RECOPILAMOS</h3>
-            <p class="mt-1 leading-relaxed">Podemos recopilar los siguientes datos:</p>
-            <ul class="list-disc pl-5 mt-1.5 space-y-1 text-neutral-600">
-              <li>Nombre y apellido</li>
-              <li>Dirección de correo electrónico</li>
-              <li>Número de teléfono</li>
-              <li>Datos de compra y envío</li>
-              <li>Información proporcionada en formularios</li>
-              <li>Dirección IP, navegador y dispositivo</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">2. USO DE LA INFORMACIÓN</h3>
-            <p class="mt-1 leading-relaxed">Utilizamos la información para:</p>
-            <ul class="list-disc pl-5 mt-1.5 space-y-1 text-neutral-600">
-              <li>Procesar compras y gestionar envíos</li>
-              <li>Responder consultas</li>
-              <li>Brindar atención al cliente</li>
-              <li>Mejorar la experiencia del usuario</li>
-              <li>Enviar comunicaciones relacionadas con pedidos o promociones</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">3. PROTECCIÓN DE DATOS</h3>
-            <p class="mt-1 leading-relaxed">Adoptamos medidas de seguridad para proteger la información personal frente a accesos no autorizados o uso indebido.</p>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">4. COMPARTICIÓN DE DATOS</h3>
-            <p class="mt-1 leading-relaxed">No vendemos ni compartimos datos personales con terceros, salvo cuando sea necesario para procesar pedidos (por ejemplo, servicios de envío o plataformas de pago) o por obligación legal.</p>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">5. DERECHOS DEL USUARIO</h3>
-            <p class="mt-1 leading-relaxed">El usuario puede solicitar:</p>
-            <ul class="list-disc pl-5 mt-1.5 space-y-1 text-neutral-600">
-              <li>Acceso a sus datos</li>
-              <li>Rectificación o actualización</li>
-              <li>Eliminación de la información</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">6. ENLACES EXTERNOS</h3>
-            <p class="mt-1 leading-relaxed">El sitio puede contener enlaces a terceros. No somos responsables por sus políticas o contenidos.</p>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">7. CAMBIOS EN LA POLÍTICA</h3>
-            <p class="mt-1 leading-relaxed">Nos reservamos el derecho de modificar esta política en cualquier momento.</p>
-          </div>
-
-          <div class="border-t border-neutral-200 pt-4">
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">8. CONTACTO</h3>
-            <p class="mt-1 text-xs text-neutral-600">Para consultas:</p>
-            <p class="mt-1 text-xs text-neutral-800">📩 <a href="mailto:blastorskicks@gmail.com" class="text-brandSkyDark underline">blastorskicks@gmail.com</a></p>
-            <p class="text-xs text-neutral-800">🌐 <a href="https://blaskicks.com" target="_blank" class="text-brandSkyDark underline">https://blaskicks.com</a></p>
-          </div>
-        </div>
+        <p class="text-xs text-neutral-500 font-semibold"><strong>Última actualización:</strong> 11/05/2026</p>
+        <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed">En Blaskicks valoramos y respetamos la privacidad de nuestros usuarios.</p>
       </div>
 
-      <!-- 3. SECCIÓN: POLÍTICA DE COOKIES -->
       <div id="legal-content-cookies" class="legal-doc-section hidden space-y-6">
         <div>
           <div class="flex items-center gap-2 mb-2">
             <span class="text-3xl">🍪</span>
-            <h2 class="font-display font-black text-2xl sm:text-3xl text-neutral-950 uppercase tracking-tight">
-              POLÍTICA DE COOKIES
-            </h2>
+            <h2 class="font-display font-black text-2xl sm:text-3xl text-neutral-950 uppercase tracking-tight">POLÍTICA DE COOKIES</h2>
           </div>
           <div class="w-16 h-1 bg-brandSky rounded-full"></div>
         </div>
-
-        <p class="text-xs text-neutral-500 font-semibold">
-          <strong>Última actualización:</strong> 11/05/2026
-        </p>
-
-        <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-          En Blaskicks utilizamos cookies para mejorar la experiencia de navegación.
-        </p>
-
-        <div class="space-y-4 text-xs sm:text-sm text-neutral-700">
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">1. ¿QUÉ SON LAS COOKIES?</h3>
-            <p class="mt-1 leading-relaxed">Son archivos que se almacenan en el dispositivo del usuario al visitar el sitio web.</p>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">2. TIPOS DE COOKIES</h3>
-            <ul class="list-disc pl-5 mt-1.5 space-y-1 text-neutral-600">
-              <li><strong>Cookies esenciales:</strong> necesarias para el funcionamiento del sitio</li>
-              <li><strong>Cookies de análisis:</strong> permiten entender el comportamiento de los usuarios</li>
-              <li><strong>Cookies de funcionalidad:</strong> recuerdan preferencias</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">3. USO DE COOKIES</h3>
-            <p class="mt-1 leading-relaxed">Utilizamos cookies para optimizar el sitio, analizar tráfico y mejorar nuestros servicios.</p>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">4. GESTIÓN DE COOKIES</h3>
-            <p class="mt-1 leading-relaxed">El usuario puede configurar su navegador para rechazar o eliminar cookies.</p>
-          </div>
-
-          <div>
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">5. CAMBIOS</h3>
-            <p class="mt-1 leading-relaxed">Podemos modificar esta política en cualquier momento.</p>
-          </div>
-
-          <div class="border-t border-neutral-200 pt-4">
-            <h3 class="font-display font-bold text-brandSkyDark text-sm sm:text-base uppercase tracking-wide">6. CONTACTO</h3>
-            <p class="mt-1 text-xs text-neutral-600">Para más información:</p>
-            <p class="mt-1 text-xs text-neutral-800">📩 <a href="mailto:blastorskicks@gmail.com" class="text-brandSkyDark underline">blastorskicks@gmail.com</a></p>
-            <p class="text-xs text-neutral-800">🌐 <a href="https://blaskicks.com" target="_blank" class="text-brandSkyDark underline">https://blaskicks.com</a></p>
-          </div>
-        </div>
+        <p class="text-xs text-neutral-500 font-semibold"><strong>Última actualización:</strong> 11/05/2026</p>
+        <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed">En Blaskicks utilizamos cookies para mejorar la experiencia de navegación.</p>
       </div>
-
     </div>
   </div>
 
   <!-- ========================================================== -->
-  <!-- FOOTER OFICIAL NEGRO (EXACTO A LA IMAGEN image_9c585b)     -->
+  <!-- MODAL DE ACCESO OCULTO (LOGIN ADMIN)                       -->
+  <!-- ========================================================== -->
+  <div id="admin-login-modal" class="fixed inset-0 z-[60] bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-neutral-900 border border-neutral-800 text-white w-full max-w-sm rounded-2xl p-6 shadow-2xl relative animate-fade-in">
+      <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors">✕</button>
+      
+      <div class="flex items-center gap-2 mb-4">
+        <span class="w-2.5 h-2.5 rounded-full bg-brandSky animate-pulse"></span>
+        <h3 class="font-display font-black text-lg uppercase tracking-wider text-white">Panel Blaskicks</h3>
+      </div>
+      
+      <p class="text-xs text-neutral-400 mb-5">Ingresá tus credenciales de administrador para gestionar productos y stock.</p>
+
+      <form id="admin-login-form" onsubmit="handleAdminLogin(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-[11px] font-bold uppercase text-neutral-400 mb-1">Usuario</label>
+          <input 
+            type="text" 
+            id="admin-username" 
+            required 
+            placeholder="Usuario" 
+            class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-brandSky transition-colors placeholder:text-neutral-500"
+          />
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold uppercase text-neutral-400 mb-1">Contraseña</label>
+          <input 
+            type="password" 
+            id="admin-password" 
+            required 
+            placeholder="••••••••" 
+            class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-brandSky transition-colors placeholder:text-neutral-500"
+          />
+        </div>
+
+        <div id="admin-login-error" class="hidden text-xs text-red-400 font-semibold pt-1">
+          Usuario o contraseña incorrectos.
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full mt-2 py-3 bg-brandSky hover:bg-white text-neutral-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow hover:scale-[1.02] active:scale-95"
+        >
+          Iniciar Sesión
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================== -->
+  <!-- MODAL PRINCIPAL: PANEL DE ADMINISTRADOR                   -->
+  <!-- ========================================================== -->
+  <div id="admin-dashboard-modal" class="fixed inset-0 z-[60] bg-black/85 backdrop-blur-md hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-neutral-950 border border-neutral-800 text-neutral-100 w-full max-w-5xl rounded-3xl p-5 sm:p-8 max-h-[92vh] flex flex-col relative shadow-2xl animate-fade-in">
+      
+      <!-- Encabezado Admin -->
+      <div class="flex items-center justify-between pb-4 border-b border-neutral-800">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-brandSky/20 border border-brandSky/40 flex items-center justify-center text-brandSky font-black text-xs">
+            BK
+          </div>
+          <div>
+            <h2 class="font-display font-black text-lg sm:text-xl uppercase text-white tracking-wide">Panel de Administrador</h2>
+            <p class="text-[11px] text-neutral-400">Sesión iniciada como <span class="text-brandSky font-bold">spincon</span></p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="adminLogout()" class="px-3 py-1.5 rounded-lg border border-neutral-800 hover:bg-neutral-900 text-xs text-neutral-300 font-semibold transition-colors">
+            Cerrar Sesión
+          </button>
+          <button onclick="closeAdminDashboard()" class="w-8 h-8 rounded-full bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center transition-colors">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Pestañas del Panel -->
+      <div class="flex border-b border-neutral-800 pt-3 gap-6 text-xs font-bold uppercase tracking-wider">
+        <button id="admin-tab-btn-add" onclick="switchAdminTab('add')" class="pb-2.5 border-b-2 border-brandSky text-brandSky transition-colors">
+          + Agregar Nuevo Producto
+        </button>
+        <button id="admin-tab-btn-stock" onclick="switchAdminTab('stock')" class="pb-2.5 border-b-2 border-transparent text-neutral-400 hover:text-white transition-colors">
+          Gestión de Stock / Agotados (<span id="admin-total-count">0</span>)
+        </button>
+      </div>
+
+      <!-- Contenido de las Pestañas -->
+      <div class="flex-1 overflow-y-auto py-5 pr-1 space-y-6">
+        
+        <!-- PESTAÑA 1: FORMULARIO AGREGAR PRODUCTO -->
+        <div id="admin-tab-add" class="space-y-4">
+          <form id="admin-add-product-form" onsubmit="handleAddNewProduct(event)" class="space-y-4">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-neutral-400 mb-1">Nombre del Producto *</label>
+                <input 
+                  type="text" 
+                  id="adm-name" 
+                  required 
+                  placeholder="Ej: ADIDAS GAZELLE BAD BUNNY CABO ROJO" 
+                  class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-brandSky transition-colors"
+                />
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-neutral-400 mb-1">Marca *</label>
+                <input 
+                  type="text" 
+                  id="adm-brand" 
+                  required 
+                  placeholder="Ej: Adidas, Nike, Off-White, Supreme, etc." 
+                  class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-brandSky transition-colors"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-neutral-400 mb-1">Categoría *</label>
+                <select id="adm-category" required class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-brandSky transition-colors">
+                  <option value="Sneakers">Sneakers</option>
+                  <option value="Remeras">Remeras</option>
+                  <option value="Buzos">Buzos</option>
+                  <option value="Pantalones">Pantalones</option>
+                  <option value="Camperas">Camperas</option>
+                  <option value="Accesorios">Accesorios</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-neutral-400 mb-1">Precio (USD) *</label>
+                <input 
+                  type="number" 
+                  id="adm-price" 
+                  required 
+                  min="1" 
+                  placeholder="200" 
+                  class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-brandSky transition-colors"
+                />
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-neutral-400 mb-1">Condición</label>
+                <select id="adm-condition" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-brandSky transition-colors">
+                  <option value="Nuevo">Nuevo (DS)</option>
+                  <option value="Usado (como nuevo)">Usado (como nuevo)</option>
+                  <option value="Usado">Usado</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-neutral-400 mb-1">Talles Disponibles (separados por coma)</label>
+              <input 
+                type="text" 
+                id="adm-sizes" 
+                placeholder="Ej: 9.5 US, 10.5 US o M, L, XL" 
+                class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-brandSky transition-colors placeholder:text-neutral-600"
+              />
+              <p class="text-[10px] text-neutral-500 mt-1">Si lo dejás vacío, se asignará "Talle Único".</p>
+            </div>
+
+            <!-- FOTOS CLOUDFLARE R2 (HASTA 4 FOTOS) -->
+            <div class="border border-neutral-800 rounded-2xl p-4 bg-neutral-900/50 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-brandSky">
+                  Fotos del Producto (Cloudflare R2)
+                </span>
+                <span class="text-[10px] text-neutral-400">Hasta 4 fotos (las que dejes vacías no se muestran)</span>
+              </div>
+
+              <div class="space-y-2">
+                <div>
+                  <label class="block text-[10px] font-bold uppercase text-neutral-400 mb-0.5">Foto Principal (URL Cloudflare) *</label>
+                  <input 
+                    type="url" 
+                    id="adm-img-1" 
+                    required 
+                    placeholder="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/..." 
+                    class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-brandSky transition-colors placeholder:text-neutral-600"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold uppercase text-neutral-400 mb-0.5">Foto 2 (Opcional)</label>
+                  <input 
+                    type="url" 
+                    id="adm-img-2" 
+                    placeholder="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/..." 
+                    class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-brandSky transition-colors placeholder:text-neutral-600"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold uppercase text-neutral-400 mb-0.5">Foto 3 (Opcional)</label>
+                  <input 
+                    type="url" 
+                    id="adm-img-3" 
+                    placeholder="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/..." 
+                    class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-brandSky transition-colors placeholder:text-neutral-600"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold uppercase text-neutral-400 mb-0.5">Foto 4 (Opcional)</label>
+                  <input 
+                    type="url" 
+                    id="adm-img-4" 
+                    placeholder="https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/..." 
+                    class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-brandSky transition-colors placeholder:text-neutral-600"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-2 flex justify-end">
+              <button 
+                type="submit" 
+                class="px-6 py-3 rounded-full bg-brandSky hover:bg-white text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow hover:scale-105 active:scale-95"
+              >
+                Publicar Producto
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- PESTAÑA 2: GESTIÓN DE STOCK / AGOTADOS -->
+        <div id="admin-tab-stock" class="hidden space-y-3">
+          <div class="flex items-center justify-between pb-2">
+            <input 
+              type="text" 
+              id="admin-stock-search" 
+              oninput="renderAdminStockList()" 
+              placeholder="Filtrar por nombre o marca..." 
+              class="w-72 bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-brandSky"
+            />
+            <span class="text-xs text-neutral-400">Clic para cambiar estado o eliminar definitivamente</span>
+          </div>
+
+          <div id="admin-stock-items-table" class="space-y-2">
+            <!-- Render dinámico con JS -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIRMACIÓN DE ELIMINACIÓN (SIN ALERT/CONFIRM) -->
+  <div id="admin-delete-modal" class="fixed inset-0 z-[80] bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 max-w-sm w-full text-white space-y-4 shadow-2xl">
+      <div class="flex items-center gap-2 text-red-500 font-bold text-sm uppercase">
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        <span>Eliminar Producto</span>
+      </div>
+      <p id="admin-delete-product-name" class="text-xs text-neutral-300 font-medium">¿Estás seguro de que deseas eliminar este producto por completo de la tienda?</p>
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button onclick="closeDeleteConfirmModal()" class="px-4 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-xs font-bold text-neutral-300 transition-colors">Cancelar</button>
+        <button id="admin-confirm-delete-btn" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-xs font-bold text-white transition-colors">Sí, Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================== -->
+  <!-- FOOTER OFICIAL NEGRO                                       -->
   <!-- ========================================================== -->
   <footer class="bg-[#141414] text-white border-t border-neutral-800/80 pt-16 pb-12">
     <div class="max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-16">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-start">
         
-        <!-- Columna 1: Logo & Slogan Oficial -->
         <div class="md:col-span-5 space-y-3">
           <div class="flex items-center">
             <img 
@@ -1907,59 +1677,31 @@
           </p>
         </div>
 
-        <!-- Columna 2: LEGALES -->
         <div class="md:col-span-4 space-y-3">
-          <h4 class="font-display font-black text-xs sm:text-sm uppercase tracking-wider text-white">
-            LEGALES
-          </h4>
+          <h4 class="font-display font-black text-xs sm:text-sm uppercase tracking-wider text-white">LEGALES</h4>
           <ul class="space-y-2 text-xs text-neutral-400 font-medium">
-            <li>
-              <button onclick="openLegalModal('terms')" class="hover:text-white transition-colors text-left">
-                Términos y Condiciones
-              </button>
-            </li>
-            <li>
-              <button onclick="openLegalModal('privacy')" class="hover:text-white transition-colors text-left">
-                Política de privacidad
-              </button>
-            </li>
-            <li>
-              <button onclick="openLegalModal('cookies')" class="hover:text-white transition-colors text-left">
-                Política de Cookies
-              </button>
-            </li>
+            <li><button onclick="openLegalModal('terms')" class="hover:text-white transition-colors text-left">Términos y Condiciones</button></li>
+            <li><button onclick="openLegalModal('privacy')" class="hover:text-white transition-colors text-left">Política de privacidad</button></li>
+            <li><button onclick="openLegalModal('cookies')" class="hover:text-white transition-colors text-left">Política de Cookies</button></li>
           </ul>
         </div>
 
-        <!-- Columna 3: REDES -->
         <div class="md:col-span-3 space-y-3">
-          <h4 class="font-display font-black text-xs sm:text-sm uppercase tracking-wider text-white">
-            REDES
-          </h4>
+          <h4 class="font-display font-black text-xs sm:text-sm uppercase tracking-wider text-white">REDES</h4>
           <ul class="space-y-2 text-xs text-neutral-400 font-medium">
-            <li>
-              <a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors inline-block">
-                Instagram
-              </a>
-            </li>
-            <li>
-              <a href="https://www.tiktok.com/@blaskicks" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors inline-block">
-                TikTok
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.whatsapp.com/HC4v6UnujLR48XlFJn1cuC" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors inline-block">
-                Comunidad
-              </a>
-            </li>
+            <li><a href="https://www.instagram.com/blaskicks/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors inline-block">Instagram</a></li>
+            <li><a href="https://www.tiktok.com/@blaskicks" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors inline-block">TikTok</a></li>
+            <li><a href="https://chat.whatsapp.com/HC4v6UnujLR48XlFJn1cuC" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors inline-block">Comunidad</a></li>
           </ul>
         </div>
 
       </div>
 
-      <!-- Copyright Inferior sutil -->
+      <!-- Copyright con disparador secreto por clics -->
       <div class="mt-12 pt-6 border-t border-neutral-800/60 flex flex-col sm:flex-row justify-between items-center gap-3 text-[11px] text-neutral-500">
-        <p>© 2026 BLASKICKS. Todos los derechos reservados.</p>
+        <p id="footer-secret-trigger" class="cursor-default select-none transition-colors" title="Blaskicks">
+          © 2026 BLASKICKS. Todos los derechos reservados.
+        </p>
         <p>Curated Streetwear & Luxury Resale • Buenos Aires, Argentina</p>
       </div>
     </div>
@@ -1969,19 +1711,14 @@
   <!-- JAVASCRIPT: Lógica interactiva completa                     -->
   <!-- ========================================================== -->
   <script>
-    // TU NÚMERO DE TELÉFONO PARA WHATSAPP
     const WHATSAPP_PHONE = "5491161109123";
-
-    // VALOR DEL DÓLAR BLUE VENTA (Base 1565; actualizable automáticamente con API)
     const DOLAR_BLUE_VENTA = 1565;
-
-    // BASE URL DE TU BUCKET PÚBLICO EN CLOUDFLARE R2 CON TU CUSTOM DOMAIN EXACTO
     const R2_BASE = "https://assests.blaskicks.com";
 
-    // CATÁLOGO REAL DE PRODUCTOS CON TUS FOTOS AVIF EN CLOUDFLARE R2
-    const PRODUCTS = [
+    // CATÁLOGO BASE COMPLETO (TODOS LOS 69 PRODUCTOS EXACTOS)
+    const BASE_PRODUCTS = [
       // ==========================================
-      // ZAPAS / SNEAKERS
+      // SNEAKERS (6 PRODUCTOS)
       // ==========================================
       {
         id: "prod-bk-1",
@@ -2103,7 +1840,7 @@
       },
 
       // ==========================================
-      // ACCESORIOS
+      // ACCESORIOS (12 PRODUCTOS)
       // ==========================================
       {
         id: "prod-bk-7",
@@ -2354,7 +2091,7 @@
       },
 
       // ==========================================
-      // PANTALONES
+      // PANTALONES (7 PRODUCTOS)
       // ==========================================
       {
         id: "prod-bk-pant-1",
@@ -2498,7 +2235,7 @@
       },
 
       // ==========================================
-      // CAMPERAS
+      // CAMPERAS (5 PRODUCTOS)
       // ==========================================
       {
         id: "prod-bk-camp-1",
@@ -2606,7 +2343,7 @@
       },
 
       // ==========================================
-      // BUZOS
+      // BUZOS (10 PRODUCTOS)
       // ==========================================
       {
         id: "prod-bk-buzo-1",
@@ -2814,7 +2551,7 @@
       },
 
       // ==========================================
-      // REMERAS (30 PRODUCTOS CON STOCK REAL)
+      // REMERAS (29 PRODUCTOS)
       // ==========================================
       {
         id: "prod-bk-rem-1",
@@ -3410,17 +3147,86 @@
       }
     ];
 
-    // ELEMENTOS DEL DOM DECLARADOS AL INICIO PARA EVITAR TEMPORAL DEAD ZONE
+    // ==========================================================
+    // SISTEMA DE ALMACENAMIENTO DE PRODUCTOS Y STOCK (ADMIN)
+    // ==========================================================
+    function getStoredCustomProducts() {
+      try {
+        const raw = localStorage.getItem("blaskicks_custom_products");
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveStoredCustomProducts(arr) {
+      try {
+        localStorage.setItem("blaskicks_custom_products", JSON.stringify(arr));
+      } catch (e) {}
+    }
+
+    function getSoldOutProductIds() {
+      try {
+        const raw = localStorage.getItem("blaskicks_sold_out_ids");
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveSoldOutProductIds(arr) {
+      try {
+        localStorage.setItem("blaskicks_sold_out_ids", JSON.stringify(arr));
+      } catch (e) {}
+    }
+
+    function getDeletedProductIds() {
+      try {
+        const raw = localStorage.getItem("blaskicks_deleted_ids");
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveDeletedProductIds(arr) {
+      try {
+        localStorage.setItem("blaskicks_deleted_ids", JSON.stringify(arr));
+      } catch (e) {}
+    }
+
+    // CATÁLOGO COMPLETO COMBINADO (69 BASE + CUSTOMIZADOS MENOS ELIMINADOS)
+    let PRODUCTS = [];
+
+    function reloadProducts() {
+      const custom = getStoredCustomProducts();
+      const soldOutIds = new Set(getSoldOutProductIds());
+      const deletedIds = new Set(getDeletedProductIds());
+
+      // Combinar personalizados creados con el catálogo base íntegro
+      const allRaw = [...custom, ...BASE_PRODUCTS].filter(p => !deletedIds.has(p.id));
+
+      PRODUCTS = allRaw.map(p => {
+        const isSold = soldOutIds.has(p.id) || p.isSoldOut === true;
+        return {
+          ...p,
+          isSoldOut: isSold
+        };
+      });
+    }
+
+    reloadProducts();
+
+    // ELEMENTOS DEL DOM
     const homeView = document.getElementById("home-view");
     const productView = document.getElementById("product-view");
     const categoryView = document.getElementById("category-view");
 
-    // Navegación instantánea y fluida sin spinners intrusivos
     function triggerActionLoading(callback) {
       if (callback) callback();
     }
 
-    // CONTROL DEL LIGHTBOX CON ZOOM INTERACTIVO
+    // LIGHTBOX
     const imageLightbox = document.getElementById("image-lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
     let isLightboxZoomed = false;
@@ -3442,7 +3248,6 @@
       lightboxImg.style.transform = "scale(1)";
     }
 
-    // Si se hace clic en la foto misma, hace zoom
     function toggleLightboxZoom(e) {
       e.stopPropagation();
       isLightboxZoomed = !isLightboxZoomed;
@@ -3457,7 +3262,6 @@
       }
     }
 
-    // Si se hace clic en cualquier parte fuera de la imagen exacta, se cierra
     function handleLightboxBackdropClick(e) {
       if (e.target !== lightboxImg) {
         closeImageLightbox();
@@ -3468,14 +3272,12 @@
     let currentActiveProduct = null;
     let currentSelectedSize = null;
     let currentCategory = "Remeras";
-    let currentSubFilter = null; // Para filtros específicos como 'Shorts', 'Lentes', 'Men', etc.
+    let currentSubFilter = null;
 
-    // MULTI-FILTROS SELECCIONADOS (SETS)
     let selectedBrands = new Set();
     let selectedSizes = new Set();
     let selectedConditions = new Set();
 
-    // FORMATO DE PRECIO EN PESOS CON PUNTOS (Ej: 313.000)
     function formatARS(num) {
       return num.toLocaleString('es-AR');
     }
@@ -3489,7 +3291,7 @@
       return Math.round(((original - current) / original) * 100);
     }
 
-    // 1. ROTACIÓN DINÁMICA DE LA BARRA CELESTE
+    // ROTACIÓN DE LA BARRA CELESTE
     const announcementMessages = [
       "PRODUCTOS 100% AUTÉNTICOS",
       "ENVÍOS A TODO EL PAÍS"
@@ -3516,7 +3318,7 @@
       }, 400);
     }, 4000);
 
-    // 2. TOGGLE DEL MENÚ DE 2 LÍNEAS
+    // MENÚ DE 2 LÍNEAS
     const megaMenu = document.getElementById("mega-menu");
     const burgerLine1 = document.getElementById("burger-line-1");
     const burgerLine2 = document.getElementById("burger-line-2");
@@ -3537,25 +3339,26 @@
 
     document.getElementById("btn-menu-toggle").addEventListener("click", toggleMegaMenu);
 
-    // 3. RENDERIZADO DEL CARRUSEL (6 PRIMEROS + TARJETA "VER TODO (15 INGRESOS)")
+    // RENDERIZADO DEL CARRUSEL
     const productsTrack = document.getElementById("products-track");
     const prevBtn = document.getElementById("slider-prev-btn");
     const nextBtn = document.getElementById("slider-next-btn");
 
     function renderCatalog() {
       if (!productsTrack) return;
-      // Tomamos los 15 ingresos mechados por categoría y mostramos los primeros 6 variados en el carrusel de inicio
       const balancedDrops = getBalanced15Drops();
       const firstRowProducts = balancedDrops.slice(0, 6);
       const productCards = firstRowProducts.map(p => {
         const hasDiscount = p.originalPrice && p.originalPrice > p.price;
         const discountPct = hasDiscount ? getDiscountPercent(p.originalPrice, p.price) : 0;
+        const isSoldOut = Boolean(p.isSoldOut);
+
         return `
-        <div class="flex-none w-64 sm:w-72 bg-neutral-50 rounded-2xl p-4 border border-neutral-200 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group cursor-pointer" onclick="openProductPage('${p.slug}')">
+        <div class="flex-none w-64 sm:w-72 bg-neutral-50 rounded-2xl p-4 border border-neutral-200 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group cursor-pointer ${isSoldOut ? 'opacity-80' : ''}" onclick="openProductPage('${p.slug}')">
           <div>
             <div class="relative w-full h-52 bg-white rounded-xl overflow-hidden mb-3 flex items-center justify-center p-3">
-              <span class="absolute top-2 left-2 ${p.onSale ? 'bg-red-600' : 'bg-neutral-900'} text-white text-[9px] font-black uppercase px-2 py-0.5 rounded shadow">
-                ${p.onSale ? `${discountPct}% OFF` : p.badge}
+              <span class="absolute top-2 left-2 ${isSoldOut ? 'bg-red-600 text-white' : (p.onSale ? 'bg-red-600 text-white' : 'bg-neutral-900 text-white')} text-[9px] font-black uppercase px-2 py-0.5 rounded shadow">
+                ${isSoldOut ? 'AGOTADO' : (p.onSale ? `${discountPct}% OFF` : p.badge)}
               </span>
               <img src="${p.img}" alt="${p.name}" class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300" />
             </div>
@@ -3570,18 +3373,21 @@
               ${hasDiscount ? `<span class="line-through text-neutral-400 text-xs font-semibold">$${p.originalPrice} USD</span>` : ''}
               <span class="font-price font-bold text-sm sm:text-base ${p.onSale ? 'text-red-600' : 'text-neutral-950'} tracking-tight">$${p.price} USD</span>
             </div>
-            <button 
-              onclick="addToCart('${p.id}')"
-              class="px-3.5 py-1.5 rounded-lg bg-brandSky hover:bg-black text-white text-xs font-bold uppercase transition-colors duration-200"
-            >
-              + Agregar
-            </button>
+            ${isSoldOut ? `
+              <span class="px-3.5 py-1.5 rounded-lg bg-neutral-200 text-neutral-500 text-xs font-bold uppercase">Agotado</span>
+            ` : `
+              <button 
+                onclick="addToCart('${p.id}')"
+                class="px-3.5 py-1.5 rounded-lg bg-brandSky hover:bg-black text-white text-xs font-bold uppercase transition-colors duration-200"
+              >
+                + Agregar
+              </button>
+            `}
           </div>
         </div>
       `;
       }).join("");
 
-      // Tarjeta final "VER TODO" que abre los 15 ingresos
       const shopAllCard = `
         <div onclick="openLatest15Modal()" class="flex-none w-60 sm:w-64 rounded-2xl bg-neutral-950 text-white p-6 border border-neutral-800 flex flex-col justify-between items-center text-center group cursor-pointer hover:border-brandSky transition-colors">
           <div class="w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center group-hover:bg-brandSky group-hover:text-black transition-colors mt-6">
@@ -3632,28 +3438,24 @@
       triggerActionLoading(() => {
         currentActiveProduct = product;
 
-        // Actualizar Breadcrumbs
         const bCat = document.getElementById("pdp-breadcrumb-category");
         if (bCat) bCat.textContent = product.category || "Sneakers";
         const bBrand = document.getElementById("pdp-breadcrumb-brand");
         if (bBrand) bBrand.textContent = product.brand;
 
-        // Actualizar Título
         const pTitle = document.getElementById("pdp-title");
         if (pTitle) pTitle.textContent = product.name;
 
-        // Actualizar Condición (Nuevo / Usado (como nuevo) / Usado)
         const condEl = document.getElementById("pdp-condition-label");
         if (condEl) condEl.textContent = product.condition || "Nuevo";
 
-        // Precios USD y ARS
         updatePdpPrices(product.price, product.originalPrice);
 
-        // Galería e Imagen principal
         const mainImgEl = document.getElementById("pdp-main-image");
         if (mainImgEl) mainImgEl.src = product.img;
 
-        const galleryList = product.gallery && product.gallery.length > 0 ? product.gallery : [product.img];
+        // Galería de fotos (hasta 4 fotos, solo las cargadas)
+        const galleryList = (product.gallery && product.gallery.length > 0) ? product.gallery.filter(Boolean) : [product.img];
         const thumbsContainer = document.getElementById("pdp-thumbnails");
         if (thumbsContainer) {
           thumbsContainer.innerHTML = galleryList.map((src, idx) => `
@@ -3672,44 +3474,93 @@
         }
 
         // Talles
-        const sizes = product.availableSizes || [
-          { us: "8 US", cm: "26 CM" },
-          { us: "8.5 US", cm: "26.5 CM" },
-          { us: "9 US", cm: "27 CM", default: true },
-          { us: "9.5 US", cm: "27.5 CM" },
-          { us: "10 US", cm: "28 CM" },
-          { us: "10.5 US", cm: "28.5 CM" }
+        const sizes = (product.availableSizes && product.availableSizes.length > 0) ? product.availableSizes : [
+          { us: product.size || "Único", cm: "", default: true }
         ];
 
         const defaultSize = sizes.find(s => s.default) || sizes[0];
-        currentSelectedSize = `${defaultSize.us} - ${defaultSize.cm}`;
+        currentSelectedSize = defaultSize.cm ? `${defaultSize.us} - ${defaultSize.cm}` : defaultSize.us;
         const sizeLabelEl = document.getElementById("pdp-selected-size-label");
         if (sizeLabelEl) sizeLabelEl.textContent = currentSelectedSize;
 
         const sizesGrid = document.getElementById("pdp-sizes-grid");
         if (sizesGrid) {
           sizesGrid.innerHTML = sizes.map(s => {
-            const isSel = `${s.us} - ${s.cm}` === currentSelectedSize;
+            const label = s.cm ? `${s.us} - ${s.cm}` : s.us;
+            const isSel = label === currentSelectedSize;
             return `
               <button 
                 type="button" 
-                onclick="selectPdpSize('${s.us}', '${s.cm}', this)"
+                onclick="selectPdpSize('${s.us}', '${s.cm || ''}', this)"
                 class="pdp-size-btn flex flex-col items-center justify-center py-2 px-1 rounded-xl border text-center transition-all ${isSel ? 'bg-neutral-950 text-white border-neutral-950 shadow-sm' : 'bg-white text-neutral-800 border-neutral-200 hover:border-black'}"
               >
                 <span class="text-xs font-bold leading-tight">${s.us}</span>
-                <span class="text-[9px] ${isSel ? 'text-neutral-400' : 'text-neutral-400'}">${s.cm}</span>
+                ${s.cm ? `<span class="text-[9px] text-neutral-400">${s.cm}</span>` : ''}
               </button>
             `;
           }).join("");
         }
 
-        // Cambiar vistas
+        // Estado de Stock en PDP (Agotado vs Disponible)
+        const soldBadge = document.getElementById("pdp-sold-badge");
+        const stockStatusBox = document.getElementById("pdp-stock-status-box");
+        const btnAddCart = document.getElementById("pdp-btn-add-cart");
+        const btnWhatsapp = document.getElementById("pdp-btn-whatsapp-order");
+
+        if (product.isSoldOut) {
+          if (soldBadge) soldBadge.classList.remove("hidden");
+          if (stockStatusBox) {
+            stockStatusBox.innerHTML = `
+              <span class="inline-block w-2 h-2 rounded-full bg-red-500"></span>
+              <span class="text-red-600">Artículo Agotado / Sin stock temporal</span>
+            `;
+          }
+          if (btnAddCart) {
+            btnAddCart.disabled = true;
+            btnAddCart.className = "w-full py-4 rounded-xl bg-neutral-300 text-neutral-500 font-display font-bold text-sm uppercase tracking-wider cursor-not-allowed";
+            btnAddCart.innerHTML = "<span>PRODUCTO AGOTADO</span>";
+          }
+          if (btnWhatsapp) {
+            btnWhatsapp.innerHTML = `
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+              </svg>
+              <span>solicitanos tu talle por encargo</span>
+            `;
+          }
+        } else {
+          if (soldBadge) soldBadge.classList.add("hidden");
+          if (stockStatusBox) {
+            stockStatusBox.innerHTML = `
+              <span class="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+              <span>Stock disponible para entrega inmediata</span>
+            `;
+          }
+          if (btnAddCart) {
+            btnAddCart.disabled = false;
+            btnAddCart.className = "w-full py-4 rounded-xl bg-brandSky hover:bg-black text-white font-display font-bold text-sm uppercase tracking-wider transition-colors duration-200 flex items-center justify-center gap-2 shadow-sm";
+            btnAddCart.innerHTML = `
+              <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              <span>AGREGAR AL CARRITO</span>
+            `;
+          }
+          if (btnWhatsapp) {
+            btnWhatsapp.innerHTML = `
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+              </svg>
+              <span>Consultar / Comprar por WhatsApp</span>
+            `;
+          }
+        }
+
         if (homeView) homeView.classList.add("hidden");
         if (categoryView) categoryView.classList.add("hidden");
         if (productView) productView.classList.remove("hidden");
         window.scrollTo({ top: 0, behavior: "smooth" });
 
-        // Actualizar URL (Deep link compatible con compartir)
         if (pushHistory) {
           safeSetHash(`#product/${product.slug}`);
         }
@@ -3727,7 +3578,6 @@
       if (btn) btn.classList.replace("border-neutral-200", "border-brandSky");
     }
 
-    // MANEJADOR DE RESCATE AUTOMÁTICO DE NOMBRES EN CLOUDFLARE R2
     function handleThumbnailFallback(imgElement, slug, photoIndex) {
       if (imgElement.dataset.fallbackAttempted) {
         imgElement.onerror = null;
@@ -3737,21 +3587,14 @@
         return;
       }
       imgElement.dataset.fallbackAttempted = "1";
-
       const currentSrc = imgElement.src;
-      // 1. Probar alternar entre el endpoint directo y el subdominio
       if (currentSrc.includes("assests.blaskicks.com")) {
         imgElement.src = currentSrc.replace("https://assests.blaskicks.com", "https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev");
-        return;
-      }
-
-      if (slug === "supreme-hard-tee-white" && photoIndex === 2) {
-        imgElement.src = `https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/supreme%20hard%20tee%20white%202%20blaskicks.avif`;
       }
     }
 
     function selectPdpSize(us, cm, btn) {
-      currentSelectedSize = `${us} - ${cm}`;
+      currentSelectedSize = cm ? `${us} - ${cm}` : us;
       const sizeLabelEl = document.getElementById("pdp-selected-size-label");
       if (sizeLabelEl) sizeLabelEl.textContent = currentSelectedSize;
 
@@ -3797,9 +3640,7 @@
           window.location.hash = hashStr;
         }
       } catch (err) {
-        try {
-          window.location.hash = hashStr;
-        } catch (e) {}
+        try { window.location.hash = hashStr; } catch (e) {}
       }
     }
 
@@ -3811,9 +3652,7 @@
           window.location.hash = "";
         }
       } catch (err) {
-        try {
-          window.location.hash = "";
-        } catch (e) {}
+        try { window.location.hash = ""; } catch (e) {}
       }
     }
 
@@ -3822,7 +3661,6 @@
       return lower.includes("sneaker") || lower.includes("jordan") || lower.includes("dunk") || lower.includes("yeezy");
     }
 
-    // TOGGLE MENÚS DESPLEGABLES DE MULTI-FILTRO
     function toggleFilterDropdown(type) {
       const menuIds = {
         brand: "filter-brand-menu",
@@ -3832,21 +3670,16 @@
       
       const targetMenu = document.getElementById(menuIds[type]);
       if (!targetMenu) return;
-
       const willOpen = targetMenu.classList.contains("hidden");
 
-      // Cerrar los otros menús abiertos
       Object.values(menuIds).forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.add("hidden");
       });
 
-      if (willOpen) {
-        targetMenu.classList.remove("hidden");
-      }
+      if (willOpen) targetMenu.classList.remove("hidden");
     }
 
-    // Cerrar menús de filtros si se hace clic afuera
     document.addEventListener("click", (e) => {
       const isInside = e.target.closest("#multi-brand-wrapper, #multi-size-wrapper, #multi-condition-wrapper");
       if (!isInside) {
@@ -3867,8 +3700,6 @@
         itemBrands.forEach(b => brandSet.add(b));
       });
       const brands = Array.from(brandSet).sort();
-      
-      // Mantener marcas seleccionadas que sigan existiendo
       selectedBrands = new Set(Array.from(selectedBrands).filter(b => brands.includes(b)));
 
       container.innerHTML = brands.map(b => {
@@ -3920,7 +3751,6 @@
         });
       }
 
-      // Mantener talles seleccionados que sigan existiendo
       selectedSizes = new Set(Array.from(selectedSizes).filter(s => sortedSizes.includes(s)));
 
       container.innerHTML = sortedSizes.map(s => {
@@ -3946,7 +3776,6 @@
     function updateConditionFilterDropdown() {
       const container = document.getElementById("filter-condition-options");
       if (!container) return;
-
       const conditions = ["Nuevo", "Usado (como nuevo)", "Usado"];
       container.innerHTML = conditions.map(c => {
         const checked = selectedConditions.has(c);
@@ -3983,55 +3812,43 @@
     function clearSpecificMultiFilter(type) {
       if (type === "brand") {
         selectedBrands.clear();
-        const inputs = document.querySelectorAll("#filter-brand-options input");
-        inputs.forEach(i => i.checked = false);
+        document.querySelectorAll("#filter-brand-options input").forEach(i => i.checked = false);
       } else if (type === "size") {
         selectedSizes.clear();
-        const inputs = document.querySelectorAll("#filter-size-options input");
-        inputs.forEach(i => i.checked = false);
+        document.querySelectorAll("#filter-size-options input").forEach(i => i.checked = false);
       } else if (type === "condition") {
         selectedConditions.clear();
-        const inputs = document.querySelectorAll("#filter-condition-options input");
-        inputs.forEach(i => i.checked = false);
+        document.querySelectorAll("#filter-condition-options input").forEach(i => i.checked = false);
       }
       updateFilterButtonLabels();
       applyCategoryFilters();
     }
 
     function updateFilterButtonLabels() {
-      // Marcas
       const brandBtn = document.getElementById("filter-brand-btn");
       const brandLabel = document.getElementById("filter-brand-btn-label");
       if (brandBtn && brandLabel) {
         if (selectedBrands.size === 0) {
           brandLabel.textContent = "Marcas";
           brandBtn.className = "text-xs font-semibold px-3.5 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black flex items-center gap-1.5 shadow-sm transition-colors";
-        } else if (selectedBrands.size === 1) {
-          brandLabel.textContent = Array.from(selectedBrands)[0];
-          brandBtn.className = "text-xs font-bold px-3.5 py-1.5 rounded-full border border-brandSky bg-sky-50 text-brandSkyDark outline-none flex items-center gap-1.5 shadow-sm transition-colors";
         } else {
-          brandLabel.textContent = `Marcas (${selectedBrands.size})`;
+          brandLabel.textContent = selectedBrands.size === 1 ? Array.from(selectedBrands)[0] : `Marcas (${selectedBrands.size})`;
           brandBtn.className = "text-xs font-bold px-3.5 py-1.5 rounded-full border border-brandSky bg-sky-50 text-brandSkyDark outline-none flex items-center gap-1.5 shadow-sm transition-colors";
         }
       }
 
-      // Talles
       const sizeBtn = document.getElementById("filter-size-btn");
       const sizeLabel = document.getElementById("filter-size-btn-label");
       if (sizeBtn && sizeLabel) {
         if (selectedSizes.size === 0) {
           sizeLabel.textContent = "Talles";
           sizeBtn.className = "text-xs font-semibold px-3.5 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-800 outline-none hover:border-black flex items-center gap-1.5 shadow-sm transition-colors";
-        } else if (selectedSizes.size === 1) {
-          sizeLabel.textContent = `Talle ${Array.from(selectedSizes)[0]}`;
-          sizeBtn.className = "text-xs font-bold px-3.5 py-1.5 rounded-full border border-brandSky bg-sky-50 text-brandSkyDark outline-none flex items-center gap-1.5 shadow-sm transition-colors";
         } else {
-          sizeLabel.textContent = `Talles (${selectedSizes.size})`;
+          sizeLabel.textContent = selectedSizes.size === 1 ? `Talle ${Array.from(selectedSizes)[0]}` : `Talles (${selectedSizes.size})`;
           sizeBtn.className = "text-xs font-bold px-3.5 py-1.5 rounded-full border border-brandSky bg-sky-50 text-brandSkyDark outline-none flex items-center gap-1.5 shadow-sm transition-colors";
         }
       }
 
-      // Condición
       const condBtn = document.getElementById("filter-condition-btn");
       const condLabel = document.getElementById("filter-condition-btn-label");
       if (condBtn && condLabel) {
@@ -4052,16 +3869,9 @@
       if (!container) return;
 
       const chips = [];
-
-      selectedBrands.forEach(b => {
-        chips.push({ type: 'brand', val: b, label: b });
-      });
-      selectedSizes.forEach(s => {
-        chips.push({ type: 'size', val: s, label: `Talle: ${s}` });
-      });
-      selectedConditions.forEach(c => {
-        chips.push({ type: 'condition', val: c, label: c });
-      });
+      selectedBrands.forEach(b => chips.push({ type: 'brand', val: b, label: b }));
+      selectedSizes.forEach(s => chips.push({ type: 'size', val: s, label: `Talle: ${s}` }));
+      selectedConditions.forEach(c => chips.push({ type: 'condition', val: c, label: c }));
 
       if (chips.length === 0) {
         container.innerHTML = "";
@@ -4075,22 +3885,10 @@
         ${chips.map(chip => `
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900 text-white text-[11px] font-bold shadow-sm">
             <span>${chip.label}</span>
-            <button 
-              type="button" 
-              onclick="removeSingleFilter('${chip.type}', '${chip.val}')" 
-              class="hover:text-brandSky ml-0.5 text-xs focus:outline-none"
-            >
-              ✕
-            </button>
+            <button type="button" onclick="removeSingleFilter('${chip.type}', '${chip.val}')" class="hover:text-brandSky ml-0.5 text-xs focus:outline-none">✕</button>
           </span>
         `).join("")}
-        <button 
-          type="button" 
-          onclick="resetCategoryFilters()" 
-          class="text-xs font-bold text-red-600 hover:text-red-700 underline ml-2"
-        >
-          Borrar todos
-        </button>
+        <button type="button" onclick="resetCategoryFilters()" class="text-xs font-bold text-red-600 hover:text-red-700 underline ml-2">Borrar todos</button>
       `;
     }
 
@@ -4118,7 +3916,6 @@
       return /\bshorts?\b/i.test(text);
     }
 
-    // OBTENER TODAS LAS MARCAS / COLABORADORES ASOCIADOS AL PRODUCTO
     function getProductBrands(product) {
       if (!product) return [];
       const set = new Set();
@@ -4128,7 +3925,6 @@
       if (product.brand) {
         set.add(product.brand.trim());
       }
-      // Detección automática en nombres de colaboraciones (ej: 'x Jordan', 'x Balenciaga')
       const name = product.name || "";
       if (/jordan/i.test(name)) set.add("Jordan");
       if (/travis\s*scott/i.test(name) || /cactus\s*jack/i.test(name)) set.add("Travis Scott");
@@ -4147,7 +3943,6 @@
       return Array.from(set);
     }
 
-    // COMPROBAR SI UN PRODUCTO COINCIDE CON ALGUNA DE LAS MARCAS FILTRADAS
     function productMatchesBrands(product, filterBrandsArr) {
       const prodBrands = getProductBrands(product).map(b => b.toLowerCase());
       return filterBrandsArr.some(filterBrand => {
@@ -4161,7 +3956,6 @@
       const normalizedCat = (catName || "").trim().toLowerCase();
 
       if (normalizedCat === "new arrivals" || normalizedCat === "new-arrivals") {
-        // Mostrar con exactitud la misma selección curada de ingresos destacados de la primer página
         list = getBalanced15Drops();
       } else if (normalizedCat === "todos los productos" || normalizedCat === "ver todo" || normalizedCat === "all") {
         list = [...PRODUCTS];
@@ -4174,7 +3968,6 @@
       } else if (normalizedCat === "shorts") {
         list = PRODUCTS.filter(p => isShortsProduct(p));
       } else if (normalizedCat === "pantalones") {
-        // Excluir estrictamente shorts cuando se accede a la categoría 'Pantalones'
         list = PRODUCTS.filter(p => (p.category || "").toLowerCase() === "pantalones" && !isShortsProduct(p));
       } else {
         list = PRODUCTS.filter(p => (p.category || "").toLowerCase() === normalizedCat);
@@ -4183,72 +3976,25 @@
       if (subFilter) {
         const subLower = subFilter.toLowerCase().trim();
         if (subLower === "shorts") {
-          // Si el subfiltro específico es Shorts, buscar en todos los productos de indumentaria / categoría
           list = PRODUCTS.filter(p => isShortsProduct(p));
         } else if (subLower === "pantalones") {
-          // Si se hace clic en Pantalones dentro del submenú de indumentaria, excluir shorts
           list = PRODUCTS.filter(p => (p.category || "").toLowerCase() === "pantalones" && !isShortsProduct(p));
         } else if (subLower === "lentes") {
-          // Filtrar estrictamente lentes de sol o armazones (sunglasses, eyeglasses, lentes)
           list = list.filter(p => {
             const nameLower = p.name.toLowerCase();
-            return p.category === "Accesorios" && (
-              nameLower.includes("sunglass") || 
-              nameLower.includes("sunglasses") || 
-              nameLower.includes("eyeglass") || 
-              nameLower.includes("eyeglasses") || 
-              nameLower.includes("glasses") || 
-              nameLower.includes("lentes")
-            );
+            return p.category === "Accesorios" && (nameLower.includes("sunglass") || nameLower.includes("lentes") || nameLower.includes("glasses"));
           });
         } else if (subLower === "gorras") {
-          // Filtrar únicamente gorras / caps (excluyendo beanies)
           list = list.filter(p => {
             const nameLower = p.name.toLowerCase();
-            return p.category === "Accesorios" && (
-              nameLower.includes("cap") || 
-              nameLower.includes("hat") || 
-              nameLower.includes("gorra")
-            ) && !nameLower.includes("beanie");
+            return p.category === "Accesorios" && (nameLower.includes("cap") || nameLower.includes("hat") || nameLower.includes("gorra")) && !nameLower.includes("beanie");
           });
         } else if (subLower === "beanies") {
-          // Filtrar únicamente beanies / gorros tejidos
-          list = list.filter(p => {
-            const nameLower = p.name.toLowerCase();
-            return p.category === "Accesorios" && nameLower.includes("beanie");
-          });
-        } else if (subLower.includes("riñonera") || subLower.includes("bolso") || subLower === "riñoneras / bolsos") {
-          // Filtrar estrictamente riñoneras, bolsos, bandoleras y mochilas (excluye fundas/cases como AirPods)
-          list = list.filter(p => {
-            const nameLower = p.name.toLowerCase();
-            return p.category === "Accesorios" && (
-              nameLower.includes("bag") || 
-              nameLower.includes("bolso") || 
-              nameLower.includes("riñonera") || 
-              nameLower.includes("crossbody") || 
-              nameLower.includes("shoulder bag") || 
-              nameLower.includes("waist bag") || 
-              nameLower.includes("backpack")
-            );
-          });
+          list = list.filter(p => p.category === "Accesorios" && p.name.toLowerCase().includes("beanie"));
+        } else if (subLower.includes("riñonera") || subLower.includes("bolso")) {
+          list = list.filter(p => p.category === "Accesorios" && (p.name.toLowerCase().includes("bag") || p.name.toLowerCase().includes("bolso")));
         } else if (subLower === "coleccionables") {
-          // Accesorios estilo lifestyle / objetos de colección (incluyendo fundas de AirPods, bandejas, etc.) que no sean lentes, gorras, beanies ni bolsos
-          list = list.filter(p => {
-            const nameLower = p.name.toLowerCase();
-            const isWearableOrBag = (
-              nameLower.includes("sunglass") || 
-              nameLower.includes("eyeglass") || 
-              nameLower.includes("glasses") || 
-              nameLower.includes("lentes") || 
-              nameLower.includes("cap") || 
-              nameLower.includes("beanie") || 
-              nameLower.includes("bag") || 
-              nameLower.includes("bolso") || 
-              nameLower.includes("riñonera") ||
-              nameLower.includes("backpack")
-            );
-            return p.category === "Accesorios" && !isWearableOrBag;
-          });
+          list = list.filter(p => p.category === "Accesorios" && !p.name.toLowerCase().includes("sunglass") && !p.name.toLowerCase().includes("cap") && !p.name.toLowerCase().includes("beanie") && !p.name.toLowerCase().includes("bag"));
         } else if (subLower === "men" || subLower === "women") {
           list = list.filter(p => !p.gender || p.gender.toLowerCase() === subLower);
         } else {
@@ -4307,7 +4053,6 @@
 
         if (isMenuOpen) toggleMegaMenu();
 
-        // Limpiar únicamente selects sin resetear currentSubFilter
         selectedBrands.clear();
         selectedSizes.clear();
         selectedConditions.clear();
@@ -4377,7 +4122,6 @@
       const saleCategoryFilter = document.getElementById("filter-sale-category-select")?.value || "ALL";
       const sortValue = document.getElementById("cat-sort-select")?.value || "bestsellers";
 
-      // Control de visibilidad del selector de categorías en SALE
       const saleCatSelect = document.getElementById("filter-sale-category-select");
       if (saleCatSelect) {
         if (currentCategory === "Sale") {
@@ -4403,7 +4147,6 @@
 
       let list = getBaseCategoryProducts(currentCategory, currentSubFilter);
 
-      // Filtro de categoría exclusivo para SALE
       if (currentCategory === "Sale" && saleCategoryFilter !== "ALL") {
         if (saleCategoryFilter.toLowerCase() === "pantalones") {
           list = list.filter(p => (p.category || "").toLowerCase() === "pantalones" && !isShortsProduct(p));
@@ -4412,13 +4155,11 @@
         }
       }
 
-      // Multi-filtro de Marcas (OR entre las marcas seleccionadas, soportando colaboraciones)
       if (selectedBrands.size > 0) {
         const brandsArr = Array.from(selectedBrands);
         list = list.filter(p => productMatchesBrands(p, brandsArr));
       }
 
-      // Multi-filtro de Talles (OR entre los talles seleccionados)
       if (selectedSizes.size > 0) {
         list = list.filter(p => {
           if (p.availableSizes && p.availableSizes.length > 0) {
@@ -4428,7 +4169,6 @@
         });
       }
 
-      // Multi-filtro de Condición (OR entre las condiciones seleccionadas)
       if (selectedConditions.size > 0) {
         const condArr = Array.from(selectedConditions).map(c => c.toLowerCase());
         list = list.filter(p => condArr.includes((p.condition || "").toLowerCase()));
@@ -4443,6 +4183,13 @@
       } else if (sortValue === "alpha-desc") {
         list.sort((a, b) => b.name.localeCompare(a.name));
       }
+
+      // POSICIONAR SIEMPRE LOS PRODUCTOS AGOTADOS AL FINAL DE LA LISTA
+      list.sort((a, b) => {
+        const aSold = a.isSoldOut ? 1 : 0;
+        const bSold = b.isSoldOut ? 1 : 0;
+        return aSold - bSold;
+      });
 
       const countEl = document.getElementById("cat-product-count");
       if (countEl) countEl.textContent = list.length;
@@ -4468,7 +4215,6 @@
       if (resetBtn) resetBtn.classList.add("hidden");
       currentSubFilter = null;
 
-      // Desmarcar todos los checkboxes
       document.querySelectorAll("#filter-brand-options input, #filter-size-options input, #filter-condition-options input").forEach(input => {
         input.checked = false;
       });
@@ -4495,7 +4241,9 @@
         const sizesList = (p.availableSizes || []).map(s => s.us.replace(" US", "")).join(" · ");
         const hasDiscount = p.originalPrice && p.originalPrice > p.price;
         const discountPct = hasDiscount ? getDiscountPercent(p.originalPrice, p.price) : 0;
-        const sizeBadges = (p.availableSizes || []).map(s => `
+        const isSoldOut = Boolean(p.isSoldOut);
+
+        const sizeBadges = isSoldOut ? '' : (p.availableSizes || []).map(s => `
           <button 
             onclick="event.stopPropagation(); quickAddSizeToCart('${p.id}', '${s.us}')"
             class="hover:text-black font-extrabold px-1.5 py-0.5 rounded transition-transform active:scale-90"
@@ -4507,12 +4255,12 @@
         return `
           <div 
             onclick="openProductPage('${p.slug}')" 
-            class="group bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-neutral-200/90 hover:shadow-xl hover:border-neutral-300 transition-all duration-300 flex flex-col justify-between cursor-pointer relative"
+            class="group bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-neutral-200/90 hover:shadow-xl hover:border-neutral-300 transition-all duration-300 flex flex-col justify-between cursor-pointer relative ${isSoldOut ? 'opacity-80' : ''}"
           >
             <div>
               <div class="relative w-full h-44 sm:h-64 lg:h-72 bg-neutral-50/70 rounded-lg sm:rounded-xl overflow-hidden mb-2 sm:mb-3 flex items-center justify-center p-2 sm:p-3">
-                <span class="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 border border-neutral-300 ${p.onSale ? 'bg-red-600 text-white border-red-600 font-black' : 'bg-white/95 text-neutral-900'} text-[8px] sm:text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 sm:px-2 rounded shadow-sm">
-                  ${p.onSale ? `${discountPct}% OFF` : p.badge}
+                <span class="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 border border-neutral-300 ${isSoldOut ? 'bg-red-600 text-white border-red-600 font-black' : (p.onSale ? 'bg-red-600 text-white border-red-600 font-black' : 'bg-white/95 text-neutral-900')} text-[8px] sm:text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 sm:px-2 rounded shadow-sm">
+                  ${isSoldOut ? 'AGOTADO' : (p.onSale ? `${discountPct}% OFF` : p.badge)}
                 </span>
 
                 <img 
@@ -4522,6 +4270,7 @@
                   loading="lazy"
                 />
 
+                ${!isSoldOut && sizeBadges ? `
                 <div 
                   onclick="event.stopPropagation()" 
                   class="hidden sm:flex absolute inset-x-2 bottom-2 bg-neutral-200/95 backdrop-blur-sm rounded-lg py-1.5 px-3 items-center justify-between text-xs text-neutral-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow"
@@ -4531,6 +4280,7 @@
                     ${sizeBadges}
                   </div>
                 </div>
+                ` : ''}
               </div>
 
               <div class="space-y-0.5">
@@ -4551,7 +4301,7 @@
                 <span class="text-[9px] sm:text-[10px] text-neutral-400 font-price">≈ $${arsPrice} ARS</span>
               </div>
               <div class="text-[9px] sm:text-[10px] text-neutral-400 tracking-wider pt-0.5 truncate">
-                ${sizesList}
+                ${sizesList || p.size}
               </div>
             </div>
           </div>
@@ -4561,7 +4311,7 @@
 
     function quickAddSizeToCart(productId, sizeLabel) {
       const prod = PRODUCTS.find(p => p.id === productId);
-      if (!prod) return;
+      if (!prod || prod.isSoldOut) return;
       cart.push({
         ...prod,
         size: sizeLabel
@@ -4595,15 +4345,17 @@
       if (copyTextEl) {
         const originalText = copyTextEl.textContent;
         copyTextEl.textContent = "¡Copiado!";
-        setTimeout(() => {
-          copyTextEl.textContent = originalText;
-        }, 2000);
+        setTimeout(() => { copyTextEl.textContent = originalText; }, 2000);
       }
       alertMessage("Enlace copiado al portapapeles.");
     }
 
     function addCurrentProductToCart() {
       if (!currentActiveProduct) return;
+      if (currentActiveProduct.isSoldOut) {
+        alertMessage("Este producto se encuentra agotado actualmente.");
+        return;
+      }
       cart.push({
         ...currentActiveProduct,
         size: currentSelectedSize || currentActiveProduct.size
@@ -4617,7 +4369,9 @@
       if (!currentActiveProduct) return;
       const sizeText = currentSelectedSize || currentActiveProduct.size;
       const arsPrice = formatARS(calculateARS(currentActiveProduct.price));
-      const text = `Hola! Quiero consultar por el siguiente producto:\n\n• ${currentActiveProduct.name}\n• Talle: ${sizeText}\n• Precio: $${currentActiveProduct.price} USD (≈ $${arsPrice} ARS)\n\n¿Sigue disponible para entrega o retiro?`;
+      const text = currentActiveProduct.isSoldOut ?
+        `Hola! Quería solicitar por encargo el siguiente modelo que figura agotado:\n\n• ${currentActiveProduct.name}\n• Talle buscado: ${sizeText}\n\n¿Me podrían cotizar y confirmar disponibilidad para encargarlo?` :
+        `Hola! Quiero consultar por el siguiente producto:\n\n• ${currentActiveProduct.name}\n• Talle: ${sizeText}\n• Precio: $${currentActiveProduct.price} USD (≈ $${arsPrice} ARS)\n\n¿Sigue disponible para entrega o retiro?`;
       window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`, "_blank");
     }
 
@@ -4663,7 +4417,6 @@
           break;
         }
       }
-
       return selected;
     }
 
@@ -4673,12 +4426,13 @@
       latest15Grid.innerHTML = balancedDrops.map(p => {
         const hasDiscount = p.originalPrice && p.originalPrice > p.price;
         const discountPct = hasDiscount ? getDiscountPercent(p.originalPrice, p.price) : 0;
+        const isSoldOut = Boolean(p.isSoldOut);
         return `
-        <div class="bg-neutral-50 rounded-2xl p-3 border border-neutral-200 hover:shadow-lg transition-all flex flex-col justify-between cursor-pointer" onclick="closeLatest15Modal(); openProductPage('${p.slug}');">
+        <div class="bg-neutral-50 rounded-2xl p-3 border border-neutral-200 hover:shadow-lg transition-all flex flex-col justify-between cursor-pointer ${isSoldOut ? 'opacity-80' : ''}" onclick="closeLatest15Modal(); openProductPage('${p.slug}');">
           <div>
             <div class="relative w-full h-40 bg-white rounded-xl overflow-hidden mb-2.5 flex items-center justify-center p-2">
-              <span class="absolute top-1.5 left-1.5 ${p.onSale ? 'bg-red-600' : 'bg-neutral-900'} text-white text-[8px] font-black uppercase px-1.5 py-0.5 rounded">
-                ${p.onSale ? `${discountPct}% OFF` : p.badge}
+              <span class="absolute top-1.5 left-1.5 ${isSoldOut ? 'bg-red-600 text-white' : (p.onSale ? 'bg-red-600 text-white' : 'bg-neutral-900 text-white')} text-[8px] font-black uppercase px-1.5 py-0.5 rounded">
+                ${isSoldOut ? 'AGOTADO' : (p.onSale ? `${discountPct}% OFF` : p.badge)}
               </span>
               <img src="${p.img}" alt="${p.name}" class="w-full h-full object-contain mix-blend-multiply hover:scale-105 transition-transform" />
             </div>
@@ -4692,12 +4446,16 @@
               ${hasDiscount ? `<span class="line-through text-neutral-400 text-[10px]">$${p.originalPrice}</span>` : ''}
               <span class="font-price font-bold text-xs sm:text-sm ${p.onSale ? 'text-red-600' : 'text-neutral-950'} tracking-tight">$${p.price} USD</span>
             </div>
-            <button 
-              onclick="addToCart('${p.id}'); closeLatest15Modal();"
-              class="px-2.5 py-1 rounded bg-brandSky hover:bg-black text-white text-[10px] font-bold uppercase transition-colors"
-            >
-              + Agregar
-            </button>
+            ${isSoldOut ? `
+              <span class="px-2.5 py-1 rounded bg-neutral-200 text-neutral-500 text-[10px] font-bold uppercase">Agotado</span>
+            ` : `
+              <button 
+                onclick="addToCart('${p.id}'); closeLatest15Modal();"
+                class="px-2.5 py-1 rounded bg-brandSky hover:bg-black text-white text-[10px] font-bold uppercase transition-colors"
+              >
+                + Agregar
+              </button>
+            `}
           </div>
         </div>
       `;
@@ -4763,15 +4521,13 @@
 
     if (nextBtn) {
       nextBtn.addEventListener("click", () => {
-        const step = getCardScrollStep();
-        productsTrack.scrollBy({ left: step, behavior: "smooth" });
+        productsTrack.scrollBy({ left: getCardScrollStep(), behavior: "smooth" });
       });
     }
 
     if (prevBtn) {
       prevBtn.addEventListener("click", () => {
-        const step = getCardScrollStep();
-        productsTrack.scrollBy({ left: -step, behavior: "smooth" });
+        productsTrack.scrollBy({ left: -getCardScrollStep(), behavior: "smooth" });
       });
     }
 
@@ -5035,6 +4791,7 @@
       alertMessage("¡Gracias por tu opinión! Ya quedó guardada.");
     }
 
+    // CARRITO
     const cartDrawer = document.getElementById("cart-drawer-backdrop");
     const cartBadge = document.getElementById("cart-badge");
     const cartCountTitle = document.getElementById("cart-count-title");
@@ -5059,7 +4816,7 @@
 
     function addToCart(productId) {
       const prod = PRODUCTS.find(p => p.id === productId);
-      if (!prod) return;
+      if (!prod || prod.isSoldOut) return;
       cart.push(prod);
       updateCartUI();
       openCart();
@@ -5118,7 +4875,7 @@
     if (btnWhatsappCheckout) {
       btnWhatsappCheckout.addEventListener("click", () => {
         if (cart.length === 0) {
-          alertMessage("Tu carrito está vacío. Agregá al menos un par.");
+          alertMessage("Tu carrito está vacío.");
           return;
         }
 
@@ -5130,11 +4887,11 @@
         });
 
         const message = `Hola! Quiero coordinar la compra de los siguientes productos de la web:\n\n${itemsListText}\nTotal estimado: $${total} USD\n\n¿Tienen disponibilidad para coordinar la entrega y el pago?`;
-        const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, "_blank");
+        window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
       });
     }
 
+    // BUSCADOR
     const searchModal = document.getElementById("search-modal");
     const btnOpenSearch = document.getElementById("btn-open-search");
     const btnCloseSearch = document.getElementById("btn-close-search");
@@ -5174,13 +4931,6 @@
           return;
         }
 
-        searchResults.innerHTML = `
-          <div class="py-6 flex flex-col items-center justify-center gap-2">
-            <span class="w-6 h-6 border-2 border-brandSky border-t-transparent rounded-full animate-spin"></span>
-            <span class="text-[11px] font-bold text-neutral-400">Buscando productos...</span>
-          </div>
-        `;
-
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
           const filtered = PRODUCTS.filter(p => 
@@ -5199,13 +4949,12 @@
               <div class="flex items-center gap-3">
                 <img src="${item.img}" class="w-10 h-10 object-contain bg-neutral-50 rounded" />
                 <div>
-                  <p class="font-bold text-xs text-neutral-900">${item.name}</p>
+                  <p class="font-bold text-xs text-neutral-900">${item.name} ${item.isSoldOut ? '<span class="text-[9px] text-red-600 font-black ml-1">(AGOTADO)</span>' : ''}</p>
                   <p class="text-[10px] text-neutral-400">${item.brand} • ${item.size}</p>
                 </div>
               </div>
               <div class="text-right">
                 <span class="font-price font-bold text-xs text-neutral-900 block tracking-tight">$${item.price} USD</span>
-                <span class="text-[10px] text-neutral-400 font-price">≈ $${formatARS(calculateARS(item.price))} ARS</span>
               </div>
             </div>
           `).join("");
@@ -5213,7 +4962,340 @@
       });
     }
 
-    // Desvanecer preloader
+    // ==========================================================
+    // SISTEMA Y PANEL DE ADMINISTRADOR OCULTO
+    // ==========================================================
+    const ADMIN_USER = "spincon";
+    const ADMIN_PASS = "jornatimatu1";
+
+    const adminLoginModal = document.getElementById("admin-login-modal");
+    const adminDashboardModal = document.getElementById("admin-dashboard-modal");
+    const adminLoginError = document.getElementById("admin-login-error");
+
+    let clickCount = 0;
+    let clickTimeout = null;
+
+    // Disparador secreto 1: 5 clics seguidos en el copyright
+    const footerTrigger = document.getElementById("footer-secret-trigger");
+    if (footerTrigger) {
+      footerTrigger.addEventListener("click", () => {
+        clickCount++;
+        clearTimeout(clickTimeout);
+        clickTimeout = setTimeout(() => { clickCount = 0; }, 1800);
+        if (clickCount >= 5) {
+          clickCount = 0;
+          openAdminLoginModal();
+        }
+      });
+    }
+
+    // Disparador secreto 2: Atajo de teclado 'Ctrl + Shift + A'
+    window.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "A" || e.key === "a")) {
+        e.preventDefault();
+        openAdminLoginModal();
+      }
+    });
+
+    function openAdminLoginModal() {
+      if (sessionStorage.getItem("blaskicks_admin_auth") === "true") {
+        openAdminDashboard();
+        return;
+      }
+      if (adminLoginModal) {
+        adminLoginModal.classList.remove("hidden");
+        adminLoginModal.classList.add("flex");
+        document.getElementById("admin-username")?.focus();
+      }
+    }
+
+    function closeAdminLoginModal() {
+      if (adminLoginModal) {
+        adminLoginModal.classList.add("hidden");
+        adminLoginModal.classList.remove("flex");
+      }
+      if (adminLoginError) adminLoginError.classList.add("hidden");
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById("admin-username")?.value.trim();
+      const pass = document.getElementById("admin-password")?.value.trim();
+
+      if (user === ADMIN_USER && pass === ADMIN_PASS) {
+        sessionStorage.setItem("blaskicks_admin_auth", "true");
+        closeAdminLoginModal();
+        openAdminDashboard();
+        alertMessage("¡Bienvenido al Panel de Administrador!");
+      } else {
+        if (adminLoginError) adminLoginError.classList.remove("hidden");
+      }
+    }
+
+    function openAdminDashboard() {
+      if (adminDashboardModal) {
+        adminDashboardModal.classList.remove("hidden");
+        adminDashboardModal.classList.add("flex");
+        document.body.classList.add("overflow-hidden");
+        switchAdminTab("add");
+        updateAdminStats();
+      }
+    }
+
+    function closeAdminDashboard() {
+      if (adminDashboardModal) {
+        adminDashboardModal.classList.add("hidden");
+        adminDashboardModal.classList.remove("flex");
+        document.body.classList.remove("overflow-hidden");
+      }
+    }
+
+    function adminLogout() {
+      sessionStorage.removeItem("blaskicks_admin_auth");
+      closeAdminDashboard();
+      alertMessage("Sesión de administrador cerrada.");
+    }
+
+    function switchAdminTab(tab) {
+      const tabAdd = document.getElementById("admin-tab-add");
+      const tabStock = document.getElementById("admin-tab-stock");
+      const btnAdd = document.getElementById("admin-tab-btn-add");
+      const btnStock = document.getElementById("admin-tab-btn-stock");
+
+      if (tab === "add") {
+        tabAdd.classList.remove("hidden");
+        tabStock.classList.add("hidden");
+        btnAdd.className = "pb-2.5 border-b-2 border-brandSky text-brandSky transition-colors";
+        btnStock.className = "pb-2.5 border-b-2 border-transparent text-neutral-400 hover:text-white transition-colors";
+      } else {
+        tabAdd.classList.add("hidden");
+        tabStock.classList.remove("hidden");
+        btnStock.className = "pb-2.5 border-b-2 border-brandSky text-brandSky transition-colors";
+        btnAdd.className = "pb-2.5 border-b-2 border-transparent text-neutral-400 hover:text-white transition-colors";
+        renderAdminStockList();
+      }
+    }
+
+    function updateAdminStats() {
+      const countEl = document.getElementById("admin-total-count");
+      if (countEl) countEl.textContent = PRODUCTS.length;
+    }
+
+    // AGREGAR PRODUCTO NUEVO (HASTA 4 FOTOS DE CLOUDFLARE R2)
+    function handleAddNewProduct(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("adm-name")?.value.trim() || "";
+      const brand = document.getElementById("adm-brand")?.value.trim() || "";
+      const category = document.getElementById("adm-category")?.value || "Sneakers";
+      const price = parseFloat(document.getElementById("adm-price")?.value) || 0;
+      const condition = document.getElementById("adm-condition")?.value || "Nuevo";
+      const rawSizes = document.getElementById("adm-sizes")?.value.trim() || "";
+
+      const img1 = document.getElementById("adm-img-1")?.value.trim() || "";
+      const img2 = document.getElementById("adm-img-2")?.value.trim() || "";
+      const img3 = document.getElementById("adm-img-3")?.value.trim() || "";
+      const img4 = document.getElementById("adm-img-4")?.value.trim() || "";
+
+      const gallery = [img1, img2, img3, img4].filter(url => url && url.length > 5);
+
+      if (gallery.length === 0) {
+        alertMessage("Por favor ingresá al menos la URL de la primera foto.");
+        return;
+      }
+
+      let parsedSizes = [];
+      if (rawSizes) {
+        parsedSizes = rawSizes.split(",").map((s, idx) => {
+          const clean = s.trim();
+          return { us: clean, cm: "", default: idx === 0 };
+        });
+      } else {
+        parsedSizes = [{ us: "Único", cm: "", default: true }];
+      }
+
+      const cleanSlug = name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+
+      const newProduct = {
+        id: "prod-custom-" + Date.now(),
+        slug: cleanSlug + "-" + Math.floor(Math.random() * 1000),
+        name: name.toUpperCase(),
+        brand: brand,
+        brands: [brand],
+        category: category,
+        price: price,
+        condition: condition,
+        badge: "DS",
+        size: rawSizes || "Único",
+        availableSizes: parsedSizes,
+        img: gallery[0],
+        gallery: gallery,
+        isSoldOut: false,
+        createdAt: Date.now()
+      };
+
+      const custom = getStoredCustomProducts();
+      custom.unshift(newProduct);
+      saveStoredCustomProducts(custom);
+
+      reloadProducts();
+      renderCatalog();
+
+      if (!categoryView.classList.contains("hidden")) {
+        applyCategoryFilters();
+      }
+
+      document.getElementById("admin-add-product-form")?.reset();
+      updateAdminStats();
+      switchAdminTab("stock");
+      alertMessage("¡Producto publicado exitosamente!");
+    }
+
+    // GESTIÓN DE STOCK / MARCAR COMO AGOTADO Y ELIMINAR PRODUCTOS
+    let productToDeleteId = null;
+
+    function renderAdminStockList() {
+      const container = document.getElementById("admin-stock-items-table");
+      if (!container) return;
+
+      const query = document.getElementById("admin-stock-search")?.value.toLowerCase().trim() || "";
+      // Todos los productos disponibles en la tienda (tanto base como creados)
+      let list = [...PRODUCTS];
+
+      // Ordenar: Disponibles primero, agotados al final
+      list.sort((a, b) => {
+        const aSold = a.isSoldOut ? 1 : 0;
+        const bSold = b.isSoldOut ? 1 : 0;
+        return aSold - bSold;
+      });
+
+      if (query) {
+        list = list.filter(p => p.name.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query));
+      }
+
+      if (list.length === 0) {
+        container.innerHTML = `<p class="text-xs text-neutral-500 py-6 text-center">No se encontraron productos.</p>`;
+        return;
+      }
+
+      container.innerHTML = list.map(item => {
+        const isSold = Boolean(item.isSoldOut);
+        const photosCount = (item.gallery && item.gallery.length > 0) ? item.gallery.filter(Boolean).length : 1;
+        return `
+          <div class="flex items-center justify-between p-3 bg-neutral-900 border border-neutral-800 rounded-xl hover:border-neutral-700 transition-colors">
+            <div class="flex items-center gap-3 min-w-0">
+              <img src="${item.img}" class="w-12 h-12 object-contain bg-white rounded-lg p-1 shrink-0" />
+              <div class="min-w-0">
+                <h4 class="text-xs font-bold text-white truncate">${item.name}</h4>
+                <p class="text-[10px] text-neutral-400">${item.brand} • ${item.category} • $${item.price} USD • ${photosCount} foto(s)</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0">
+              <button 
+                onclick="toggleProductStock('${item.id}')"
+                class="px-3 py-1.5 rounded-lg text-xs font-bold uppercase transition-all ${isSold ? 'bg-red-600/20 text-red-400 border border-red-500 hover:bg-red-600 hover:text-white' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500 hover:bg-emerald-500 hover:text-white'}"
+              >
+                ${isSold ? '✕ Agotado' : '✓ Disponible'}
+              </button>
+              <button 
+                onclick="openDeleteConfirmModal('${item.id}')"
+                title="Eliminar producto por completo"
+                class="p-1.5 rounded-lg border border-neutral-700 bg-neutral-800 hover:bg-red-600/20 hover:border-red-500 text-neutral-400 hover:text-red-400 transition-colors"
+              >
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function openDeleteConfirmModal(productId) {
+      const prod = PRODUCTS.find(p => p.id === productId);
+      if (!prod) return;
+      productToDeleteId = productId;
+      const textEl = document.getElementById("admin-delete-product-name");
+      if (textEl) {
+        textEl.textContent = `¿Estás seguro de que deseas eliminar permanentemente "${prod.name}"? Esta acción lo borrará de la tienda.`;
+      }
+      const confirmBtn = document.getElementById("admin-confirm-delete-btn");
+      if (confirmBtn) {
+        confirmBtn.onclick = confirmDeleteProduct;
+      }
+      const modal = document.getElementById("admin-delete-modal");
+      if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
+
+    function closeDeleteConfirmModal() {
+      const modal = document.getElementById("admin-delete-modal");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+      productToDeleteId = null;
+    }
+
+    function confirmDeleteProduct() {
+      if (!productToDeleteId) return;
+
+      // 1. Si está en custom products, borrarlo de allí
+      let custom = getStoredCustomProducts();
+      custom = custom.filter(p => p.id !== productToDeleteId);
+      saveStoredCustomProducts(custom);
+
+      // 2. Registrar el ID en la lista de eliminados permanentes
+      const deletedIds = new Set(getDeletedProductIds());
+      deletedIds.add(productToDeleteId);
+      saveDeletedProductIds(Array.from(deletedIds));
+
+      // 3. Limpiar de ids agotados si estaba
+      const soldIds = new Set(getSoldOutProductIds());
+      soldIds.delete(productToDeleteId);
+      saveSoldOutProductIds(Array.from(soldIds));
+
+      // 4. Actualizar vistas
+      reloadProducts();
+      renderCatalog();
+      if (!categoryView.classList.contains("hidden")) {
+        applyCategoryFilters();
+      }
+      if (currentActiveProduct && currentActiveProduct.id === productToDeleteId) {
+        navigateToHome();
+      }
+      renderAdminStockList();
+      updateAdminStats();
+      closeDeleteConfirmModal();
+      alertMessage("Producto eliminado por completo.");
+    }
+
+    function toggleProductStock(productId) {
+      const soldOutIds = new Set(getSoldOutProductIds());
+      if (soldOutIds.has(productId)) {
+        soldOutIds.delete(productId);
+      } else {
+        soldOutIds.add(productId);
+      }
+      saveSoldOutProductIds(Array.from(soldOutIds));
+
+      reloadProducts();
+      renderCatalog();
+      if (!categoryView.classList.contains("hidden")) {
+        applyCategoryFilters();
+      }
+      if (currentActiveProduct && currentActiveProduct.id === productId) {
+        openProductPage(currentActiveProduct.slug, false);
+      }
+      renderAdminStockList();
+      alertMessage("Estado de stock actualizado.");
+    }
+
     function dismissPreloader() {
       const preloader = document.getElementById("preloader");
       if (preloader) {
@@ -5222,7 +5304,6 @@
       }
     }
 
-    // Inicialización al cargar la página
     window.addEventListener("DOMContentLoaded", () => {
       renderCatalog();
       renderReviewsList();
@@ -5239,43 +5320,14 @@
         reviewFormEl.addEventListener("submit", handleReviewSubmit);
       }
 
-      // Forzar reproducción silenciosa continua segura en los videos sin arrojar unhandled rejections
       const silentVideos = document.querySelectorAll(".reel-silent-video");
       silentVideos.forEach(v => {
         v.muted = true;
         v.defaultMuted = true;
-        
-        // Manejador seguro de error en caso de que alguna fuente remota falle
-        v.addEventListener("error", () => {
-          v.style.display = "none";
-        });
-
-        const tryPlay = () => {
-          try {
-            const playPromise = v.play();
-            if (playPromise !== undefined) {
-              playPromise.catch(() => {
-                // Silenciar rechazo si autoplay es restringido por el navegador
-              });
-            }
-          } catch (e) {
-            // Ignorar error si no hay fuente soportada
-          }
-        };
-
-        tryPlay();
-
-        // Reintento al primer toque o interacción del usuario
-        const onFirstInteraction = () => {
-          tryPlay();
-          window.removeEventListener("touchstart", onFirstInteraction);
-          window.removeEventListener("click", onFirstInteraction);
-        };
-        window.addEventListener("touchstart", onFirstInteraction, { once: true, passive: true });
-        window.addEventListener("click", onFirstInteraction, { once: true, passive: true });
+        v.addEventListener("error", () => { v.style.display = "none"; });
+        try { v.play().catch(() => {}); } catch (e) {}
       });
 
-      // Desvanecimiento ultrarrápido del Preloader (300ms) para máxima fluidez
       setTimeout(dismissPreloader, 300);
 
       const hash = window.location.hash;
@@ -5292,20 +5344,14 @@
         let subItem = null;
         if (queryPart && queryPart.includes("filter=")) {
           const rawFilter = queryPart.split("filter=")[1]?.split("&")[0];
-          if (rawFilter) {
-            subItem = decodeURIComponent(rawFilter).replace(/-/g, " ");
-          }
+          if (rawFilter) subItem = decodeURIComponent(rawFilter).replace(/-/g, " ");
         }
 
-        if (subItem) {
-          openCategorySpecificFilter(catName, subItem, false);
-        } else {
-          openCategoryPage(catName, false);
-        }
+        if (subItem) openCategorySpecificFilter(catName, subItem, false);
+        else openCategoryPage(catName, false);
       }
     });
 
-    // Fallback de seguridad: si window.onload se dispara, asegurar remover preloader
     window.addEventListener("load", () => {
       setTimeout(dismissPreloader, 200);
     });
@@ -5330,16 +5376,11 @@
         let subItem = null;
         if (queryPart && queryPart.includes("filter=")) {
           const rawFilter = queryPart.split("filter=")[1]?.split("&")[0];
-          if (rawFilter) {
-            subItem = decodeURIComponent(rawFilter).replace(/-/g, " ");
-          }
+          if (rawFilter) subItem = decodeURIComponent(rawFilter).replace(/-/g, " ");
         }
 
-        if (subItem) {
-          openCategorySpecificFilter(catName, subItem, false);
-        } else {
-          openCategoryPage(catName, false);
-        }
+        if (subItem) openCategorySpecificFilter(catName, subItem, false);
+        else openCategoryPage(catName, false);
       } else if (hash.startsWith("#brand/")) {
         const brandSlug = hash.replace("#brand/", "").trim();
         const brandName = decodeURIComponent(brandSlug).replace(/-/g, " ");
@@ -5349,25 +5390,18 @@
 
     function alertMessage(msg) {
       const banner = document.createElement("div");
-      banner.className = "fixed bottom-5 left-1/2 -translate-x-1/2 bg-neutral-900 text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-2xl z-50 animate-bounce";
+      banner.className = "fixed bottom-5 left-1/2 -translate-x-1/2 bg-neutral-900 text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-2xl z-[70] animate-bounce";
       banner.textContent = msg;
       document.body.appendChild(banner);
       setTimeout(() => banner.remove(), 2500);
     }
 
-    // SISTEMA LEGAL: MODAL DE TÉRMINOS, PRIVACIDAD Y COOKIES
     const legalModal = document.getElementById("legal-modal");
-
     function openLegalModal(section = 'terms') {
       document.querySelectorAll('.legal-doc-section').forEach(el => el.classList.add('hidden'));
-
-      if (section === 'terms') {
-        document.getElementById('legal-content-terms')?.classList.remove('hidden');
-      } else if (section === 'privacy') {
-        document.getElementById('legal-content-privacy')?.classList.remove('hidden');
-      } else if (section === 'cookies') {
-        document.getElementById('legal-content-cookies')?.classList.remove('hidden');
-      }
+      if (section === 'terms') document.getElementById('legal-content-terms')?.classList.remove('hidden');
+      else if (section === 'privacy') document.getElementById('legal-content-privacy')?.classList.remove('hidden');
+      else if (section === 'cookies') document.getElementById('legal-content-cookies')?.classList.remove('hidden');
 
       if (legalModal) {
         legalModal.classList.remove('hidden');
