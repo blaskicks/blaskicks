@@ -1830,7 +1830,7 @@
         brands: ["Travis Scott", "Jordan", "Nike"],
         category: "Sneakers",
         name: "JORDAN 1 LOW TRAVIS SCOTT TROPICAL PINK",
-        size: "9.5 y 10.5 US",
+        size: "9.5 US",
         price: 360,
         img: `${R2_BASE}/jordan%201%20low%20travis%20scott%20tropical%20pink%201%20blaskicks.avif`,
         gallery: [
@@ -1839,8 +1839,7 @@
         badge: "DS",
         condition: "Nuevo",
         availableSizes: [
-          { us: "9.5 US", cm: "27.5 CM", default: true },
-          { us: "10.5 US", cm: "28.5 CM" }
+          { us: "9.5 US", cm: "27.5 CM", default: true }
         ]
       },
       {
@@ -2060,6 +2059,7 @@
         name: "SUPREME S LOGO CAP BLUE DENIM",
         size: "REGULABLE",
         price: 100,
+        isSoldOut: true,
         img: `${R2_BASE}/supreme%20s%20logo%20cap%20blue%20denim%201%20blaskicks.avif`,
         gallery: [
           `${R2_BASE}/supreme%20s%20logo%20cap%20blue%20denim%201%20blaskicks.avif`,
@@ -2209,6 +2209,7 @@
         name: "OFF WHITE ARROW SWEATPANT BLACK",
         size: "L",
         price: 260,
+        isSoldOut: true,
         img: `${R2_BASE}/off%20white%20arrow%20sweatpant%20black%201%20blaskicks.avif`,
         gallery: [
           `${R2_BASE}/off%20white%20arrow%20sweatpant%20black%201%20blaskicks.avif`,
@@ -3195,6 +3196,49 @@
       // PRODUCTOS RECIENTES INTEGRADOS (13 NUEVOS)
       // ==========================================
       {
+        id: "prod-custom-1794844191012",
+        slug: "off-white-pixel-diag-sweatpant-stone-293",
+        name: "OFF WHITE PIXEL DIAG SWEATPANT STONE",
+        brand: "Off-White",
+        brands: ["Off-White"],
+        category: "Pantalones",
+        price: 250,
+        condition: "Nuevo",
+        badge: "DS",
+        size: "M",
+        availableSizes: [
+          { us: "M", cm: "", default: true }
+        ],
+        img: "https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/off%20white%20pixel%20diag%20sweatpant%20stone%201%20blaskicks.avif",
+        gallery: [
+          "https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/off%20white%20pixel%20diag%20sweatpant%20stone%201%20blaskicks.avif",
+          "https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/off%20white%20pixel%20diag%20sweatpant%20stone%202%20blaskicks.avif"
+        ],
+        isSoldOut: false,
+        createdAt: 1794844191012
+      },
+      {
+        id: "prod-custom-1794511288053",
+        slug: "off-white-beanie-black-384",
+        name: "OFF WHITE BEANIE BLACK",
+        brand: "Off-White",
+        brands: ["Off-White"],
+        category: "Accesorios",
+        price: 120,
+        condition: "Nuevo",
+        badge: "DS",
+        size: "Único",
+        availableSizes: [
+          { us: "Único", cm: "", default: true }
+        ],
+        img: "https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/OFF%20WHITE%20BEANIE%20BLACK.avif",
+        gallery: [
+          "https://pub-9a78e9d9f2ba4543a42344b349b43fb2.r2.dev/OFF%20WHITE%20BEANIE%20BLACK.avif"
+        ],
+        isSoldOut: true,
+        createdAt: 1794511288053
+      },
+      {
         id: "prod-custom-1794428268317",
         slug: "supreme-duck-tee-blue-697",
         name: "SUPREME DUCK TEE BLUE",
@@ -3469,64 +3513,67 @@
     // ==========================================================
     // SISTEMA DE ALMACENAMIENTO DE PRODUCTOS Y STOCK (ADMIN)
     // ==========================================================
-    function getStoredCustomProducts() {
+    // Los cambios del panel se guardan en la base de datos de Vercel (/api/products),
+    // así todos los clientes ven lo mismo apenas lo cargás.
+    const PRODUCTS_API_URL = "/api/products";
+    let remoteProductState = { custom: [], overrides: {}, soldOut: [], available: [], deleted: [] };
+
+    function normalizeProductState(s) {
+      s = s || {};
+      return {
+        custom: Array.isArray(s.custom) ? s.custom : [],
+        overrides: (s.overrides && typeof s.overrides === "object" && !Array.isArray(s.overrides)) ? s.overrides : {},
+        soldOut: Array.isArray(s.soldOut) ? s.soldOut : [],
+        available: Array.isArray(s.available) ? s.available : [],
+        deleted: Array.isArray(s.deleted) ? s.deleted : []
+      };
+    }
+
+    function getStoredCustomProducts() { return remoteProductState.custom; }
+    function getSoldOutProductIds() { return remoteProductState.soldOut; }
+    function getAvailableProductIds() { return remoteProductState.available; }
+    function getDeletedProductIds() { return remoteProductState.deleted; }
+    function getStoredProductOverrides() { return remoteProductState.overrides; }
+
+    async function fetchRemoteProductState() {
       try {
-        const raw = localStorage.getItem("blaskicks_custom_products");
-        return raw ? JSON.parse(raw) : [];
+        const res = await fetch(PRODUCTS_API_URL + "?t=" + Date.now(), {
+          headers: { "Accept": "application/json" }
+        });
+        if (res.ok) {
+          remoteProductState = normalizeProductState(await res.json());
+          return true;
+        }
+      } catch (err) {
+        console.warn("No se pudieron cargar los productos del panel:", err);
+      }
+      return false;
+    }
+
+    function getAdminCreds() {
+      try {
+        const raw = sessionStorage.getItem("blaskicks_admin_creds");
+        return raw ? JSON.parse(raw) : null;
       } catch (e) {
-        return [];
+        return null;
       }
     }
 
-    function saveStoredCustomProducts(arr) {
-      try {
-        localStorage.setItem("blaskicks_custom_products", JSON.stringify(arr));
-      } catch (e) {}
-    }
-
-    function getSoldOutProductIds() {
-      try {
-        const raw = localStorage.getItem("blaskicks_sold_out_ids");
-        return raw ? JSON.parse(raw) : [];
-      } catch (e) {
-        return [];
+    async function sendAdminProductAction(action, payload = {}) {
+      const creds = getAdminCreds() || {};
+      const res = await fetch(PRODUCTS_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action, user: creds.user, password: creds.pass, ...payload })
+      });
+      let data = {};
+      try { data = await res.json(); } catch (_) {}
+      if (!res.ok || !data.success) {
+        if (res.status === 401) sessionStorage.removeItem("blaskicks_admin_creds");
+        throw new Error(data.error || "No se pudo guardar el cambio. Probá de nuevo.");
       }
-    }
-
-    function saveSoldOutProductIds(arr) {
-      try {
-        localStorage.setItem("blaskicks_sold_out_ids", JSON.stringify(arr));
-      } catch (e) {}
-    }
-
-    function getDeletedProductIds() {
-      try {
-        const raw = localStorage.getItem("blaskicks_deleted_ids");
-        return raw ? JSON.parse(raw) : [];
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function saveDeletedProductIds(arr) {
-      try {
-        localStorage.setItem("blaskicks_deleted_ids", JSON.stringify(arr));
-      } catch (e) {}
-    }
-
-    function getStoredProductOverrides() {
-      try {
-        const raw = localStorage.getItem("blaskicks_product_overrides");
-        return raw ? JSON.parse(raw) : {};
-      } catch (e) {
-        return {};
-      }
-    }
-
-    function saveStoredProductOverrides(obj) {
-      try {
-        localStorage.setItem("blaskicks_product_overrides", JSON.stringify(obj));
-      } catch (e) {}
+      if (data.state) remoteProductState = normalizeProductState(data.state);
+      return data;
     }
 
     // CATÁLOGO COMPLETO COMBINADO (69 BASE + CUSTOMIZADOS + MODIFICACIONES MENOS ELIMINADOS)
@@ -3535,15 +3582,28 @@
     function reloadProducts() {
       const custom = getStoredCustomProducts();
       const soldOutIds = new Set(getSoldOutProductIds());
+      const availableIds = new Set(getAvailableProductIds());
       const deletedIds = new Set(getDeletedProductIds());
       const overrides = getStoredProductOverrides();
 
       // Combinar personalizados creados con el catálogo base íntegro
-      const allRaw = [...custom, ...BASE_PRODUCTS].filter(p => !deletedIds.has(p.id));
+      // Evitar duplicados: un mismo producto (mismo id, o mismo nombre + categoría + foto principal)
+      // solo se muestra una vez. Tiene prioridad la versión guardada desde el panel (custom).
+      const seenIds = new Set();
+      const seenKeys = new Set();
+      const allRaw = [...custom, ...BASE_PRODUCTS].filter(p => {
+        if (!p || deletedIds.has(p.id)) return false;
+        const key = `${(p.name || "").trim().toUpperCase()}|${(p.category || "").trim().toLowerCase()}|${(p.img || "").trim()}`;
+        if (seenIds.has(p.id) || seenKeys.has(key)) return false;
+        seenIds.add(p.id);
+        seenKeys.add(key);
+        return true;
+      });
 
       PRODUCTS = allRaw.map(p => {
         const overridden = overrides[p.id] ? { ...p, ...overrides[p.id] } : p;
-        const isSold = soldOutIds.has(overridden.id) || overridden.isSoldOut === true;
+        // "available" permite volver a poner en stock un producto que en el código figura agotado
+        const isSold = availableIds.has(overridden.id) ? false : (soldOutIds.has(overridden.id) || overridden.isSoldOut === true);
         return {
           ...overridden,
           isSoldOut: isSold
@@ -3552,6 +3612,30 @@
     }
 
     reloadProducts();
+
+    // Vuelve a dibujar todo lo que muestra productos (después de cargar o guardar cambios)
+    function refreshAllProductViews() {
+      reloadProducts();
+      renderCatalog();
+      if (latest15Modal && !latest15Modal.classList.contains("hidden")) {
+        openLatest15Modal();
+      }
+      if (categoryView && !categoryView.classList.contains("hidden")) {
+        applyCategoryFilters();
+      }
+      if (productView && !productView.classList.contains("hidden") && currentActiveProduct) {
+        const fresh = PRODUCTS.find(p => p.id === currentActiveProduct.id);
+        if (fresh) openProductPage(fresh.slug, false);
+        else navigateToHome();
+      } else if (window.location.hash.startsWith("#product/")) {
+        // Link directo a un producto cargado desde el panel
+        openProductPage(window.location.hash.replace("#product/", "").trim(), false);
+      }
+      if (adminDashboardModal && !adminDashboardModal.classList.contains("hidden")) {
+        renderAdminStockList();
+        updateAdminStats();
+      }
+    }
 
     // ELEMENTOS DEL DOM
     const homeView = document.getElementById("home-view");
@@ -5391,8 +5475,8 @@
     // ==========================================================
     // SISTEMA Y PANEL DE ADMINISTRADOR OCULTO
     // ==========================================================
-    const ADMIN_USER = "spincon";
-    const ADMIN_PASS = "jornatimatu1";
+    // El usuario y la contraseña ya no están en la página: los verifica /api/products
+    // con las variables ADMIN_USER y ADMIN_PASSWORD configuradas en Vercel.
 
     const adminLoginModal = document.getElementById("admin-login-modal");
     const adminDashboardModal = document.getElementById("admin-dashboard-modal");
@@ -5424,7 +5508,7 @@
     });
 
     function openAdminLoginModal() {
-      if (sessionStorage.getItem("blaskicks_admin_auth") === "true") {
+      if (getAdminCreds()) {
         openAdminDashboard();
         return;
       }
@@ -5443,18 +5527,30 @@
       if (adminLoginError) adminLoginError.classList.add("hidden");
     }
 
-    function handleAdminLogin(e) {
+    async function handleAdminLogin(e) {
       e.preventDefault();
       const user = document.getElementById("admin-username")?.value.trim();
       const pass = document.getElementById("admin-password")?.value.trim();
+      const submitBtn = document.querySelector("#admin-login-form button[type='submit']");
+      if (adminLoginError) adminLoginError.classList.add("hidden");
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Verificando..."; }
 
-      if (user === ADMIN_USER && pass === ADMIN_PASS) {
-        sessionStorage.setItem("blaskicks_admin_auth", "true");
+      sessionStorage.setItem("blaskicks_admin_creds", JSON.stringify({ user, pass }));
+      try {
+        await sendAdminProductAction("login");
         closeAdminLoginModal();
+        document.getElementById("admin-login-form")?.reset();
         openAdminDashboard();
+        refreshAllProductViews();
         alertMessage("¡Bienvenido al Panel de Administrador!");
-      } else {
-        if (adminLoginError) adminLoginError.classList.remove("hidden");
+      } catch (err) {
+        sessionStorage.removeItem("blaskicks_admin_creds");
+        if (adminLoginError) {
+          adminLoginError.textContent = err.message || "Usuario o contraseña incorrectos.";
+          adminLoginError.classList.remove("hidden");
+        }
+      } finally {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Iniciar Sesión"; }
       }
     }
 
@@ -5465,6 +5561,17 @@
         document.body.classList.add("overflow-hidden");
         updateAdminStats();
         switchAdminTab("stock");
+        // Traer siempre la versión más reciente de la base de datos
+        fetchRemoteProductState().then(ok => { if (ok) refreshAllProductViews(); });
+      }
+    }
+
+    function handleAdminSessionError(err) {
+      alertMessage(err.message || "No se pudo guardar el cambio.");
+      if (!getAdminCreds()) {
+        // La sesión venció o la contraseña cambió: pedir login de nuevo
+        closeAdminDashboard();
+        openAdminLoginModal();
       }
     }
 
@@ -5477,7 +5584,7 @@
     }
 
     function adminLogout() {
-      sessionStorage.removeItem("blaskicks_admin_auth");
+      sessionStorage.removeItem("blaskicks_admin_creds");
       closeAdminDashboard();
       alertMessage("Sesión de administrador cerrada.");
     }
@@ -5578,7 +5685,7 @@
     }
 
     // AGREGAR / EDITAR PRODUCTO
-    function handleAddNewProduct(e) {
+    async function handleAddNewProduct(e) {
       e.preventDefault();
 
       const editingId = document.getElementById("adm-edit-id")?.value.trim() || "";
@@ -5637,39 +5744,16 @@
         parsedSizes = [{ us: "Único", cm: "", default: true }];
       }
 
-      if (editingId) {
-        // MODO EDICIÓN
-        const isCustom = getStoredCustomProducts().some(p => p.id === editingId);
+      const submitBtn = document.getElementById("adm-submit-btn");
+      const submitOriginalText = submitBtn ? submitBtn.textContent : "";
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Guardando..."; }
 
-        if (isCustom) {
-          let customList = getStoredCustomProducts();
-          customList = customList.map(p => {
-            if (p.id === editingId) {
-              return {
-                ...p,
-                name: name.toUpperCase(),
-                brand: primaryBrand,
-                brands: brandsList,
-                category: category,
-                price: finalPrice,
-                originalPrice: originalPrice,
-                onSale: onSale,
-                condition: condition,
-                fit: fit,
-                badge: onSale ? "SALE" : (p.badge || "DS"),
-                size: rawSizes || "Único",
-                availableSizes: parsedSizes,
-                img: gallery[0],
-                gallery: gallery
-              };
-            }
-            return p;
-          });
-          saveStoredCustomProducts(customList);
-        } else {
-          // Si es producto base, guardar override persistente
-          const overrides = getStoredProductOverrides();
-          overrides[editingId] = {
+      try {
+      if (editingId) {
+        // MODO EDICIÓN (se guarda en la base de datos)
+        await sendAdminProductAction("update", {
+          id: editingId,
+          data: {
             name: name.toUpperCase(),
             brand: primaryBrand,
             brands: brandsList,
@@ -5684,9 +5768,8 @@
             availableSizes: parsedSizes,
             img: gallery[0],
             gallery: gallery
-          };
-          saveStoredProductOverrides(overrides);
-        }
+          }
+        });
 
         cancelEditingProduct();
         alertMessage("¡Producto modificado con éxito!");
@@ -5718,28 +5801,19 @@
           createdAt: Date.now()
         };
 
-        const custom = getStoredCustomProducts();
-        custom.unshift(newProduct);
-        saveStoredCustomProducts(custom);
+        await sendAdminProductAction("add", { product: newProduct });
 
         document.getElementById("admin-add-product-form")?.reset();
         alertMessage("¡Producto publicado exitosamente!");
       }
-
-      reloadProducts();
-      renderCatalog();
-
-      if (latest15Modal && !latest15Modal.classList.contains("hidden")) {
-        openLatest15Modal();
+      } catch (err) {
+        handleAdminSessionError(err);
+        return;
+      } finally {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitOriginalText || "Publicar Producto"; }
       }
 
-      if (!categoryView.classList.contains("hidden")) {
-        applyCategoryFilters();
-      }
-      if (currentActiveProduct && currentActiveProduct.id === editingId) {
-        openProductPage(currentActiveProduct.slug, false);
-      }
-
+      refreshAllProductViews();
       updateAdminStats();
       switchAdminTab("stock");
     }
@@ -5849,62 +5923,41 @@
       productToDeleteId = null;
     }
 
-    function confirmDeleteProduct() {
+    async function confirmDeleteProduct() {
       if (!productToDeleteId) return;
+      const idToDelete = productToDeleteId;
+      const confirmBtn = document.getElementById("admin-confirm-delete-btn");
+      if (confirmBtn) { confirmBtn.disabled = true; confirmBtn.textContent = "Eliminando..."; }
 
-      // 1. Si está en custom products, borrarlo de allí
-      let custom = getStoredCustomProducts();
-      custom = custom.filter(p => p.id !== productToDeleteId);
-      saveStoredCustomProducts(custom);
-
-      // 2. Registrar el ID en la lista de eliminados permanentes
-      const deletedIds = new Set(getDeletedProductIds());
-      deletedIds.add(productToDeleteId);
-      saveDeletedProductIds(Array.from(deletedIds));
-
-      // 3. Limpiar de ids agotados si estaba
-      const soldIds = new Set(getSoldOutProductIds());
-      soldIds.delete(productToDeleteId);
-      saveSoldOutProductIds(Array.from(soldIds));
-
-      // 4. Actualizar vistas
-      reloadProducts();
-      renderCatalog();
-      if (latest15Modal && !latest15Modal.classList.contains("hidden")) {
-        openLatest15Modal();
+      try {
+        await sendAdminProductAction("delete", { id: idToDelete });
+      } catch (err) {
+        closeDeleteConfirmModal();
+        handleAdminSessionError(err);
+        return;
+      } finally {
+        if (confirmBtn) { confirmBtn.disabled = false; confirmBtn.textContent = "Sí, Eliminar"; }
       }
-      if (!categoryView.classList.contains("hidden")) {
-        applyCategoryFilters();
-      }
-      if (currentActiveProduct && currentActiveProduct.id === productToDeleteId) {
-        navigateToHome();
-      }
+
+      closeDeleteConfirmModal();
+      refreshAllProductViews();
       renderAdminStockList();
       updateAdminStats();
-      closeDeleteConfirmModal();
       alertMessage("Producto eliminado por completo.");
     }
 
-    function toggleProductStock(productId) {
-      const soldOutIds = new Set(getSoldOutProductIds());
-      if (soldOutIds.has(productId)) {
-        soldOutIds.delete(productId);
-      } else {
-        soldOutIds.add(productId);
-      }
-      saveSoldOutProductIds(Array.from(soldOutIds));
+    async function toggleProductStock(productId) {
+      const prod = PRODUCTS.find(p => p.id === productId);
+      if (!prod) return;
 
-      reloadProducts();
-      renderCatalog();
-      if (latest15Modal && !latest15Modal.classList.contains("hidden")) {
-        openLatest15Modal();
+      try {
+        await sendAdminProductAction("setSoldOut", { id: productId, soldOut: !prod.isSoldOut });
+      } catch (err) {
+        handleAdminSessionError(err);
+        return;
       }
-      if (!categoryView.classList.contains("hidden")) {
-        applyCategoryFilters();
-      }
-      if (currentActiveProduct && currentActiveProduct.id === productId) {
-        openProductPage(currentActiveProduct.slug, false);
-      }
+
+      refreshAllProductViews();
       renderAdminStockList();
       alertMessage("Estado de stock actualizado.");
     }
@@ -5920,6 +5973,9 @@
     window.addEventListener("DOMContentLoaded", () => {
       renderCatalog();
       renderReviewsList();
+
+      // Cargar los productos agregados / editados desde el panel (base de datos)
+      fetchRemoteProductState().then(ok => { if (ok) refreshAllProductViews(); });
 
       // Cargar de inmediato las reseñas públicas globales
       fetchPublicGlobalReviews();
